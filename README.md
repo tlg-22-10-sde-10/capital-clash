@@ -21,8 +21,8 @@ You want to show you have great investment acumen to your father.
 
 ## Team members
 - Rupesh Ghimire [LinkedIn](https://www.linkedin.com/in/rupeshghimirey/)
-- Shuofei Wu [LinkedIn](https://www.linkedin.com/in/rupeshghimirey/)
-- Tyreik Williams [LinkedIn](https://www.linkedin.com/in/rupeshghimirey/)
+- Shuofei Wu [LinkedIn](https://www.linkedin.com/in/seth-w-7409a9180/)
+- Tyreik Williams [LinkedIn](https://www.linkedin.com/in/ty%E2%80%99reik-williams-b0563a1a4/)
 
 ## User Stories
 - As a player, I should be able to choose 1/10 hardcoded stocks to invest. 
