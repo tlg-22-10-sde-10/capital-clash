@@ -1,0 +1,62 @@
+### IntelliJ IDEA/Android Studio ###
+
+# - metadata
+*.iml
+.idea/
+
+# - temporary files
+/captures/
+
+# - build output
+/out/
+
+
+### Eclipse ###
+
+# - metadata
+/.settings/
+/.metadata/
+.project
+.classpath
+
+# - build output
+/bin/
+
+
+### Gradle ###
+
+# - temporary files
+/.gradle/
+
+# - local properties
+local.properties
+
+# - build output
+/build/
+
+
+### Maven ###
+
+# Developer information
+HELP.md
+
+# - build output
+/target/
+
+
+### Database ###
+
+# BE SURE TO EXCLUDE ANY LOCAL DATABASE DIRECTORY/FILES AND LOG FILES!
+
+
+### Floobits ###
+
+# - metadata
+.floo
+.flooignore
+
+
+### OS X ###
+
+# - metadata
+.DS_Store

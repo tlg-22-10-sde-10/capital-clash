@@ -1,0 +1,29 @@
+name: "Build JARs"
+on:
+  release:
+    types: [created]
+jobs:
+  artifacts:
+    name: "Build artifacts"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '11'
+          architecture: 'x64'
+      - name: Make mvnw executable
+        run: chmod +x ${{ github.workspace }}/mvnw
+        shell: bash
+      - name: Build artifacts
+        run: ${{ github.workspace }}/mvnw package
+        shell: bash
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: jars
+          path: ${{ github.workspace }}/target/*.jar
+          if-no-files-found: ignore
