@@ -3,18 +3,18 @@ package ui;
 import java.util.Scanner;
 
 public class UserInterface {
-    private Scanner myScanner;
+   Scanner myScanner = new Scanner(System.in);
 
-    public UserInterface(Scanner myScanner) {
-        this.myScanner = myScanner;
+    public UserInterface() {
     }
 
-    public static void displayASCII(){
-        System.out.println("Welcome to Capital Clash.");
+    public void displayASCII(){
+        System.out.println("\nWelcome to Capital Clash.");
     }
 
-    public static void displayGameInfo() {
+    public void displayGameInfo() {
         // refactor it to small paragraph with all the game details
+
         System.out.println("You are the son of a prestigious fund manager. It is summer. Your father invites you and " +
                 "your brother to a trading game. You are given $10,000, and 5 days. " +
                 "The game will be T+1 settlement, which means, on each day, after you buy a stock, the soonest you can " +
@@ -32,12 +32,15 @@ public class UserInterface {
         System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
                 " \n3) Home (done for the day) ");
 
+
     }
 
-    public static void tradingRoomMenu() {
-        System.out.println("Welcome to the Trading Room! ");
-        System.out.println("1) Buy \n2) Sell \n3)Exit ");
+    public String tradingRoomMenu() {
+        System.out.println("Welcome to the Trading Room! Choose 1 or 2 or 3");
+        System.out.println("1) Buy \n2) Sell \n3)Exit\n ");
+        return userInput();
     }
+
 
 
 
