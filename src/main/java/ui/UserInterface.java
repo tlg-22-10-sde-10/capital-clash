@@ -33,7 +33,6 @@ public class UserInterface {
         System.out.println("2) Trading Room");
         System.out.println("3) Exit");
 
-
         String userResponse = userInput();
         return userResponse;
     }
