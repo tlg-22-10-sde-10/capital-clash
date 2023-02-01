@@ -9,7 +9,14 @@ public class UserInterface {
     }
 
     public void displayASCII(){
-        System.out.println("\nWelcome to Capital Clash.");
+        System.out.println("WELCOME TO!");
+        System.out.println("  @@@@@@@  @@@@@@  @@@@@@@  @@@ @@@@@@@  @@@@@@  @@@            @@@@@@@ @@@       @@@@@@   @@@@@@ @@@  @@@\n" +
+                " !@@      @@!  @@@ @@!  @@@ @@!   @@!   @@!  @@@ @@!           !@@      @@!      @@!  @@@ !@@     @@!  @@@\n" +
+                " !@!      @!@!@!@! @!@@!@!  !!@   @!!   @!@!@!@! @!!           !@!      @!!      @!@!@!@!  !@@!!  @!@!@!@!\n" +
+                " :!!      !!:  !!! !!:      !!:   !!:   !!:  !!! !!:           :!!      !!:      !!:  !!!     !:! !!:  !!!\n" +
+                "  :: :: :  :   : :  :       :      :     :   : : : ::.: :       :: :: : : ::.: :  :   : : ::.: :   :   : :\n" +
+                "                                                                                                          "
+        );
     }
 
     public void displayGameInfo() {
