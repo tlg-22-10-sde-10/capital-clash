@@ -30,7 +30,39 @@ public class Game {
 
     private void play() {
         UserInterface.displayGameInfo();
-        UserInterface.tradingRoomMenu();
+        //UserInterface.tradingRoomMenu();
+
+        int day = 0;
+        Scanner stdInt = new Scanner(System.in);
+
+        while (day < GAME_DAYS) {
+
+            System.out.println("It is day " + day + ".");
+
+            int mainMenuSelection = 0;
+            do {
+                UserInterface.mainMenu();
+                mainMenuSelection = stdInt.nextInt();
+                switch (mainMenuSelection) {
+                    case 1://going to trading room
+                        System.out.println("You are in trading room.");
+                        break;
+                    case 2:
+                        System.out.println("You are in news room.");
+                        break;
+                    case 3:
+                        System.out.println("You are done for the day. The game will move to the next day.");
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+
+
+            } while (mainMenuSelection != 3);
+
+            day++;
+
+        }
 
         //Which room would you like to go to
         //--1.News feed room -- news for the day
