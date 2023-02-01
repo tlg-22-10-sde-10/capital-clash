@@ -4,7 +4,7 @@
 1. [Project Description](#Project-Description)
 2. [Team Members](#Team-members)
 3. [User Stories](#User-Stories)
-4. [Game Logic and Layout](#Game-Logic-and-Layout)
+4. [game.Game Logic and Layout](#Game-Logic-and-Layout)
 5. [Help and Getting Started](#Help-and-Getting-Started)
 6. [Presentation Link](#Presentation-Link)
 
@@ -35,10 +35,10 @@ You want to show you have great investment acumen to your father.
 - As a player, on day 4, the position will be closed and turned into cash balance. The one with the higher cash balance is the winner of the game.
 - As a player, each day I should be able to decide whether to sell or buy a stock. 
 - As a player, I should be able to compare my gains/losses to the computer.
-- As a player, I should be able to verify if I won or lost. (End Game!)
+- As a player, I should be able to verify if I won or lost. (End game.Game!)
 
-## Game Logic and Layout
-Game Logic and Info [Link](https://docs.google.com/document/d/1RVf7V4_O_127ZeazDGKxYUPM2RCySMRHm2cdlQSS6WM/edit)
+## game.Game Logic and Layout
+game.Game Logic and Info [Link](https://docs.google.com/document/d/1RVf7V4_O_127ZeazDGKxYUPM2RCySMRHm2cdlQSS6WM/edit)
 
 ## Help and Getting Started
 For help in getting started with additional project configuration, see [`getting-started.md`](getting-started.md).
