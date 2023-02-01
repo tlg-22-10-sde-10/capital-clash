@@ -9,17 +9,28 @@ public class Game {
 
     public void play() {
 
-        int selection=1;
-        do{
+
             displayASCII();
+
+            //refactor and use a user interface class
             System.out.println("Would you like to take the challenge?");
-            System.out.println("1 for yes, 2 for no.");
-            Scanner userResponse=new Scanner(System.in);
-            selection=userResponse.nextInt();
-        //System.out.println(selection);
+            System.out.println("1: Yes \n2: No");
+            Scanner userResponse = new Scanner(System.in);
+            int selection = userResponse.nextInt();
 
+            if (selection == 1){
+                //Game logic goes here
+                //Which room would you like to go to
+                //--1.News feed room -- news for the day
+                //--2.Trade room -- place order for the day
+                //--3.Go Home -- move on to the next day
+                System.out.println("Let's play");
+            }
+            else{
+                //exit out of game
+                System.out.println("Bummer");
+            }
 
-        }while(selection==1);
 
     }
 
