@@ -8,39 +8,38 @@ import java.util.Scanner;
 public class Game {
 
     private final int GAME_DAYS = 5;
+    UserInterface ui  = new UserInterface();
 
+    public Game() {
+    }
 
     public void gameOn() {
-        UserInterface.displayASCII();
-        //refactor and use a user interface class
-        System.out.println("Would you like to take the challenge?");
-        System.out.println("1: Yes \n2: No");
-        Scanner userResponse = new Scanner(System.in);
-        int selection = userResponse.nextInt();
 
-        if (selection == 1) {
-            play();
+            ui.displayASCII();
+            ui.gameBegin();
+            String userInput = ui.userInput();
+            if (userInput.equalsIgnoreCase("1")) {
+                play();
 
-        } else {
-            //exit out of game
-            System.out.println("Bummer");
+            } else {
+                //exit out of game
+                System.out.println("Thank you for participating!");
+
+            }
         }
 
-    }
 
     private void play() {
-        UserInterface.displayGameInfo();
-        UserInterface.tradingRoomMenu();
-
-        //Which room would you like to go to
-        //--1.News feed room -- news for the day
-        //--2.Trade room -- place order for the day
-        //--3.Go Home -- move on to the next day
-
-
-        System.out.println("Let's play");
-
+        ui.displayGameInfo();
+        while(true) {
+            String userInput = ui.mainMenu();
+            if(userInput.equalsIgnoreCase("1")) {
+                ui.getNewsfeed();
+            } else if(userInput.equalsIgnoreCase("2")) {
+                ui.tradingRoomMenu();
+            } else {
+                break;
+            }
+        }
     }
-
-
 }
