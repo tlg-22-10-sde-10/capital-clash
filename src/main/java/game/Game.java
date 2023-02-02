@@ -2,96 +2,85 @@ package game;
 
 import Random.RandomNumberForNews;
 import news.News;
+import stock.Stock;
+import storage.StockInventory;
 import ui.UserInterface;
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
 public class Game {
+    News news=new News();
 
+    public  UserInterface ui = new UserInterface();
+    private StockInventory inventory;
     private final int GAME_DAYS = 5;
+    private final String REPLY_WITH_YES = "y";
+    private final String NUMBER_ONE = "1";
+
+
+    public Game() throws FileNotFoundException {
+        inventory = new StockInventory();
+    }
 
 
     public void gameOn() {
-        UserInterface.displayASCII();
-        //refactor and use a user interface class
-        System.out.println("Would you like to take the challenge?");
-        System.out.println("1: Yes \n2: No");
-        Scanner userResponse = new Scanner(System.in);
-        int selection = userResponse.nextInt();
-
-        if (selection == 1) {
+        ui.displayASCII();
+        ui.startMenu();
+        String selection = ui.userInput();
+        if (selection.equalsIgnoreCase(NUMBER_ONE)) {
             play();
-
         } else {
-            //exit out of game
-            System.out.println("Bummer");
-        }
+            ui.thankYouMessage();
 
+        }
     }
 
     private void play() {
-        UserInterface.displayGameInfo();
-        //UserInterface.tradingRoomMenu();
-
+        ui.displayGameInfo();
         int day = 0;
         Scanner stdInt = new Scanner(System.in);
 
+        String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
+
         while (day < GAME_DAYS) {
-
-            System.out.println("It is day " + day + ".");
-
-            //The two lines below are for news
-            News news=new News();
-            String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
-            //
-
+            ui.playerVsBrotherReports(day);
             int mainMenuSelection = 0;
             do {
-                UserInterface.mainMenu();
+                ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
 
-
-
                 switch (mainMenuSelection) {
-                    case 1://going to trading room
-                        System.out.println("You are in trading room.");
+                    // trading room
+                    case 1:
+                        ui.titleBarForInventory();
+                        for(Stock stock : inventory.getAllStocks()) {
+                            System.out.println(stock.toString());
+                        }
+                        ui.tradingRoomMenu();
                         break;
+                    // news room
                     case 2:
-                        System.out.println("You are in news room.");
-                        System.out.println("Would you like to get today's market intelligence? y/n");
-                        String newsAnswer=stdInt.next();
-                        if(newsAnswer.equals("y")){
-
-                            System.out.println(newsAnswer);
+                        ui.newsRoomInfo();
+                        String newsAnswer= ui.userInput();
+                        if(newsAnswer.equalsIgnoreCase(REPLY_WITH_YES)){
                             System.out.println(todayNews);
                         }else{
-                            System.out.println("You declined to get today's market intelligence.");
+                           ui.newsDecline();
                         }
-
                         break;
+                    // Next Day Logic
                     case 3:
-                        System.out.println("You are done for the day. The game will move to the next day.");
+                        ui.nextDay();
                         break;
                     default:
-                        System.out.println("Invalid choice.");
+                        ui.invalidChoice();
                 }
 
-
             } while (mainMenuSelection != 3);
-
             day++;
-
         }
-
-        //Which room would you like to go to
-        //--1.News feed room -- news for the day
-        //--2.Trade room -- place order for the day
-        //--3.Go Home -- move on to the next day
-
-
-        System.out.println("Let's play");
-
     }
-
 
 }
