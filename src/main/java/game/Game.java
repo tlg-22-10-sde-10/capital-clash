@@ -63,7 +63,7 @@ public class Game {
                         if(newsAnswer.equals("y")){
 
                             System.out.println(newsAnswer);
-
+                            System.out.println(todayNews);
                         }else{
                             System.out.println("You declined to get today's market intelligence.");
                         }
