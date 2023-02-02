@@ -58,7 +58,16 @@ public class Game {
                         break;
                     case 2:
                         System.out.println("You are in news room.");
-                        System.out.println(todayNews);
+                        System.out.println("Would you like to get today's market intelligence? y/n");
+                        String newsAnswer=stdInt.next();
+                        if(newsAnswer.equals("y")){
+
+                            System.out.println(newsAnswer);
+
+                        }else{
+                            System.out.println("You declined to get today's market intelligence.");
+                        }
+
                         break;
                     case 3:
                         System.out.println("You are done for the day. The game will move to the next day.");
