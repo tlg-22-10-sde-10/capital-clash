@@ -52,13 +52,13 @@ public class Game {
                 UserInterface.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
                 switch (mainMenuSelection) {
+
                     case 1://going to trading room
                         UserInterface.titleBarForInventory();
                         for(Stock stock : inventory.getAllStocks()) {
                             System.out.println(stock.toString());
                         }
-
-                        System.out.println("You are in trading room.");
+                        UserInterface.tradingRoomMenu();
                         break;
                     case 2:
                         System.out.println("You are in news room.");

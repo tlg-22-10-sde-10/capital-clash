@@ -37,7 +37,7 @@ public class UserInterface {
     }
 
     public static void tradingRoomMenu() {
-        System.out.println("Welcome to the Trading Room! ");
+        System.out.println("\nWhat would you like to do next? Enter 1 or 2 or 3");
         System.out.println("1) Buy \n2) Sell \n3)Exit ");
     }
 
