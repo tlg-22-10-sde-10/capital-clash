@@ -45,10 +45,11 @@ public class Game {
         int day = 0;
         Scanner stdInt = new Scanner(System.in);
 
-        String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
+
 
         while (day < GAME_DAYS) {
             ui.playerVsBrotherReports(day);
+            String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
             int mainMenuSelection = 0;
             do {
                 ui.mainMenu();
