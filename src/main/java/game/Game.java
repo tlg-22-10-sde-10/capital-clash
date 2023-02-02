@@ -2,6 +2,7 @@ package game;
 
 import Random.RandomNumberForNews;
 import news.News;
+import players.Player;
 import stock.Stock;
 import storage.StockInventory;
 import ui.UserInterface;
@@ -20,9 +21,11 @@ public class Game {
     private final String NUMBER_ONE = "1";
 
 
+
     public Game() throws FileNotFoundException {
         inventory = new StockInventory();
     }
+
 
 
     public void gameOn() {
