@@ -2,9 +2,18 @@ package ui;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import storage.StockInventory;
+import account.Account;
+import players.Player;
+import players.Computer;
 
 public class UserInterface {
     private Scanner myScanner;
+
+    Player player = new Player();
+    Computer brother = new Computer();
+    Account balance = new Account();
+
 
     public UserInterface() throws FileNotFoundException {
         myScanner = new Scanner(System.in);
@@ -54,9 +63,14 @@ public class UserInterface {
 
     public void playerVsBrotherReports(int day) {
         System.out.println("It is day " + day + ".");
-        System.out.println(String.format("%-18s %-10s","Player","Brother"));
-        System.out.println(String.format("%-18s %-10s","Stocks:[]","Stocks:[]"));
-        System.out.println(String.format("%-18s %-10s","Balance:$10000","Balance $10000\n"));
+//        System.out.println(String.format("%-18s %-10s","Player","Brother"));
+//        System.out.println(String.format("%-18s %-10s","Stocks:[]","Stocks:[]"));
+//        System.out.println(String.format("%-18s %-10s","Balance:$10000","Balance $10000\n"));
+//
+
+        System.out.println(player.getName() + " V.S " + brother.getName());
+        System.out.println("Both of you will obtain a total of: $" + balance.getCashBalance());
+        System.out.println("Your - Balance: " + player.getAccount() + " | " + brother.getName() + "'s - Balance: " + brother.getAccount());
 
     }
 
