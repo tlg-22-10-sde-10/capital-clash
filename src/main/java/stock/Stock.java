@@ -5,29 +5,26 @@ import storage.StockType;
 import java.util.ArrayList;
 
 public class Stock {
-
     private String stockName;
     private String symbol;
     private double currentPrice;
     private double beta;
     private double alpha;
     private double residual;
-    private ArrayList<Double> priceHistory;
     private StockType sector;
 
     // constructors
     public Stock(String stockName, String symbol, double currentPrice, double beta,
-                 double alpha, double residual, ArrayList<Double> priceHistory, StockType sector) {
+                 double alpha, double residual, StockType sector) {
         this.stockName = stockName;
         this.symbol = symbol;
         this.currentPrice = currentPrice;
         this.beta = beta;
         this.alpha = alpha;
         this.residual = residual;
-        this.priceHistory = priceHistory;
         this.sector = sector;
     }
-
+    // getters and setters
     public String getStockName() {
         return stockName;
     }
@@ -76,15 +73,6 @@ public class Stock {
         this.residual = residual;
     }
 
-    public ArrayList<Double> getPriceHistory() {
-        return priceHistory;
-    }
-
-    public void setPriceHistory(ArrayList<Double> priceHistory) {
-        this.priceHistory = priceHistory;
-    }
-
-
     public StockType getSector() {
         return sector;
     }
@@ -92,4 +80,11 @@ public class Stock {
     public void setSector(StockType sector) {
         this.sector = sector;
     }
+
+    public String toString() {
+        String result = String.format("%-10s %-20s %-15s %-18s %-10s %-10s %-18s %-11s","",
+                getStockName(),getSymbol(),getCurrentPrice(),getBeta(),getAlpha(),getResidual(),getSector());
+        return result;
+    }
+
 }
