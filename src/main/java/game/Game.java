@@ -1,7 +1,8 @@
 package game;
 
+import Random.RandomNumberForNews;
+import news.News;
 import ui.UserInterface;
-
 import java.util.Scanner;
 
 
@@ -39,16 +40,25 @@ public class Game {
 
             System.out.println("It is day " + day + ".");
 
+            //The two lines below are for news
+            News news=new News();
+            String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
+            //
+
             int mainMenuSelection = 0;
             do {
                 UserInterface.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
+
+
+
                 switch (mainMenuSelection) {
                     case 1://going to trading room
                         System.out.println("You are in trading room.");
                         break;
                     case 2:
                         System.out.println("You are in news room.");
+                        System.out.println(todayNews);
                         break;
                     case 3:
                         System.out.println("You are done for the day. The game will move to the next day.");
