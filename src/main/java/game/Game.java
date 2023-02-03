@@ -1,6 +1,7 @@
 package game;
 
 import Random.RandomNumberForNews;
+import marketReturn.MarketReturnGenerator;
 import account.Account;
 import news.News;
 import org.w3c.dom.ls.LSOutput;
@@ -9,7 +10,6 @@ import players.Player;
 import stock.Stock;
 import storage.StockInventory;
 import ui.UserInterface;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +53,18 @@ public class Game {
 
         Scanner stdInt = new Scanner(System.in);
         while (day < GAME_DAYS) {
+
+
+            int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
+            String todayNews=news.getNewsContent(newsIndexOfTheDay);
+            int mainMenuSelection;
+
+            MarketReturnGenerator generator=new MarketReturnGenerator();
+            double mktReturnOfTheDay=generator.nextMarketReturn(newsIndexOfTheDay);
+
             ui.playerVsBrotherReports(day,player,brother);
-            String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
-            int mainMenuSelection = 0;
+
+
             do {
                 ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
@@ -63,9 +72,30 @@ public class Game {
                 switch (mainMenuSelection) {
                     // trading room
                     case 1:
+
                         ui.titleBarForInventory(day);
-                        for(Stock stock : inventory.getAllStocks()) {
-                            System.out.println(stock.toString());
+                        //first day of trading: stock price is directly from csv file
+                        if(day==0) {
+                            for (Stock stock : inventory.getAllStocks()) {
+                                System.out.println(stock.toString());
+                            }
+                        }
+                        //the following days: function needed to be run to update stock price
+                        else{
+                            for (Stock stock : inventory.getAllStocks()) {
+                                 //stock
+                                double nextPrice=stock.nextDayPrice(stock.getCurrentPrice(),
+                                        mktReturnOfTheDay,newsIndexOfTheDay);
+                                stock.setCurrentPrice(nextPrice);
+                            }
+                            //the following two souts are for testing, will be commented out for official release
+                            System.out.println("mktReturn:"+mktReturnOfTheDay);
+                            System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
+
+                            for (Stock stock : inventory.getAllStocks()) {
+                                System.out.println(stock.toString());
+                            }
+
                         }
                         ui.tradingRoomMenu();
                         String userInputForBuySale = ui.userInput();
@@ -108,9 +138,9 @@ public class Game {
                     // Next Day Logic
                     case 3:
                         ui.nextDay();
-                        for(Stock stock: inventory.getAllStocks()) {
-                            stock.setCurrentPrice(stock.getAlpha(), stock.getBeta(), stock.getResidual());
-                        }
+//                        for(Stock stock: inventory.getAllStocks()) {
+//                            stock.setCurrentPrice(stock.getAlpha(), stock.getBeta(), stock.getResidual());
+//                        }
                         break;
                     default:
                         ui.invalidChoice();

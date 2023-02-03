@@ -15,33 +15,52 @@ public class UserInterface {
         myScanner = new Scanner(System.in);
     }
 
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+
 
     public void displayASCII(){
-        System.out.println("WELCOME TO!");
-        System.out.println("  @@@@@@@  @@@@@@  @@@@@@@  @@@ @@@@@@@  @@@@@@  @@@            @@@@@@@ @@@       @@@@@@   @@@@@@ @@@  @@@\n" +
-                " !@@      @@!  @@@ @@!  @@@ @@!   @@!   @@!  @@@ @@!           !@@      @@!      @@!  @@@ !@@     @@!  @@@\n" +
-                " !@!      @!@!@!@! @!@@!@!  !!@   @!!   @!@!@!@! @!!           !@!      @!!      @!@!@!@!  !@@!!  @!@!@!@!\n" +
-                " :!!      !!:  !!! !!:      !!:   !!:   !!:  !!! !!:           :!!      !!:      !!:  !!!     !:! !!:  !!!\n" +
-                "  :: :: :  :   : :  :       :      :     :   : : : ::.: :       :: :: : : ::.: :  :   : : ::.: :   :   : :\n" +
-                "                                                                                                          "
+
+
+        System.out.println(" -------------WELCOME TO!-----------");
+        System.out.println(ANSI_GREEN + "|#######====================#######|\n" +
+                "|#(1)*UNITED STATES OF AMERICA*(1)#|\n" +
+                "|#**          /===\\   ********  **#|\n" +
+                "|*# [C.C]    | (\") |             #*|\n" +
+                "|#*  ******  | /v\\ |    O N E    *#|\n" +
+                "|#(1)         \\===/            (1)#|\n" +
+                "|##=======CAPITAL CLASH==========##|\n" +
+                ANSI_RESET  +
+                " ===================================" + ANSI_RESET  + "                                                                               "
         );
     }
 
     public  void displayGameInfo() {
         // refactor it to small paragraph with all the game details
-        System.out.println("You are the son of a prestigious fund manager. It is summer. Your father invites you and \n" +
-                "your brother to a trading game. You are given $10,000, and 5 days. The game will be T+1 settlement, \n" +
-                "which means, on each day, after you buy a stock, the soonest you can sell is the next day. you can \n" +
-                "select from a 10 stocks, decide which to buy or sell if already holding, or hold cash. You long for a \n" +
-                "high return. Your goal is, on day 4, your account balance is more than your brother. You'll be able to \n" +
-                "go to the news feed room for news. The winner would be the one with higher account balance on day 4. \n" +
-                "You want to show that you have great investment acumen to your father.\n");
+        System.out.println(ANSI_RED + "================================================================================= \n" + ANSI_RESET +
+                "The objective is to figure out who has an eye for stocks. \n"+
+                "The game consist of 5 trading days and a balance of $10,000 each. \n"+
+                "The game will be [T+1 settlement] meaning, that on each day after a stock is bought, \n" +
+                "the sooner you can sell them the next day. \n" +
+                "You will be able to choose from 10 stocks to buy, sell, or hold. \n" +
+                "You will be able to go to the news feed room for current news, \n" +
+                        "go to the trading room for another day of investing,\n" +
+                "or go to the next round for a new day. \n" +
+                "To determine the winner you will have to have the highest account balance on day 4. \n" +
+                "May the HODL be with you. \n" + ANSI_RED +
+                "=================================================================================" + ANSI_RESET + ""
+
+        );
     }
 
     public  void mainMenu() {
         System.out.println("Which room would you like to go to?");
         System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
-                " \n3) Next Day(Round)");
+                " \n3) Next Day(Round)\n" + ANSI_RED +
+                "=================================================================================" + ANSI_RESET + ""
+        );
 
     }
 
@@ -62,7 +81,7 @@ public class UserInterface {
 
     public void startMenu() {
         System.out.println("Would you like to take the challenge?");
-        System.out.println("1: Yes \n2: No");
+        System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
     }
 
     public void playerVsBrotherReports(int day, Player player, Computer brother) {
@@ -80,7 +99,7 @@ public class UserInterface {
     }
 
     public void newsRoomInfo() {
-        System.out.println("Would you like to get today's market intelligence? y/n");
+        System.out.println(ANSI_YELLOW + "Would you like to get today's market intelligence? y/n"+ ANSI_RESET);
     }
 
 
