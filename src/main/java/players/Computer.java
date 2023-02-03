@@ -50,6 +50,7 @@ public class Computer {
     }
 
     public void setStockNames(List<String> stockNames) {
+
         this.stockNames = stockNames;
     }
 }

@@ -1,6 +1,7 @@
 package game;
 
 import Random.RandomNumberForNews;
+import marketReturn.MarketReturnGenerator;
 import account.Account;
 import news.News;
 import org.w3c.dom.ls.LSOutput;
@@ -9,11 +10,12 @@ import players.Player;
 import stock.Stock;
 import storage.StockInventory;
 import ui.UserInterface;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+
 
 
 public class Game {
@@ -53,9 +55,18 @@ public class Game {
 
         Scanner stdInt = new Scanner(System.in);
         while (day < GAME_DAYS) {
+
+
+            int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
+            String todayNews=news.getNewsContent(newsIndexOfTheDay);
+            int mainMenuSelection;
+
+            MarketReturnGenerator generator=new MarketReturnGenerator();
+            double mktReturnOfTheDay=generator.nextMarketReturn(newsIndexOfTheDay);
+
             ui.playerVsBrotherReports(day,player,brother);
-            String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
-            int mainMenuSelection = 0;
+
+
             do {
                 ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
@@ -63,33 +74,57 @@ public class Game {
                 switch (mainMenuSelection) {
                     // trading room
                     case 1:
+
                         ui.titleBarForInventory(day);
-                        for(Stock stock : inventory.getAllStocks()) {
-                            System.out.println(stock.toString());
+                        //first day of trading: stock price is directly from csv file
+                        if(day==0) {
+                            for (Stock stock : inventory.getAllStocks()) {
+                                System.out.println(stock.toString());
+                            }
+                        }
+                        //the following days: function needed to be run to update stock price
+                        else{
+                            for (Stock stock : inventory.getAllStocks()) {
+                                 //stock
+                                double nextPrice=stock.nextDayPrice(stock.getCurrentPrice(),
+                                        mktReturnOfTheDay,newsIndexOfTheDay);
+                                stock.setCurrentPrice(nextPrice);
+                            }
+                            //the following two souts are for testing, will be commented out for official release
+                            System.out.println("mktReturn:"+mktReturnOfTheDay);
+                            System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
+
+                            for (Stock stock : inventory.getAllStocks()) {
+                                System.out.println(stock.toString());
+                            }
+
                         }
                         ui.tradingRoomMenu();
                         String userInputForBuySale = ui.userInput();
                         if(userInputForBuySale.equalsIgnoreCase(NUMBER_ONE)) {
                             System.out.println("Please enter the symbol of the stock that you want to purchase:");
                             String stockSymbol = ui.userInput();
-                            System.out.println("How many do you want to buy? Fractional Purchase is not allowed! (Enter whole number only)");
+                            System.out.println("How many shares would you like? Fractional is not allowed! (Enter whole number ONLY)");
 
                             int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
-                            int numberOfStockPurchasedByBrother = 1 + (int)(Math.random() * 6);
-
                             Stock playerStock = inventory.findBySymbol(stockSymbol);
+                            double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer*playerStock.getCurrentPrice();
+                            if(valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
+                                System.out.println("Unauthorized Purchase! Not Enough Balance!");
+                            } else {
+                                playerStocks.add(playerStock.getStockName());
+                                player.setStockNames(playerStocks);
+                                player.getAccount().deductBalance(numberOfStockPurchaseByPlayer*playerStock.getCurrentPrice());
+                                System.out.println("Successfully Purchased!");
+                            }
+                            // brother randomly purchase the stock
+                            int numberOfStockPurchasedByBrother = 1 + (int)(Math.random() * 6);
                             Stock brotherStock = inventory.getRandomStock();
-
-                            playerStocks.add(playerStock.getStockName());
                             brotherStocks.add(brotherStock.getStockName());
-
                             brother.setStockNames(brotherStocks);
-                            player.setStockNames(playerStocks);
-
-                            player.getAccount().deductBalance(numberOfStockPurchaseByPlayer*playerStock.getCurrentPrice());
                             brother.getAccount().deductBalance(numberOfStockPurchasedByBrother*brotherStock.getCurrentPrice());
 
-                            System.out.println("Successfully Purchased!");
+
                         }
                         break;
                     // news room
@@ -105,9 +140,9 @@ public class Game {
                     // Next Day Logic
                     case 3:
                         ui.nextDay();
-                        for(Stock stock: inventory.getAllStocks()) {
-                            stock.setCurrentPrice(stock.getAlpha(), stock.getBeta(), stock.getResidual());
-                        }
+//                        for(Stock stock: inventory.getAllStocks()) {
+//                            stock.setCurrentPrice(stock.getAlpha(), stock.getBeta(), stock.getResidual());
+//                        }
                         break;
                     default:
                         ui.invalidChoice();
