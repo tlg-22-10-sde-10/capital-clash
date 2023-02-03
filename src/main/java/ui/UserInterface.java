@@ -1,12 +1,20 @@
 package ui;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class UserInterface {
-   Scanner myScanner = new Scanner(System.in);
+import stock.Stock;
+import storage.StockInventory;
+import account.Account;
+import players.Player;
+import players.Computer;
 
-    public UserInterface() {
+public class UserInterface {
+    private Scanner myScanner;
+    public UserInterface() throws FileNotFoundException {
+        myScanner = new Scanner(System.in);
     }
+
 
     public void displayASCII(){
         System.out.println("WELCOME TO!");
@@ -19,43 +27,72 @@ public class UserInterface {
         );
     }
 
-    public void displayGameInfo() {
+    public  void displayGameInfo() {
         // refactor it to small paragraph with all the game details
-        System.out.println("PLEASE READ THE GAME INFO CAREFULLY BEFORE YOU START INVESTING! \n");
-        System.out.println("You are the son of a prestigious fund manager. Your father brings you and \n" +
-                "your brother to Wall Street, and puts you guys in a trading game. You are given $10,000, and 5 days. \n" +
-                "The game will be T+1 settlement, which means, on each day, after you buy a stock, the soonest you can \n" +
-                "sell is the next day. you can select from a variety of stocks, decide which to buy or sell if \n" +
-                "already holding, or hold cash. You long for a high return. Your goal is, on day 4, your account \n" +
-                "balance is more than your brother. You'll be able to go the news feed room for stocks insight.\n" +
-                "The winner would be the one with higher account balance on day 4. You want to show you have \n" +
-                "great investment acumen to your father. \n");
-    }
-    public void gameBegin() {
-        System.out.println("Would you like to take the challenge? Choose either 1 or 2 \n1)Yes\n2)No");
-    }
-    public String  mainMenu() {
-        System.out.println("Which room would you like to go?");
-        System.out.println("1) News Feed Room");
-        System.out.println("2) Trading Room");
-        System.out.println("3) Exit");
-
-
-        String userResponse = userInput();
-        return userResponse;
+        System.out.println("You are the son of a prestigious fund manager. It is summer. Your father invites you and \n" +
+                "your brother to a trading game. You are given $10,000, and 5 days. The game will be T+1 settlement, \n" +
+                "which means, on each day, after you buy a stock, the soonest you can sell is the next day. you can \n" +
+                "select from a 10 stocks, decide which to buy or sell if already holding, or hold cash. You long for a \n" +
+                "high return. Your goal is, on day 4, your account balance is more than your brother. You'll be able to \n" +
+                "go to the news feed room for news. The winner would be the one with higher account balance on day 4. \n" +
+                "You want to show that you have great investment acumen to your father.\n");
     }
 
-    public String tradingRoomMenu() {
-        System.out.println("Welcome to the Trading Room! Choose 1 or 2 or 3");
-        System.out.println("1) Buy \n2) Sell \n3)Exit\n ");
-        return userInput();
+    public  void mainMenu() {
+        System.out.println("Which room would you like to go to?");
+        System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
+                " \n3) Next Day(Round)");
+
+    }
+
+    public  void tradingRoomMenu() {
+        System.out.println("\nWhat would you like to do next? Please enter numbers only(1,2,3)");
+        System.out.println("1) Buy \n2) Sell \n3) Exit ");
+    }
+
+    public  void titleBarForInventory(int day) {
+        System.out.println(String.format("%-60s DAY: %-10s\n","",day));
+        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s","",
+                "Stock Name","Symbol","Current Price","Sector"));
     }
 
     public String userInput() {
         return myScanner.nextLine();
     }
 
-    public void getNewsfeed() {
-        System.out.println("News from News Feed!\n");
+    public void startMenu() {
+        System.out.println("Would you like to take the challenge?");
+        System.out.println("1: Yes \n2: No");
+    }
+
+    public void playerVsBrotherReports(int day, Player player, Computer brother) {
+
+        System.out.println(String.format("%-32s DAY: %-10s","",day));
+        System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
+        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStockNames(),brother.getStockNames()));
+        System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
+                "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
+
+    }
+
+    public void invalidChoice() {
+        System.out.println("Invalid choice.");
+    }
+
+    public void newsRoomInfo() {
+        System.out.println("Would you like to get today's market intelligence? y/n");
+    }
+
+
+    public void newsDecline() {
+        System.out.println("You declined to get today's market intelligence.");
+    }
+
+    public void nextDay() {
+        System.out.println("You are done for the day. The game will move to the next day.");
+    }
+
+    public void thankYouMessage() {
+        System.out.println("Thank yor visiting!");
     }
 }
