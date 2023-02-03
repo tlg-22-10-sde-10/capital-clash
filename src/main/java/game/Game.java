@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
+
 public class Game {
     News news=new News();
 
@@ -102,7 +104,7 @@ public class Game {
                         if(userInputForBuySale.equalsIgnoreCase(NUMBER_ONE)) {
                             System.out.println("Please enter the symbol of the stock that you want to purchase:");
                             String stockSymbol = ui.userInput();
-                            System.out.println("How many do you want to buy? Fractional Purchase is not allowed! (Enter whole number only)");
+                            System.out.println("How many shares would you like? Fractional is not allowed! (Enter whole number ONLY)");
 
                             int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
                             Stock playerStock = inventory.findBySymbol(stockSymbol);
