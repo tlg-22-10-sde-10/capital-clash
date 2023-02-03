@@ -1,38 +1,14 @@
 package players;
 
 import account.Account;
+import stock.Stock;
+
+import java.util.List;
 
 //fields
-public class Player {
-    private String name;
-    private Account account;
+public class Player extends Computer {
 
-    //constructor
-    public Player(String name, Account account) {
-        this.name = name;
-        this.account = account;
-    }
-
-    public Player() {
-
-    }
-
-    //get&set
-
-
-    public String getName() {  //returns players name
-        return "You";
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAccount() {  //return account value
-        return 10000;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
+    public Player(String name, Account account, List<Stock> stocks) {
+        super(name, account, stocks);
     }
 }
