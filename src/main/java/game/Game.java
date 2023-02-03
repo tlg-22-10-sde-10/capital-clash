@@ -64,7 +64,7 @@ public class Game {
 
             ui.playerVsBrotherReports(day,player,brother);
 
-            System.out.println("Delete me");
+
             do {
                 ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
