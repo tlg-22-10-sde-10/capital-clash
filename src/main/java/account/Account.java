@@ -45,7 +45,6 @@ public class Account {
         if(cashBalance>amount) {
             this.cashBalance -= amount;
         }
-
     }
 
 
