@@ -1,6 +1,7 @@
 package game;
 
 import Random.RandomNumberForNews;
+import marketReturn.MarketReturnGenerator;
 import news.News;
 import players.Player;
 import stock.Stock;
@@ -53,21 +54,9 @@ public class Game {
             int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
             String todayNews=news.getNewsContent(newsIndexOfTheDay);
             int mainMenuSelection;
-            Random random = new Random();
-            double mktReturnOfTheDay;
 
-            if(newsIndexOfTheDay==1){
-                //case 1:x will be a random number between 1% and 2%
-                mktReturnOfTheDay=(random.nextDouble() * 1 + 1)/100.0;
-            }else if(newsIndexOfTheDay==6){
-                //case 6:x will be a random number between -2% to -1%
-                mktReturnOfTheDay=(random.nextDouble() * 1 - 2)/100.0;
-            }else if(newsIndexOfTheDay==7){
-                //case 7:x will be a random number between -2% to - 3%
-                mktReturnOfTheDay=(random.nextDouble() * 1 - 3)/100.0;
-            }else{
-                mktReturnOfTheDay=(random.nextDouble() * 6 - 3)/100.0;
-            }
+            MarketReturnGenerator generator=new MarketReturnGenerator();
+            double mktReturnOfTheDay=generator.nextMarketReturn(newsIndexOfTheDay);
 
             do {
                 ui.mainMenu();
