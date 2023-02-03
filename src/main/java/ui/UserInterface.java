@@ -2,6 +2,8 @@ package ui;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import stock.Stock;
 import storage.StockInventory;
 import account.Account;
 import players.Player;
@@ -9,12 +11,6 @@ import players.Computer;
 
 public class UserInterface {
     private Scanner myScanner;
-
-    Player player = new Player();
-    Computer brother = new Computer();
-    Account balance = new Account();
-
-
     public UserInterface() throws FileNotFoundException {
         myScanner = new Scanner(System.in);
     }
@@ -50,11 +46,12 @@ public class UserInterface {
     }
 
     public  void tradingRoomMenu() {
-        System.out.println("\nWhat would you like to do next? Enter 1 or 2 or 3");
-        System.out.println("1) Buy \n2) Sell \n3)Exit ");
+        System.out.println("\nWhat would you like to do next? Please enter numbers only(1,2,3)");
+        System.out.println("1) Buy \n2) Sell \n3) Exit ");
     }
 
-    public  void titleBarForInventory() {
+    public  void titleBarForInventory(int day) {
+        System.out.println(String.format("%-60s DAY: %-10s\n","",day));
         System.out.println(String.format("%-10s %-20s %-15s %-18s %-10s %-10s %-18s %-11s","",
                 "Stock Name","Symbol","Current Price","Beta","Alpha","Residual Value","Sector"));
     }
@@ -68,16 +65,13 @@ public class UserInterface {
         System.out.println("1: Yes \n2: No");
     }
 
-    public void playerVsBrotherReports(int day) {
-        System.out.println("It is day " + day + ".");
-//        System.out.println(String.format("%-18s %-10s","Player","Brother"));
-//        System.out.println(String.format("%-18s %-10s","Stocks:[]","Stocks:[]"));
-//        System.out.println(String.format("%-18s %-10s","Balance:$10000","Balance $10000\n"));
-//
+    public void playerVsBrotherReports(int day, Player player, Computer brother) {
 
-        System.out.println(player.getName() + " V.S " + brother.getName());
-        System.out.println("Both of you will obtain a total of: $" + balance.getCashBalance());
-        System.out.println("Your - Balance: " + player.getAccount() + " | " + brother.getName() + "'s - Balance: " + brother.getAccount());
+        System.out.println(String.format("%-40s DAY: %-10s","",day));
+        System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
+        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStockNames(),brother.getStockNames()));
+        System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
+                "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
 
     }
 

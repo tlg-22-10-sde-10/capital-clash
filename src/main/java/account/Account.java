@@ -8,9 +8,12 @@ public class Account {
 
     private String accountName;
     private double stockValueBalance;
-    private ArrayList<Stock> stockHolding;
-    private Stock stock;
+    private double cashBalance=10000;
 
+    public Account(String accountName, double stockValueBalance) {
+        this.accountName = accountName;
+        this.stockValueBalance = stockValueBalance;
+    }
 
     public String getAccountName() {
         return accountName;
@@ -18,13 +21,6 @@ public class Account {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
-    }
-
-    public double getCashBalance() {
-        return 10000;
-    }
-
-    public void setCashBalance(double cashBalance) {
     }
 
     public double getStockValueBalance() {
@@ -35,20 +31,21 @@ public class Account {
         this.stockValueBalance = stockValueBalance;
     }
 
-    public ArrayList<Stock> getStockHolding() {
-        return stockHolding;
+
+
+    public double getCashBalance() {
+        return cashBalance;
     }
 
-    public void setStockHolding(ArrayList<Stock> stockHolding) {
-        this.stockHolding = stockHolding;
+    public void setCashBalance(double cashBalance) {
+        this.cashBalance = cashBalance;
     }
 
-    public Stock getStock() {
-        return stock;
-    }
+    public void deductBalance(double amount) {
+        if(cashBalance>amount) {
+            this.cashBalance -= amount;
+        }
 
-    public void setStock(Stock stock) {
-        this.stock = stock;
     }
 
 
