@@ -8,6 +8,7 @@ import storage.StockInventory;
 import ui.UserInterface;
 
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -49,8 +50,11 @@ public class Game {
 
         while (day < GAME_DAYS) {
             ui.playerVsBrotherReports(day);
-            String todayNews=news.getNewsContent(RandomNumberForNews.getRandomNumber());
+            int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
+            String todayNews=news.getNewsContent(newsIndexOfTheDay);
             int mainMenuSelection = 0;
+            Random random = new Random();
+            double mktReturnOfTheDay=(random.nextDouble() * 6 - 3)/100.0;
             do {
                 ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
@@ -59,8 +63,27 @@ public class Game {
                     // trading room
                     case 1:
                         ui.titleBarForInventory();
-                        for(Stock stock : inventory.getAllStocks()) {
-                            System.out.println(stock.toString());
+                        //first day of trading: stock price is directly from csv file
+                        if(day==0) {
+                            for (Stock stock : inventory.getAllStocks()) {
+                                System.out.println(stock.toString());
+                            }
+                        }
+                        //the following days: function needed to be run to update stock price
+                        else{
+                            for (Stock stock : inventory.getAllStocks()) {
+                                 //stock
+                                double nextPrice=stock.nextDayPrice(stock.getCurrentPrice(),
+                                        mktReturnOfTheDay,newsIndexOfTheDay);
+                                stock.setCurrentPrice(nextPrice);
+                            }
+                            System.out.println("mktReturn:"+mktReturnOfTheDay);
+                            System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
+
+                            for (Stock stock : inventory.getAllStocks()) {
+                                System.out.println(stock.toString());
+                            }
+
                         }
                         ui.tradingRoomMenu();
                         break;
