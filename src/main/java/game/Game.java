@@ -11,22 +11,24 @@ import stock.Stock;
 import storage.StockInventory;
 import ui.UserInterface;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Game {
     News news=new News();
 
-    Player player = new Player("Player",new Account("checking",0.00),null);
-    Computer brother = new Player("Brother",new Account("checking",0.00),null);
+    Player player = new Player("Player",new Account("checking"));
+    Computer brother = new Player("Brother",new Account("checking"));
 
     public  UserInterface ui = new UserInterface();
     private StockInventory inventory;
     private final int GAME_DAYS = 5;
     private final String REPLY_WITH_YES = "y";
     private final String NUMBER_ONE = "1";
+
+    Map<String,Integer> playerStockMap = new HashMap<>();
+    Map<String,Integer> brotherStockMap = new HashMap<>();
+
     List<String> playerStocks = new ArrayList<>();
     List<String> brotherStocks = new ArrayList<>();
 
@@ -54,7 +56,6 @@ public class Game {
         Scanner stdInt = new Scanner(System.in);
         while (day < GAME_DAYS) {
 
-
             int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
             String todayNews=news.getNewsContent(newsIndexOfTheDay);
             int mainMenuSelection;
@@ -63,7 +64,6 @@ public class Game {
             double mktReturnOfTheDay=generator.nextMarketReturn(newsIndexOfTheDay);
 
             ui.playerVsBrotherReports(day,player,brother);
-
 
             do {
                 ui.mainMenu();
@@ -105,13 +105,20 @@ public class Game {
                             System.out.println("How many do you want to buy? Fractional Purchase is not allowed! (Enter whole number only)");
 
                             int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
+
                             Stock playerStock = inventory.findBySymbol(stockSymbol);
                             double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer*playerStock.getCurrentPrice();
                             if(valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
                                 System.out.println("Unauthorized Purchase! Not Enough Balance!");
                             } else {
+                                if(playerStockMap.containsKey(stockSymbol)) {
+                                    playerStockMap.put(playerStock.getSymbol(),playerStockMap.get(stockSymbol)+numberOfStockPurchaseByPlayer);
+                                }else{
+                                    playerStockMap.put(playerStock.getSymbol(),numberOfStockPurchaseByPlayer);
+                                }
                                 playerStocks.add(playerStock.getStockName());
                                 player.setStockNames(playerStocks);
+                                player.setStocks(playerStockMap);
                                 player.getAccount().deductBalance(numberOfStockPurchaseByPlayer*playerStock.getCurrentPrice());
                                 System.out.println("Successfully Purchased!");
                             }

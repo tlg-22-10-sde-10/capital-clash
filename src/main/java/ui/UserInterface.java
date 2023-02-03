@@ -47,7 +47,7 @@ public class UserInterface {
 
     public  void tradingRoomMenu() {
         System.out.println("\nWhat would you like to do next? Please enter numbers only(1,2,3)");
-        System.out.println("1) Buy \n2) Sell \n3) Exit ");
+        System.out.println("1) Buy \n2) Sell \n3) Go Back ");
     }
 
     public  void titleBarForInventory(int day) {
@@ -69,7 +69,7 @@ public class UserInterface {
 
         System.out.println(String.format("%-32s DAY: %-10s","",day));
         System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
-        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStockNames(),brother.getStockNames()));
+        System.out.println(String.format("%-18s Stocks: %-25s Quantity:%s Stocks: %-10s","",player.getStocks(),player.getStocks(), brother.getStocks()));
         System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
                 "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
 
