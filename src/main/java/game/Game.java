@@ -48,7 +48,6 @@ public class Game {
     }
 
     private void play() {
-        System.out.println("Apple Price: "+inventory.getAllStocks().get(0).getCurrentPrice());
         ui.displayGameInfo();
         int day = 0;
 
@@ -76,16 +75,20 @@ public class Game {
                             System.out.println("How many do you want to buy? Fractional Purchase is not allowed! (Enter whole number only)");
 
                             int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
-                            int numberOfStockPurchasedByBrother = 0 + (int)(Math.random() * 3);
+                            int numberOfStockPurchasedByBrother = 1 + (int)(Math.random() * 6);
+
                             Stock playerStock = inventory.findBySymbol(stockSymbol);
                             Stock brotherStock = inventory.getRandomStock();
+
                             playerStocks.add(playerStock.getStockName());
                             brotherStocks.add(brotherStock.getStockName());
 
                             brother.setStockNames(brotherStocks);
                             player.setStockNames(playerStocks);
+
                             player.getAccount().deductBalance(numberOfStockPurchaseByPlayer*playerStock.getCurrentPrice());
                             brother.getAccount().deductBalance(numberOfStockPurchasedByBrother*brotherStock.getCurrentPrice());
+
                             System.out.println("Successfully Purchased!");
                         }
                         break;

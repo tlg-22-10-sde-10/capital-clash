@@ -41,7 +41,7 @@ public class UserInterface {
     public  void mainMenu() {
         System.out.println("Which room would you like to go to?");
         System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
-                " \n3) Back (Skip Current Day) ");
+                " \n3) Next Day(Round)");
 
     }
 
@@ -52,8 +52,8 @@ public class UserInterface {
 
     public  void titleBarForInventory(int day) {
         System.out.println(String.format("%-60s DAY: %-10s\n","",day));
-        System.out.println(String.format("%-10s %-20s %-15s %-18s %-10s %-10s %-18s %-11s","",
-                "Stock Name","Symbol","Current Price","Beta","Alpha","Residual Value","Sector"));
+        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s","",
+                "Stock Name","Symbol","Current Price","Sector"));
     }
 
     public String userInput() {
@@ -67,7 +67,7 @@ public class UserInterface {
 
     public void playerVsBrotherReports(int day, Player player, Computer brother) {
 
-        System.out.println(String.format("%-40s DAY: %-10s","",day));
+        System.out.println(String.format("%-32s DAY: %-10s","",day));
         System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
         System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStockNames(),brother.getStockNames()));
         System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",

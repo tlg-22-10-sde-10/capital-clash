@@ -54,7 +54,7 @@ public class Stock {
         x is the performance of the benchmark, which is often the S&P 500 index. (this will be randomized)
         u is the residual, which is the unexplained random portion of performance. (This will be randomized and adds more uncertainty to the game)
          */
-        double x= this.currentPrice + (int)((Math.random() * this.currentPrice)+10);
+        double x= this.currentPrice + (int)((Math.random() * (this.currentPrice+10)));
         this.currentPrice = alpha+(beta*x)+residual;
     }
 
@@ -91,8 +91,8 @@ public class Stock {
     }
 
     public String toString() {
-        String result = String.format("%-10s %-20s %-15s %-18s %-10s %-10s %-18s %-11s","",
-                getStockName(),getSymbol(),getCurrentPrice(),getBeta(),getAlpha(),getResidual(),getSector());
+        String result = String.format("%-10s %-20s %-15s %-18s  %-11s","",
+                getStockName(),getSymbol(),getCurrentPrice(),getSector());
         return result;
     }
     // price calculator based on the day
