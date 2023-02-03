@@ -16,7 +16,7 @@ public class News {
             4,"Facebook and Instagram’s parent said it is paring back spending plans and focusing on its social media roots",
             //case 5:JPM residual will be random between -5% and -2%
             5,"JPMorgan says CEO Jamie Dimon is having emergency heart surgery",
-            //case 6:x will be a random number between -1% to - 2%
+            //case 6:x will be a random number between -2% to -1%
             6,"Powell: Inflation Has Eased Somewhat but Remains Elevated",
             //case 7:x will be a random number between -2% to - 3%
             7,"U.S. has intel that Russian commanders have orders to proceed with Finland invasion",

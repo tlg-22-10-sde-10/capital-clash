@@ -52,9 +52,23 @@ public class Game {
             ui.playerVsBrotherReports(day);
             int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
             String todayNews=news.getNewsContent(newsIndexOfTheDay);
-            int mainMenuSelection = 0;
+            int mainMenuSelection;
             Random random = new Random();
-            double mktReturnOfTheDay=(random.nextDouble() * 6 - 3)/100.0;
+            double mktReturnOfTheDay;
+
+            if(newsIndexOfTheDay==1){
+                //case 1:x will be a random number between 1% and 2%
+                mktReturnOfTheDay=(random.nextDouble() * 1 + 1)/100.0;
+            }else if(newsIndexOfTheDay==6){
+                //case 6:x will be a random number between -2% to -1%
+                mktReturnOfTheDay=(random.nextDouble() * 1 - 2)/100.0;
+            }else if(newsIndexOfTheDay==7){
+                //case 7:x will be a random number between -2% to - 3%
+                mktReturnOfTheDay=(random.nextDouble() * 1 - 3)/100.0;
+            }else{
+                mktReturnOfTheDay=(random.nextDouble() * 6 - 3)/100.0;
+            }
+
             do {
                 ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
@@ -77,6 +91,7 @@ public class Game {
                                         mktReturnOfTheDay,newsIndexOfTheDay);
                                 stock.setCurrentPrice(nextPrice);
                             }
+                            //the following two souts are for testing, will be commented out for official release
                             System.out.println("mktReturn:"+mktReturnOfTheDay);
                             System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
 
