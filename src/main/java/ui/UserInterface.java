@@ -76,7 +76,7 @@ public class UserInterface {
     }
 
     public void invalidChoice() {
-        System.out.println("Invalid choice.");
+        System.out.println("Invalid choice!");
     }
 
     public void newsRoomInfo() {
