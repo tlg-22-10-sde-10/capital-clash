@@ -19,7 +19,7 @@ public class UserInterface {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
-
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
 
     public void displayASCII(){
 
@@ -40,7 +40,7 @@ public class UserInterface {
     public  void displayGameInfo() {
         // refactor it to small paragraph with all the game details
         System.out.println(ANSI_RED + "================================================================================= \n" + ANSI_RESET +
-                "The objective is to figure out who has an eye for stocks. \n"+
+                "Let's see who has an eye for stocks. \n"+
                 "The game consist of 5 trading days and a balance of $10,000 each. \n"+
                 "The game will be [T+1 settlement] meaning, that on each day after a stock is bought, \n" +
                 "the sooner you can sell them the next day. \n" +
@@ -56,7 +56,7 @@ public class UserInterface {
     }
 
     public  void mainMenu() {
-        System.out.println("Which room would you like to go to?");
+        System.out.println("Where would you like to go?");
         System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
                 " \n3) Next Day(Round)\n" + ANSI_RED +
                 "=================================================================================" + ANSI_RESET + ""
@@ -65,14 +65,14 @@ public class UserInterface {
     }
 
     public  void tradingRoomMenu() {
-        System.out.println("\nWhat would you like to do next? Please enter numbers only(1,2,3)");
+        System.out.println("\nMake a decision... Please enter numbers only(1-3)");
         System.out.println("1) Buy \n2) Sell \n3) Exit ");
     }
 
     public  void titleBarForInventory(int day) {
         System.out.println(String.format("%-60s DAY: %-10s\n","",day));
-        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s","",
-                "Stock Name","Symbol","Current Price","Sector"));
+        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s","","" + ANSI_RED_BACKGROUND +
+                "Stock Name","    Symbol","Current Price","        Sector       " + ANSI_RESET));
     }
 
     public String userInput() {
@@ -80,7 +80,16 @@ public class UserInterface {
     }
 
     public void startMenu() {
-        System.out.println("Would you like to take the challenge?");
+        String challenge = "ARE YOU UP TO THE CHALLENGE?\n";
+        int i;
+        for(i = 0; i < challenge.length(); i++){
+            System.out.printf("%c", challenge.charAt(i));
+            try{
+                Thread.sleep(200);
+            }catch(InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
     }
 
@@ -99,16 +108,17 @@ public class UserInterface {
     }
 
     public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to get today's market intelligence? y/n"+ ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News? (y/n)"+ ANSI_RESET);
     }
 
 
     public void newsDecline() {
-        System.out.println("You declined to get today's market intelligence.");
+        System.out.println("You've declined today's market intelligence.");
     }
 
     public void nextDay() {
-        System.out.println("You are done for the day. The game will move to the next day.");
+        System.out.println("Thank you for your service. We will see you tomorrow.");
+        System.out.println(ANSI_RESET +"=================================================================================\n" + ANSI_RESET);
     }
 
     public void thankYouMessage() {
