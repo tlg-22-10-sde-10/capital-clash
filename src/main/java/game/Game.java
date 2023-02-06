@@ -1,10 +1,9 @@
 package game;
 
 import Random.RandomNumberForNews;
-import marketReturn.MarketReturnGenerator;
 import account.Account;
+import marketReturn.MarketReturnGenerator;
 import news.News;
-import org.w3c.dom.ls.LSOutput;
 import players.Computer;
 import players.Player;
 import stock.Stock;
@@ -214,7 +213,6 @@ public class Game {
             } while (mainMenuSelection != 3);
             day++;
         }
-        System.out.println("test");
     }
 
 }
