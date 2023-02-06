@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class Account {
 
     private String accountName;
-    private double stockValueBalance;
+
     private double cashBalance=10000;
 
-    public Account(String accountName, double stockValueBalance) {
+    public Account(String accountName) {
         this.accountName = accountName;
-        this.stockValueBalance = stockValueBalance;
+
     }
 
     public String getAccountName() {
@@ -22,16 +22,6 @@ public class Account {
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
-
-    public double getStockValueBalance() {
-        return stockValueBalance;
-    }
-
-    public void setStockValueBalance(double stockValueBalance) {
-        this.stockValueBalance = stockValueBalance;
-    }
-
-
 
     public double getCashBalance() {
         return cashBalance;
@@ -47,6 +37,11 @@ public class Account {
         }
     }
 
+    public void calculateBalance(Double priceOfStock) {
+        this.cashBalance+=priceOfStock;
+
+    }
+
 
     @Override
     //refactor formula to show end results of last day.
@@ -56,6 +51,7 @@ public class Account {
                 ", Ben's Balance =" + getCashBalance() +
                 '}';
     }
+
 
 
 }
