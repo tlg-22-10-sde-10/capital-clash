@@ -100,7 +100,7 @@ public class UserInterface {
         System.out.println(String.format("%-32s DAY: %-10s","",day));
         System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
         System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStocks()));
-        System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
+        System.out.println(String.format("%-18s Cash Balance:$%-19s Cash Balance:$%-10s\n",
                 "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
 
     }
@@ -125,5 +125,19 @@ public class UserInterface {
 
     public void thankYouMessage() {
         System.out.println("Thank yor visiting!");
+    }
+
+    public void playerWinMessage() {
+        System.out.println(ANSI_GREEN + "You beat your brother!!\n"+ ANSI_RESET);
+
+    }
+
+    public void brotherWinMessage() {
+        System.out.println(ANSI_RED + "Sorry, You loose with your brother!!\n"+ ANSI_RESET);
+    }
+
+
+    public void lastDay() {
+        System.out.println(ANSI_YELLOW +"This is the last day! \n"+ ANSI_RESET);
     }
 }

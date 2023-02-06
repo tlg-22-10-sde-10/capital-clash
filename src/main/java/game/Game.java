@@ -62,10 +62,9 @@ public class Game {
     private void play() {
         ui.displayGameInfo();
         int day = 0;
-
         Scanner stdInt = new Scanner(System.in);
-        while (day < GAME_DAYS) {
 
+        while (day < GAME_DAYS) {
             int newsIndexOfTheDay=RandomNumberForNews.getRandomNumber();
             String todayNews=news.getNewsContent(newsIndexOfTheDay);
             int mainMenuSelection;
@@ -197,7 +196,33 @@ public class Game {
                         break;
                     // Next Day Logic
                     case 3:
-                        ui.nextDay();
+
+                        if(day == 4) {
+                            double totalPlayerBalance=0.0;
+                            double totalBrotherBalance=0.0;
+
+                            for (Map.Entry<String, Integer> entry : playerStockMap.entrySet()) {
+                                totalPlayerBalance+=inventory.findBySymbol(entry.getKey()).getCurrentPrice()*entry.getValue();
+                            }
+
+                            for (Map.Entry<String, Integer> entry : brotherStockMap.entrySet()) {
+                                totalBrotherBalance+=inventory.findBySymbol(entry.getKey()).getCurrentPrice()*entry.getValue();
+                            }
+
+                            if(totalPlayerBalance>totalBrotherBalance) {
+                                ui.playerWinMessage();
+
+                            } else if(totalPlayerBalance<totalBrotherBalance){
+                                ui.brotherWinMessage();
+                            } else {
+                                System.out.println("Tie Game! ");
+                            }
+
+                        }else if(day == 3) {
+                            ui.lastDay();
+                        }else {
+                            ui.nextDay();
+                        }
                         break;
                     default:
                         ui.invalidChoice();
