@@ -207,7 +207,7 @@ public class Game {
             } while (mainMenuSelection != 3);
             day++;
         }
-
+        System.out.println("test");
     }
 
 }
