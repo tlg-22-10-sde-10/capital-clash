@@ -95,21 +95,22 @@ public class UserInterface {
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
     }
 
-    public void playerVsBrotherReports(int day, Player player, Computer brother,double mktReturnOfTheDay, int newsIndexOfTheDay, StockInventory inventory) {
+    public void playerVsBrotherReports(int day, Player player, Computer brother, double mktReturnOfTheDay,
+                                       int newsIndexOfTheDay, StockInventory inventory) {
+        if(player != null && brother != null && inventory != null) {
 
-        double playerStockBalance = player.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
-        double brotherStockBalance = brother.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
-
-
-        System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n","",day+ANSI_RESET));
-        System.out.println(String.format("%-18s %-42s %-14s","",ANSI_RED_BACKGROUND+"You"+ANSI_RESET,ANSI_RED_BACKGROUND+"Brother"+ANSI_RESET));
-        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStocks()));
-        System.out.println(String.format("%-18s Cash Balance:$%-19.2f Cash Balance:$%-10.2f",
-                "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
-        System.out.println(String.format("%-18s Stock Balance:$%-18.2f Stock Balance:$%-10.2f",
-                "",playerStockBalance,brotherStockBalance));
-        System.out.println(String.format("%-18s Net Balance:$%-20.2f Net Balance:$%-10.2f\n",
-                "",playerStockBalance+player.getAccount().getCashBalance(),brotherStockBalance+brother.getAccount().getCashBalance()));
+            double playerStockBalance = player.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
+            double brotherStockBalance = brother.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
+            System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n","",day+ANSI_RESET));
+            System.out.println(String.format("%-18s %-42s %-14s","",ANSI_RED_BACKGROUND+"You"+ANSI_RESET,ANSI_RED_BACKGROUND+"Brother"+ANSI_RESET));
+            System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStocks()));
+            System.out.println(String.format("%-18s Cash Balance:$%-19.2f Cash Balance:$%-10.2f",
+                    "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
+            System.out.println(String.format("%-18s Stock Balance:$%-18.2f Stock Balance:$%-10.2f",
+                    "",playerStockBalance,brotherStockBalance));
+            System.out.println(String.format("%-18s Net Balance:$%-20.2f Net Balance:$%-10.2f\n",
+                    "",playerStockBalance+player.getAccount().getCashBalance(),brotherStockBalance+brother.getAccount().getCashBalance()));
+        }
 
     }
 
