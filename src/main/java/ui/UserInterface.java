@@ -1,13 +1,13 @@
 package ui;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import stock.Stock;
-import storage.StockInventory;
-import account.Account;
-import players.Player;
 import players.Computer;
+import players.Player;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class UserInterface {
     private Scanner myScanner;
@@ -144,7 +144,6 @@ public class UserInterface {
     public void brotherWinMessage() {
         System.out.println(ANSI_RED + "Sorry, You loose with your brother!!\n"+ ANSI_RESET);
     }
-
 
     public void lastDay() {
         System.out.println(ANSI_YELLOW +"This is the last day to invest! \n"+ ANSI_RESET);
