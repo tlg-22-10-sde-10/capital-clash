@@ -69,7 +69,7 @@ public class UserInterface {
 
         System.out.println(String.format("%-32s DAY: %-10s","",day));
         System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
-        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStockNames()));
+        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStocks()));
         System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
                 "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
 

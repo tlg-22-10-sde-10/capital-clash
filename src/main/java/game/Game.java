@@ -82,14 +82,19 @@ public class Game {
                     case 1:
 
                         ui.titleBarForInventory(day);
+
                         //first day of trading: stock price is directly from csv file
+//                        System.out.println("mktReturn:"+mktReturnOfTheDay);
+//                        System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
                         if(day==0) {
                             for (Stock stock : inventory.getAllStocks()) {
                                 System.out.println(stock.toString());
                             }
                         }
                         //the following days: function needed to be run to update stock price
+
                         else{
+
                             for (Stock stock : inventory.getAllStocks()) {
                                  //stock
                                 double nextPrice=stock.nextDayPrice(stock.getCurrentPrice(),
@@ -102,6 +107,7 @@ public class Game {
                             }
 
                         }
+
                         ui.tradingRoomMenu();
                         String userInputForBuyAndSale = ui.userInput();
                         if(userInputForBuyAndSale.equalsIgnoreCase(NUMBER_ONE)) {
@@ -131,8 +137,8 @@ public class Game {
                             // brother randomly purchase the stock
                             int numberOfStockPurchasedByBrother = 1 + (int)(Math.random() * 6);
                             Stock brotherStock = inventory.getRandomStock();
-                            brotherStocks.add(brotherStock.getSymbol());
-                            brother.setStockNames(brotherStocks);
+                            brotherStockMap.put(brotherStock.getSymbol(),numberOfStockPurchasedByBrother);
+                            brother.setStocks(brotherStockMap);
                             brother.getAccount().deductBalance(numberOfStockPurchasedByBrother*brotherStock.getCurrentPrice());
 
                         } else if(userInputForBuyAndSale.equalsIgnoreCase(NUMBER_TWO)) {
@@ -145,7 +151,6 @@ public class Game {
                             }
 
                             boolean isSellMenuRunning = true;
-
 
                                 System.out.println("Please enter the stock symbol that you want to sell.");
                                 String stockSymbol = ui.userInput();
@@ -175,6 +180,7 @@ public class Game {
                                 System.out.format("%-15s%-15s\n", keyList.get(i),
                                         playerStockMap.get(keyList.get(i)));
                             }
+
                         }
                         break;
                     // news room
