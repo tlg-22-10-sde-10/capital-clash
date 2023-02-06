@@ -58,160 +58,173 @@ public class Game {
         }
     }
 
-    private void play() {
-        ui.displayGameInfo();
-        int day = 0;
+    private void play() throws IllegalArgumentException, InputMismatchException {
+        try {
 
 
-        Scanner stdInt = new Scanner(System.in);
+            ui.displayGameInfo();
+            int day = 0;
 
-        while (day < GAME_DAYS) {
 
-            int newsIndexOfTheDay = RandomNumberForNews.getRandomNumber();
-            String todayNews = news.getNewsContent(newsIndexOfTheDay);
-            int mainMenuSelection;
-            boolean isPriceUpdated = false;
+            Scanner stdInt = new Scanner(System.in);
 
-            MarketReturnGenerator generator = new MarketReturnGenerator();
-            double mktReturnOfTheDay = generator.nextMarketReturn(newsIndexOfTheDay);
+            while (day < GAME_DAYS) {
 
-            ui.playerVsBrotherReports(day, player, brother);
+                int newsIndexOfTheDay = RandomNumberForNews.getRandomNumber();
+                String todayNews = news.getNewsContent(newsIndexOfTheDay);
+                int mainMenuSelection;
+                boolean isPriceUpdated = false;
 
-            do {
-                ui.mainMenu();
-                mainMenuSelection = stdInt.nextInt();
+                MarketReturnGenerator generator = new MarketReturnGenerator();
+                double mktReturnOfTheDay = generator.nextMarketReturn(newsIndexOfTheDay);
 
-                switch (mainMenuSelection) {
-                    // trading room
-                    case 1:
+                ui.playerVsBrotherReports(day, player, brother);
 
-                        ui.titleBarForInventory(day);
+                do {
+                    ui.mainMenu();
+                    mainMenuSelection = stdInt.nextInt();
 
-                        //first day of trading: stock price is directly from csv file
-                        if (day == 0) {
-                            for (Stock stock : inventory.getAllStocks()) {
-                                System.out.println(stock.toString());
-                            }
-                        }
-                        // the following days: function needed to be run to update stock price
+                    switch (mainMenuSelection) {
+                        // trading room
+                        case 1:
 
-                        else {
+                            ui.titleBarForInventory(day);
 
-                            if (!isPriceUpdated) {
+                            //first day of trading: stock price is directly from csv file
+                            if (day == 0) {
                                 for (Stock stock : inventory.getAllStocks()) {
-                                    //stock
-                                    double nextPrice = stock.nextDayPrice(stock.getCurrentPrice(),
-                                            mktReturnOfTheDay, newsIndexOfTheDay);
-                                    stock.setCurrentPrice(nextPrice);
+                                    System.out.println(stock.toString());
                                 }
-                                isPriceUpdated = true;
                             }
+                            // the following days: function needed to be run to update stock price
 
-                            //the following two are for testing verification purpose;removed b4 final release
-                            System.out.println("mktReturn:" + mktReturnOfTheDay);
-                            System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
+                            else {
 
-                            for (Stock stock : inventory.getAllStocks()) {
-                                System.out.println(stock.toString());
-                            }
-
-                        }
-
-                        ui.tradingRoomMenu();
-                        String userInputForBuyAndSale = ui.userInput();
-                        if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_ONE)) {
-                            System.out.println("Please enter the symbol of the stock that you want to purchase:");
-                            String stockSymbol = ui.userInput();
-                            System.out.println("How many shares would you like? Fractional is not allowed! (Enter whole number ONLY)");
-
-                            int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
-
-                            Stock playerStock = inventory.findBySymbol(stockSymbol);
-                            double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
-                            if (valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
-                                System.out.println("Unauthorized Purchase! Not Enough Balance!");
-                            } else {
-                                if (playerStockMap.containsKey(stockSymbol)) {
-                                    playerStockMap.put(playerStock.getSymbol(), playerStockMap.get(stockSymbol) + numberOfStockPurchaseByPlayer);
-                                } else {
-                                    playerStockMap.put(playerStock.getSymbol(), numberOfStockPurchaseByPlayer);
-                                }
-
-                                playerStocks.add(playerStock.getSymbol());
-                                player.setStockNames(playerStocks);
-                                player.setStocks(playerStockMap);
-                                player.getAccount().deductBalance(numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice());
-                                System.out.println("Successfully Purchased!");
-                            }
-                            // brother randomly purchase the stock
-                            int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
-                            Stock brotherStock = inventory.getRandomStock();
-                            brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
-                            brother.setStocks(brotherStockMap);
-                            brother.getAccount().deductBalance(numberOfStockPurchasedByBrother * brotherStock.getCurrentPrice());
-
-                        } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_TWO)) {
-                            ArrayList<String> keyList = new ArrayList<String>(playerStockMap.keySet());
-                            System.out.println("Yours current Holdings!");
-                            System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
-                            for (int i = 0; i < keyList.size(); i++) {
-                                System.out.format("%-15s%-15s\n", keyList.get(i),
-                                        playerStockMap.get(keyList.get(i)));
-                            }
-
-                            boolean isSellMenuRunning = true;
-
-                            System.out.println("Please enter the stock symbol that you want to sell.");
-                            String stockSymbol = ui.userInput();
-                            // edge cases player cannot enter more than what they have
-                            while (isSellMenuRunning) {
-                                System.out.println("Please enter the quantity!");
-                                int quantity = Integer.parseInt(ui.userInput());
-
-                                if (playerStockMap.get(stockSymbol) >= quantity) {
-                                    player.getAccount().calculateBalance(quantity *
-                                            inventory.findBySymbol(stockSymbol).getCurrentPrice());
-                                    // update map once the sell is completed
-                                    playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
-                                    if (playerStockMap.get(stockSymbol) == 0) {
-                                        playerStockMap.remove(stockSymbol);
+                                if (!isPriceUpdated) {
+                                    for (Stock stock : inventory.getAllStocks()) {
+                                        //stock
+                                        double nextPrice = stock.nextDayPrice(stock.getCurrentPrice(),
+                                                mktReturnOfTheDay, newsIndexOfTheDay);
+                                        stock.setCurrentPrice(nextPrice);
                                     }
-                                    isSellMenuRunning = false;
-                                } else {
-                                    System.out.println("Please try again and enter the valid stock quantity!\n");
+                                    isPriceUpdated = true;
+                                }
+
+                                //the following two are for testing verification purpose;removed b4 final release
+                                System.out.println("mktReturn:" + mktReturnOfTheDay);
+                                System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
+
+                                for (Stock stock : inventory.getAllStocks()) {
+                                    System.out.println(stock.toString());
                                 }
 
                             }
 
-                            System.out.println("Yours current Holdings After Sell!\n");
-                            System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
-                            for (int i = 0; i < keyList.size(); i++) {
-                                System.out.format("%-15s%-15s\n", keyList.get(i),
-                                        playerStockMap.get(keyList.get(i)));
+                            ui.tradingRoomMenu();
+                            String userInputForBuyAndSale = ui.userInput();
+                            if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_ONE)) {
+                                System.out.println("Please enter the symbol of the stock that you want to purchase:");
+                                String stockSymbol = ui.userInput();
+                                System.out.println("How many shares would you like? Fractional is not allowed! (Enter whole number ONLY)");
+
+                                int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
+
+                                Stock playerStock = inventory.findBySymbol(stockSymbol);
+                                double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
+                                if (valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
+                                    System.out.println("Unauthorized Purchase! Not Enough Balance!");
+                                } else {
+                                    if (playerStockMap.containsKey(stockSymbol)) {
+                                        playerStockMap.put(playerStock.getSymbol(), playerStockMap.get(stockSymbol) + numberOfStockPurchaseByPlayer);
+                                    } else {
+                                        playerStockMap.put(playerStock.getSymbol(), numberOfStockPurchaseByPlayer);
+                                    }
+
+                                    playerStocks.add(playerStock.getSymbol());
+                                    player.setStockNames(playerStocks);
+                                    player.setStocks(playerStockMap);
+                                    player.getAccount().deductBalance(numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice());
+                                    System.out.println("Successfully Purchased!");
+                                }
+                                // brother randomly purchase the stock
+                                int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
+                                Stock brotherStock = inventory.getRandomStock();
+                                brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
+                                brother.setStocks(brotherStockMap);
+                                brother.getAccount().deductBalance(numberOfStockPurchasedByBrother * brotherStock.getCurrentPrice());
+
+                            } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_TWO)) {
+                                ArrayList<String> keyList = new ArrayList<String>(playerStockMap.keySet());
+                                System.out.println("Yours current Holdings!");
+                                System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
+                                for (int i = 0; i < keyList.size(); i++) {
+                                    System.out.format("%-15s%-15s\n", keyList.get(i),
+                                            playerStockMap.get(keyList.get(i)));
+                                }
+
+                                boolean isSellMenuRunning = true;
+
+                                System.out.println("Please enter the stock symbol that you want to sell.");
+                                String stockSymbol = ui.userInput();
+                                // edge cases player cannot enter more than what they have
+                                while (isSellMenuRunning) {
+                                    System.out.println("Please enter the quantity!");
+                                    int quantity = Integer.parseInt(ui.userInput());
+
+                                    if (playerStockMap.get(stockSymbol) >= quantity) {
+                                        player.getAccount().calculateBalance(quantity *
+                                                inventory.findBySymbol(stockSymbol).getCurrentPrice());
+                                        // update map once the sell is completed
+                                        playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
+                                        if (playerStockMap.get(stockSymbol) == 0) {
+                                            playerStockMap.remove(stockSymbol);
+                                        }
+                                        isSellMenuRunning = false;
+                                    } else {
+                                        System.out.println("Please try again and enter the valid stock quantity!\n");
+                                    }
+
+                                }
+
+                                System.out.println("Yours current Holdings After Sell!\n");
+                                System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
+                                for (int i = 0; i < keyList.size(); i++) {
+                                    System.out.format("%-15s%-15s\n", keyList.get(i),
+                                            playerStockMap.get(keyList.get(i)));
+                                }
+
+                            }
+                            break;
+                        // news room
+                        case 2:
+                            ui.newsRoomInfo();
+                            String newsAnswer = ui.userInput();
+
+                            if (newsAnswer.equalsIgnoreCase("1")) {
+                                System.out.println("Breaking News:");
+                                System.out.println(todayNews + "\n===================================");
+                            } else if (newsAnswer.equalsIgnoreCase("2")) {
+                                ui.newsDecline();
+                            } else {
+                                ui.invalidChoice();
                             }
 
-                        }
-                        break;
-                    // news room
-                    case 2:
-                        ui.newsRoomInfo();
-                        String newsAnswer = ui.userInput();
-                        if (newsAnswer.equalsIgnoreCase(REPLY_WITH_YES)) {
-                            System.out.println(todayNews);
-                        } else {
-                            ui.newsDecline();
-                        }
-                        break;
-                    // Next Day Logic
-                    case 3:
-                        ui.nextDay();
-                        break;
-                    default:
-                        ui.invalidChoice();
-                }
+                            break;
 
-            } while (mainMenuSelection != 3);
-            day++;
+                        // Next Day Logic
+                        case 3:
+                            ui.nextDay();
+                            break;
+
+                        default:
+                            ui.invalidChoice();
+                    }
+
+                } while (mainMenuSelection != 3);
+                day++;
+            }
+        }catch (InputMismatchException | IllegalArgumentException e) {
+            System.out.print("Please provide valid value and try again.\n");
         }
     }
 

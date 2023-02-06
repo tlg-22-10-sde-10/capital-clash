@@ -41,12 +41,12 @@ public class UserInterface {
         // refactor it to small paragraph with all the game details
         System.out.println(ANSI_RED + "================================================================================= \n" + ANSI_RESET +
                 "Let's see who has an eye for stocks. \n"+
-                "The game consist of 5 trading days and a balance of $10,000 each. \n"+
+                "The game consists of 5 trading days and a balance of $10,000 each. \n"+
                 "The game will be [T+1 settlement] meaning, that on each day after a stock is bought, \n" +
                 "the sooner you can sell them the next day. \n" +
                 "You will be able to choose from 10 stocks to buy, sell, or hold. \n" +
                 "You will be able to go to the news feed room for current news, \n" +
-                        "go to the trading room for another day of investing,\n" +
+                        "go back to the trading room for more transactions,\n" +
                 "or go to the next round for a new day. \n" +
                 "To determine the winner you will have to have the highest account balance on day 4. \n" +
                 "May the HODL be with you. \n" + ANSI_RED +
@@ -106,11 +106,14 @@ public class UserInterface {
     }
 
     public void invalidChoice() {
-        System.out.println("Invalid choice! Please Try Again!");
+        System.out.println("Invalid choice! Please Try Again!\n"+ ANSI_RED +
+                "==========================================================" +
+                "=======================" + ANSI_RESET + "");
     }
 
     public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News? (y/n)"+ ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?");
+        System.out.println("1) Yes\n2) No"+ANSI_RESET);
     }
 
 
