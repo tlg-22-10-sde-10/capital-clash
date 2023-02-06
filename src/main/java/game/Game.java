@@ -91,7 +91,7 @@ public class Game {
                                 System.out.println(stock.toString());
                             }
                         }
-                        //the following days: function needed to be run to update stock price
+                        // the following days: function needed to be run to update stock price
 
                         else{
 
