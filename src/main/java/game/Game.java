@@ -60,6 +60,7 @@ public class Game {
     }
 
     private void play() {
+
         ui.displayGameInfo();
         int day = 0;
 
@@ -206,6 +207,8 @@ public class Game {
             } while (mainMenuSelection != 3);
             day++;
         }
+
     }
 
 }
+
