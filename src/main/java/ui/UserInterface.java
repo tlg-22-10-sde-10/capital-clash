@@ -138,6 +138,6 @@ public class UserInterface {
 
 
     public void lastDay() {
-        System.out.println(ANSI_YELLOW +"This is the last day! \n"+ ANSI_RESET);
+        System.out.println(ANSI_YELLOW +"This is the last day to invest! \n"+ ANSI_RESET);
     }
 }
