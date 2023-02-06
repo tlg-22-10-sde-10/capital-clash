@@ -59,11 +59,17 @@
       <version>${junit-jupiter.version}</version>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+          <version>RELEASE</version>
+          <scope>compile</scope>
+      </dependency>
 
-<!--
-    To use JUnit4 instead of JUnit5, comment out the previous 2 dependency elements and uncomment
-    the following 2 elements.
--->
+      <!--
+          To use JUnit4 instead of JUnit5, comment out the previous 2 dependency elements and uncomment
+          the following 2 elements.
+      -->
 <!--
     <dependency>
       <groupId>junit</groupId>
