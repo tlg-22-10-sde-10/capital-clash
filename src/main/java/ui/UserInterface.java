@@ -1,13 +1,13 @@
 package ui;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import stock.Stock;
-import storage.StockInventory;
-import account.Account;
-import players.Player;
 import players.Computer;
+import players.Player;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class UserInterface {
     private Scanner myScanner;
@@ -126,4 +126,5 @@ public class UserInterface {
     public void thankYouMessage() {
         System.out.println("Thank yor visiting!");
     }
+
 }

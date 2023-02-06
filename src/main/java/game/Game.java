@@ -1,10 +1,9 @@
 package game;
 
 import Random.RandomNumberForNews;
-import marketReturn.MarketReturnGenerator;
 import account.Account;
+import marketReturn.MarketReturnGenerator;
 import news.News;
-import org.w3c.dom.ls.LSOutput;
 import players.Computer;
 import players.Player;
 import stock.Stock;
@@ -59,6 +58,7 @@ public class Game {
     }
 
     private void play() {
+
         ui.displayGameInfo();
         int day = 0;
 
@@ -216,3 +216,4 @@ public class Game {
     }
 
 }
+
