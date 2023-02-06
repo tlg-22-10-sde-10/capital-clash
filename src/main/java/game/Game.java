@@ -72,8 +72,7 @@ public class Game {
             MarketReturnGenerator generator=new MarketReturnGenerator();
             double mktReturnOfTheDay=generator.nextMarketReturn(newsIndexOfTheDay);
 
-            ui.playerVsBrotherReports(day,player,brother);
-
+           ui.playerVsBrotherReports(day,player,brother,mktReturnOfTheDay,newsIndexOfTheDay,inventory);
             do {
                 ui.mainMenu();
                 mainMenuSelection = stdInt.nextInt();
@@ -93,9 +92,8 @@ public class Game {
                             }
                         }
                         // the following days: function needed to be run to update stock price
-
                         else{
-
+                            // player Report1
                             for (Stock stock : inventory.getAllStocks()) {
                                  //stock
                                 double nextPrice=stock.nextDayPrice(stock.getCurrentPrice(),
@@ -196,17 +194,18 @@ public class Game {
                         break;
                     // Next Day Logic
                     case 3:
+                        double totalPlayerBalance=player.getAccount().getCashBalance();
+                        double totalBrotherBalance=brother.getAccount().getCashBalance();
 
                         if(day == 4) {
-                            double totalPlayerBalance=0.0;
-                            double totalBrotherBalance=0.0;
-
                             for (Map.Entry<String, Integer> entry : playerStockMap.entrySet()) {
-                                totalPlayerBalance+=inventory.findBySymbol(entry.getKey()).getCurrentPrice()*entry.getValue();
+                                totalPlayerBalance+=inventory.findBySymbol(entry.getKey())
+                                        .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(),mktReturnOfTheDay,newsIndexOfTheDay)*entry.getValue();
                             }
 
                             for (Map.Entry<String, Integer> entry : brotherStockMap.entrySet()) {
-                                totalBrotherBalance+=inventory.findBySymbol(entry.getKey()).getCurrentPrice()*entry.getValue();
+                                totalBrotherBalance+=inventory.findBySymbol(entry.getKey())
+                                        .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(),mktReturnOfTheDay,newsIndexOfTheDay)*entry.getValue();
                             }
 
                             if(totalPlayerBalance>totalBrotherBalance) {
@@ -223,11 +222,11 @@ public class Game {
                         }else {
                             ui.nextDay();
                         }
+
                         break;
                     default:
                         ui.invalidChoice();
                 }
-
             } while (mainMenuSelection != 3);
             day++;
         }
