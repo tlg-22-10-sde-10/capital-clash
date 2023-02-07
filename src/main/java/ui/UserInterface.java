@@ -42,12 +42,12 @@ public class UserInterface {
         // refactor it to small paragraph with all the game details
         System.out.println(ANSI_RED + "================================================================================= \n" + ANSI_RESET +
                 "Let's see who has an eye for stocks. \n"+
-                "The game consist of 5 trading days and a balance of $10,000 each. \n"+
+                "The game consists of 5 trading days and a balance of $10,000 each. \n"+
                 "The game will be [T+1 settlement] meaning, that on each day after a stock is bought, \n" +
                 "the sooner you can sell them the next day. \n" +
                 "You will be able to choose from 10 stocks to buy, sell, or hold. \n" +
                 "You will be able to go to the news feed room for current news, \n" +
-                        "go to the trading room for another day of investing,\n" +
+                        "go back to the trading room for more transactions,\n" +
                 "or go to the next round for a new day. \n" +
                 "To determine the winner you will have to have the highest account balance on day 4. \n" +
                 "May the HODL be with you. \n" + ANSI_RED +
@@ -68,7 +68,7 @@ public class UserInterface {
     public  void tradingRoomMenu() {
     
         System.out.println("\nMake a decision... Please enter numbers only(1-3)");
-        System.out.println("1) Buy \n2) Sell \n3) Exit ");
+        System.out.println("1) Buy \n2) Sell \n3) Check Your Account \n4) Exit ");
 
     }
 
@@ -84,15 +84,15 @@ public class UserInterface {
 
     public void startMenu() {
         String challenge = "ARE YOU UP TO THE CHALLENGE?\n";
-        int i;
-        for(i = 0; i < challenge.length(); i++){
-            System.out.printf("%c", challenge.charAt(i));
-            try{
-                Thread.sleep(200);
-            }catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
-            }
-        }
+//        int i;
+//        for(i = 0; i < challenge.length(); i++){
+//            System.out.printf("%c", challenge.charAt(i));
+//            try{
+//                Thread.sleep(200);
+//            }catch(InterruptedException ex){
+//                Thread.currentThread().interrupt();
+//            }
+//        }
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
     }
 
@@ -104,7 +104,11 @@ public class UserInterface {
             double brotherStockBalance = brother.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
             System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n","",day+ANSI_RESET));
             System.out.println(String.format("%-18s %-42s %-14s","",ANSI_RED_BACKGROUND+"You"+ANSI_RESET,ANSI_RED_BACKGROUND+"Brother"+ANSI_RESET));
-            System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStocks()));
+
+            System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",
+                    player.getStocks()==null?"None.":player.getStocks(),
+                    brother.getStocks()==null?"None.":brother.getStocks()));
+
             System.out.println(String.format("%-18s Cash Balance:$%-19.2f Cash Balance:$%-10.2f",
                     "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
             System.out.println(String.format("%-18s Stock Balance:$%-18.2f Stock Balance:$%-10.2f",
@@ -116,11 +120,14 @@ public class UserInterface {
     }
 
     public void invalidChoice() {
-        System.out.println("Invalid choice! Please Try Again!");
+        System.out.println("Invalid choice! Please Try Again!\n"+ ANSI_RED +
+                "==========================================================" +
+                "=======================" + ANSI_RESET + "");
     }
 
     public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News? (y/n)"+ ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?");
+        System.out.println("1) Yes\n2) No"+ANSI_RESET);
     }
 
 
