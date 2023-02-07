@@ -10,7 +10,10 @@ import stock.Stock;
 import storage.StockInventory;
 import ui.UserInterface;
 
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -116,13 +119,13 @@ public class Game {
 
                                 //handle quantity-is-not-an-integer problem
                                 String quantityInput = ui.userInput();
-                                while(!isInteger(quantityInput)){
+                                while (!isInteger(quantityInput)) {
                                     System.out.println("Your input is not an integer. Please try again");
                                     System.out.println("How many shares would you like? " +
                                             "Fractional is not allowed! (Enter whole number ONLY)");
                                     quantityInput = ui.userInput();
                                 }
-                                int numberOfStockPurchaseByPlayer=Integer.parseInt(quantityInput);
+                                int numberOfStockPurchaseByPlayer = Integer.parseInt(quantityInput);
 
                                 Stock playerStock = inventory.findBySymbol(stockSymbol);
                                 double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
@@ -140,8 +143,22 @@ public class Game {
                                     player.setStocks(playerStockMap);
                                     player.getAccount().deductBalance(numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice());
                                     System.out.println("Successfully Purchased!");
+
                                     System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
                                     +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".");
+
+
+                                    //SOUNDS**************************************
+                                    Scanner scanner = new Scanner(System.in);
+
+                                    File file = new File("src/main/resources/cashier.wav.wav");
+                                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                                    Clip clip = AudioSystem.getClip();
+                                    clip.open(audioStream);
+
+                                    clip.start();
+
+
                                 }
                                 // brother randomly purchase the stock
                                 int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
@@ -166,7 +183,7 @@ public class Game {
 
 
                                 //handle unrecognized symbol error
-                                while  (!playerStockMap.containsKey(stockSymbol)) {
+                                while (!playerStockMap.containsKey(stockSymbol)) {
                                     System.out.println("This stock is not in your holding.");
                                     System.out.println("Please try again. Please select from your holding.");
                                     System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
@@ -182,14 +199,16 @@ public class Game {
                                 // edge cases player cannot enter more than what they have
                                 while (isSellMenuRunning) {
                                     System.out.println("Please enter the quantity:");
+
                                     quantityInput = ui.userInput();
                                     while(!isInteger(quantityInput)){
+
                                         System.out.println("Your input is not an integer. Please try again");
                                         System.out.println("How many shares would you like? " +
                                                 "Fractional is not allowed! (Enter whole number ONLY)");
                                         quantityInput = ui.userInput();
                                     }
-                                    int quantity=Integer.parseInt(quantityInput);
+                                    int quantity = Integer.parseInt(quantityInput);
                                     //int quantity = Integer.parseInt(ui.userInput());
 
                                     if (playerStockMap.get(stockSymbol) >= quantity) {
@@ -199,6 +218,17 @@ public class Game {
                                         playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
                                         if (playerStockMap.get(stockSymbol) == 0) {
                                             playerStockMap.remove(stockSymbol);
+
+                                            //SOUNDS**************************************
+                                            Scanner scanner = new Scanner(System.in);
+
+                                            File file = new File("src/main/resources/sell.wav");
+                                            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                                            Clip clip = AudioSystem.getClip();
+                                            clip.open(audioStream);
+
+                                            clip.start();
+
                                         }
                                         isSellMenuRunning = false;
                                     } else {
@@ -245,6 +275,12 @@ public class Game {
         } catch (InputMismatchException | NumberFormatException e) {
             System.out.print("Please provide valid value and try again.\n");
 
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -325,7 +361,7 @@ public class Game {
 
     }
 
-    private  boolean isInteger(String strNum) {
+    private boolean isInteger(String strNum) {
         if (strNum == null) {
             return false;
         }
