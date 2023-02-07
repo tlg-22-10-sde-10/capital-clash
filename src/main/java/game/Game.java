@@ -106,14 +106,14 @@ public class Game {
                                         System.out.println("Please try again. Please select from the List");
                                         showTradingRoomStockDashboard(day, newsIndexOfTheDay,
                                                 mktReturnOfTheDay);
+                                        System.out.println("Please enter the symbol of the stock" +
+                                                " that you want to purchase:");
                                         stockSymbol = ui.userInput();
                                     }
 
-                                } else {
-                                    System.out.println("How many shares would you like? " +
-                                            "Fractional is not allowed! (Enter whole number ONLY)");
-
                                 }
+                                System.out.println("How many shares would you like? " +
+                                        "Fractional is not allowed! (Enter whole number ONLY)");
 
                                 int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
 
