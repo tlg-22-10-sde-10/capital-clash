@@ -26,7 +26,7 @@ public class Game {
     private final String REPLY_WITH_YES = "y";
     private final String NUMBER_ONE = "1";
     private final String NUMBER_TWO = "2";
-
+    private final String NUMBER_THREE = "3";
 
     Map<String, Integer> playerStockMap = new HashMap<>();
     Map<String, Integer> brotherStockMap = new HashMap<>();
@@ -71,10 +71,13 @@ public class Game {
                 int newsIndexOfTheDay = RandomNumberForNews.getRandomNumber();
                 String todayNews = news.getNewsContent(newsIndexOfTheDay);
                 int mainMenuSelection;
-                boolean isPriceUpdated = false;
+
 
                 MarketReturnGenerator generator = new MarketReturnGenerator();
                 double mktReturnOfTheDay = generator.nextMarketReturn(newsIndexOfTheDay);
+
+                updateDashboard(day, newsIndexOfTheDay, mktReturnOfTheDay);
+
 
                 ui.playerVsBrotherReports(day, player, brother, mktReturnOfTheDay, newsIndexOfTheDay, inventory);
 
@@ -85,18 +88,32 @@ public class Game {
                     switch (mainMenuSelection) {
                         // trading room
                         case 1:
-
-                            tradingRoomStockDashboard(day,newsIndexOfTheDay,
-                            mktReturnOfTheDay,isPriceUpdated);
-                            isPriceUpdated = true;
+                            showTradingRoomStockDashboard(day, newsIndexOfTheDay,
+                                    mktReturnOfTheDay);
 
 
                             ui.tradingRoomMenu();
                             String userInputForBuyAndSale = ui.userInput();
+                            //BUY LOGIC
                             if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_ONE)) {
                                 System.out.println("Please enter the symbol of the stock that you want to purchase:");
                                 String stockSymbol = ui.userInput();
-                                System.out.println("How many shares would you like? Fractional is not allowed! (Enter whole number ONLY)");
+
+                                if (inventory.findBySymbol(stockSymbol) == null) {
+
+                                    while (inventory.findBySymbol(stockSymbol) == null) {
+                                        System.out.println("This stock is not offered.");
+                                        System.out.println("Please try again. Please select from the List");
+                                        showTradingRoomStockDashboard(day, newsIndexOfTheDay,
+                                                mktReturnOfTheDay);
+                                        stockSymbol = ui.userInput();
+                                    }
+
+                                } else {
+                                    System.out.println("How many shares would you like? " +
+                                            "Fractional is not allowed! (Enter whole number ONLY)");
+
+                                }
 
                                 int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
 
@@ -164,6 +181,9 @@ public class Game {
                                             playerStockMap.get(keyList.get(i)));
                                 }
 
+                            } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_THREE)) {
+                                ui.playerVsBrotherReports(day, player, brother,
+                                        mktReturnOfTheDay, newsIndexOfTheDay, inventory);
                             }
                             break;
 
@@ -176,7 +196,7 @@ public class Game {
                         // Next Day Logic
                         case 3:
 
-                            nextDayOps(day,newsIndexOfTheDay,mktReturnOfTheDay);
+                            nextDayOps(day, newsIndexOfTheDay, mktReturnOfTheDay);
                             break;
 
                         default:
@@ -195,7 +215,7 @@ public class Game {
 
     }
 
-    private void newsRoomOps(String todayNews){
+    private void newsRoomOps(String todayNews) {
         ui.newsRoomInfo();
         String newsAnswer = ui.userInput();
 
@@ -211,19 +231,19 @@ public class Game {
     }
 
     //option 3
-    private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay){
+    private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) {
         double totalPlayerBalance = player.getAccount().getCashBalance();
         double totalBrotherBalance = brother.getAccount().getCashBalance();
 
         if (day == 4) {
             for (Map.Entry<String, Integer> entry : playerStockMap.entrySet()) {
                 totalPlayerBalance += inventory.findBySymbol(entry.getKey())
-                        .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
+                        .UpdateStockPriceForTheDay(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
             }
 
             for (Map.Entry<String, Integer> entry : brotherStockMap.entrySet()) {
                 totalBrotherBalance += inventory.findBySymbol(entry.getKey())
-                        .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
+                        .UpdateStockPriceForTheDay(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
             }
 
             if (totalPlayerBalance > totalBrotherBalance) {
@@ -242,42 +262,33 @@ public class Game {
         }
     }
 
-    private void tradingRoomStockDashboard(int day, int newsIndexOfTheDay,
-                                           double mktReturnOfTheDay,boolean isPriceUpdated){
+    private void showTradingRoomStockDashboard(int day, int newsIndexOfTheDay,
+                                               double mktReturnOfTheDay) {
         ui.titleBarForInventory(day);
 
-        //first day of trading: stock price is directly from csv file
-        //System.out.println("mktReturn:"+mktReturnOfTheDay);
-        //System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
-        if (day == 0) {
+        for (Stock stock : inventory.getAllStocks()) {
+            System.out.println(stock.toString());
+        }
+
+        //the following two are for testing verification purpose;removed b4 final release
+        //System.out.println("mktReturn:" + mktReturnOfTheDay);
+        //System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
+
+    }
+
+
+    private void updateDashboard(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) {
+
+        if (day != 0) {
             for (Stock stock : inventory.getAllStocks()) {
-                System.out.println(stock.toString());
+                //stock
+                double nextPrice = stock.UpdateStockPriceForTheDay(stock.getCurrentPrice(),
+                        mktReturnOfTheDay, newsIndexOfTheDay);
+                stock.setCurrentPrice(nextPrice);
+
             }
         }
-        // the following days: function needed to be run to update stock price
 
-        else {
-
-            if (!isPriceUpdated) {
-                for (Stock stock : inventory.getAllStocks()) {
-                    //stock
-                    double nextPrice = stock.nextDayPrice(stock.getCurrentPrice(),
-                            mktReturnOfTheDay, newsIndexOfTheDay);
-                    stock.setCurrentPrice(nextPrice);
-                }
-
-            }
-
-            //the following two are for testing verification purpose;removed b4 final release
-            System.out.println("mktReturn:" + mktReturnOfTheDay);
-            System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
-
-
-            for (Stock stock : inventory.getAllStocks()) {
-                System.out.println(stock.toString());
-            }
-
-        }
     }
 
 }

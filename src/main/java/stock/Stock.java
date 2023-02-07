@@ -94,7 +94,7 @@ public class Stock {
     }
     // price calculator based on the day
 
-    public double nextDayPrice(double currentPrice, double mktReturn, int newsIndex) {
+    public double UpdateStockPriceForTheDay(double currentPrice, double mktReturn, int newsIndex) {
 
         double ans=999;
         switch (newsIndex) {
