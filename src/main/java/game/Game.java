@@ -144,6 +144,10 @@ public class Game {
                                     player.getAccount().deductBalance(numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice());
                                     System.out.println("Successfully Purchased!");
 
+                                    System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
+                                    +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".");
+
+
                                     //SOUNDS**************************************
                                     Scanner scanner = new Scanner(System.in);
 
@@ -153,6 +157,7 @@ public class Game {
                                     clip.open(audioStream);
 
                                     clip.start();
+
 
                                 }
                                 // brother randomly purchase the stock
@@ -190,12 +195,14 @@ public class Game {
                                     stockSymbol = ui.userInput();
                                 }
 
-
+                                String quantityInput="";
                                 // edge cases player cannot enter more than what they have
                                 while (isSellMenuRunning) {
                                     System.out.println("Please enter the quantity:");
-                                    String quantityInput = ui.userInput();
-                                    while (!isInteger(quantityInput)) {
+
+                                    quantityInput = ui.userInput();
+                                    while(!isInteger(quantityInput)){
+
                                         System.out.println("Your input is not an integer. Please try again");
                                         System.out.println("How many shares would you like? " +
                                                 "Fractional is not allowed! (Enter whole number ONLY)");
@@ -229,7 +236,8 @@ public class Game {
                                     }
 
                                 }
-
+                                System.out.println("You have sold "+quantityInput
+                                        +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".");
                                 System.out.println("Yours current Holdings After Sell!\n");
                                 System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
                                 for (int i = 0; i < keyList.size(); i++) {
