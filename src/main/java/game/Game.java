@@ -331,6 +331,7 @@ public class Game {
                 System.out.println("Tie Game! ");
             }
 
+
         } else if (day == 3) {
             ui.lastDay();
         } else {
