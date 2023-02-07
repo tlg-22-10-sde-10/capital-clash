@@ -14,6 +14,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -30,6 +31,7 @@ public class Game {
     private final String NUMBER_ONE = "1";
     private final String NUMBER_TWO = "2";
     private final String NUMBER_THREE = "3";
+    private static final DecimalFormat df=new DecimalFormat("0.00");
 
     Map<String, Integer> playerStockMap = new HashMap<>();
     Map<String, Integer> brotherStockMap = new HashMap<>();
@@ -308,14 +310,17 @@ public class Game {
 
         if (day == 4) {
             for (Map.Entry<String, Integer> entry : playerStockMap.entrySet()) {
-                totalPlayerBalance += inventory.findBySymbol(entry.getKey())
-                        .UpdateStockPriceForTheDay(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
+                totalPlayerBalance += inventory.findBySymbol(entry.getKey()).getCurrentPrice()
+                         * entry.getValue();
             }
 
             for (Map.Entry<String, Integer> entry : brotherStockMap.entrySet()) {
-                totalBrotherBalance += inventory.findBySymbol(entry.getKey())
-                        .UpdateStockPriceForTheDay(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
+                totalBrotherBalance += inventory.findBySymbol(entry.getKey()).getCurrentPrice()
+                        * entry.getValue();
             }
+
+            System.out.println("Your total balance is $"+df.format(totalPlayerBalance)+".");
+            System.out.println("Your Brother's total balance is $"+df.format(totalBrotherBalance)+".");
 
             if (totalPlayerBalance > totalBrotherBalance) {
                 ui.playerWinMessage();
