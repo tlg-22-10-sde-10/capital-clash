@@ -88,8 +88,7 @@ public class Game {
                     switch (mainMenuSelection) {
                         // trading room
                         case 1:
-                            showTradingRoomStockDashboard(day, newsIndexOfTheDay,
-                                    mktReturnOfTheDay);
+                            showTradingRoomStockDashboard(day);
 
 
                             ui.tradingRoomMenu();
@@ -102,9 +101,8 @@ public class Game {
                                 //handle unrecognized symbol error
                                 while (inventory.findBySymbol(stockSymbol) == null) {
                                     System.out.println("This stock is not offered.");
-                                    System.out.println("Please try again. Please select from the List");
-                                    showTradingRoomStockDashboard(day, newsIndexOfTheDay,
-                                            mktReturnOfTheDay);
+                                    System.out.println("Please try again. Please select from the List.");
+                                    showTradingRoomStockDashboard(day);
                                     System.out.println("Please enter the symbol of the stock" +
                                             " that you want to purchase:");
                                     stockSymbol = ui.userInput();
@@ -224,6 +222,7 @@ public class Game {
 
     }
 
+    //case 2
     private void newsRoomOps(String todayNews) {
         ui.newsRoomInfo();
         String newsAnswer = ui.userInput();
@@ -239,7 +238,7 @@ public class Game {
         }
     }
 
-    //option 3
+    //case 3
     private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) {
         double totalPlayerBalance = player.getAccount().getCashBalance();
         double totalBrotherBalance = brother.getAccount().getCashBalance();
@@ -271,8 +270,8 @@ public class Game {
         }
     }
 
-    private void showTradingRoomStockDashboard(int day, int newsIndexOfTheDay,
-                                               double mktReturnOfTheDay) {
+    private void showTradingRoomStockDashboard(int day) {
+
         ui.titleBarForInventory(day);
 
         for (Stock stock : inventory.getAllStocks()) {
@@ -284,7 +283,6 @@ public class Game {
         //System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
 
     }
-
 
     private void updateDashboard(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) {
 
@@ -299,6 +297,7 @@ public class Game {
         }
 
     }
+
     private  boolean isInteger(String strNum) {
         if (strNum == null) {
             return false;
