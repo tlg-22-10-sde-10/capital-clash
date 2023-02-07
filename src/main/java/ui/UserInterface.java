@@ -84,15 +84,15 @@ public class UserInterface {
 
     public void startMenu() {
         String challenge = "ARE YOU UP TO THE CHALLENGE?\n";
-//        int i;
-//        for(i = 0; i < challenge.length(); i++){
-//            System.out.printf("%c", challenge.charAt(i));
-//            try{
-//                Thread.sleep(200);
-//            }catch(InterruptedException ex){
-//                Thread.currentThread().interrupt();
-//            }
-//        }
+        int i;
+        for(i = 0; i < challenge.length(); i++){
+            System.out.printf("%c", challenge.charAt(i));
+            try{
+                Thread.sleep(85);
+            }catch(InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
     }
 
