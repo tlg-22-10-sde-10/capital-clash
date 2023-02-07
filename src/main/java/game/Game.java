@@ -302,7 +302,7 @@ public class Game {
     }
 
     //case 3
-    private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) {
+    private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         double totalPlayerBalance = player.getAccount().getCashBalance();
         double totalBrotherBalance = brother.getAccount().getCashBalance();
 
@@ -320,8 +320,18 @@ public class Game {
             if (totalPlayerBalance > totalBrotherBalance) {
                 ui.playerWinMessage();
 
+
+                //SOUNDS
+                File file = new File("src/main/resources/piglevelwin2mp3-14800.wav");
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioStream);
+
+                clip.start();
+
             } else if (totalPlayerBalance < totalBrotherBalance) {
                 ui.brotherWinMessage();
+
             } else {
                 System.out.println("Tie Game! ");
             }
