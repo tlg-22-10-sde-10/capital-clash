@@ -99,23 +99,32 @@ public class Game {
                                 System.out.println("Please enter the symbol of the stock that you want to purchase:");
                                 String stockSymbol = ui.userInput();
 
-                                if (inventory.findBySymbol(stockSymbol) == null) {
-
-                                    while (inventory.findBySymbol(stockSymbol) == null) {
-                                        System.out.println("This stock is not offered.");
-                                        System.out.println("Please try again. Please select from the List");
-                                        showTradingRoomStockDashboard(day, newsIndexOfTheDay,
-                                                mktReturnOfTheDay);
-                                        System.out.println("Please enter the symbol of the stock" +
-                                                " that you want to purchase:");
-                                        stockSymbol = ui.userInput();
-                                    }
-
+                                //handle unrecognized symbol error
+                                while (inventory.findBySymbol(stockSymbol) == null) {
+                                    System.out.println("This stock is not offered.");
+                                    System.out.println("Please try again. Please select from the List");
+                                    showTradingRoomStockDashboard(day, newsIndexOfTheDay,
+                                            mktReturnOfTheDay);
+                                    System.out.println("Please enter the symbol of the stock" +
+                                            " that you want to purchase:");
+                                    stockSymbol = ui.userInput();
                                 }
+
+
                                 System.out.println("How many shares would you like? " +
                                         "Fractional is not allowed! (Enter whole number ONLY)");
 
-                                int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
+//                                int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
+
+                                //handle quantity-is-not-an-integer problem
+                                String quantityInput = ui.userInput();
+                                while(!isInteger(quantityInput)){
+                                    System.out.println("Your input is not an integer. Please try again");
+                                    System.out.println("How many shares would you like? " +
+                                            "Fractional is not allowed! (Enter whole number ONLY)");
+                                    quantityInput = ui.userInput();
+                                }
+                                int numberOfStockPurchaseByPlayer=Integer.parseInt(quantityInput);
 
                                 Stock playerStock = inventory.findBySymbol(stockSymbol);
                                 double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
@@ -208,7 +217,7 @@ public class Game {
                 day++;
 
             }
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | NumberFormatException e) {
             System.out.print("Please provide valid value and try again.\n");
 
         }
@@ -289,6 +298,17 @@ public class Game {
             }
         }
 
+    }
+    private  boolean isInteger(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            int d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 }
