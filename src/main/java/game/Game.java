@@ -150,7 +150,7 @@ public class Game {
 
                             } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_TWO)) {
                                 ArrayList<String> keyList = new ArrayList<String>(playerStockMap.keySet());
-                                System.out.println("Yours current Holdings!");
+                                System.out.println("Yours current Holdings:");
                                 System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
                                 for (int i = 0; i < keyList.size(); i++) {
                                     System.out.format("%-15s%-15s\n", keyList.get(i),
@@ -161,10 +161,34 @@ public class Game {
 
                                 System.out.println("Please enter the stock symbol that you want to sell.");
                                 String stockSymbol = ui.userInput();
+
+
+                                //handle unrecognized symbol error
+                                while  (!playerStockMap.containsKey(stockSymbol)) {
+                                    System.out.println("This stock is not in your holding.");
+                                    System.out.println("Please try again. Please select from your holding.");
+                                    System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
+                                    for (int i = 0; i < keyList.size(); i++) {
+                                        System.out.format("%-15s%-15s\n", keyList.get(i),
+                                                playerStockMap.get(keyList.get(i)));
+                                    }
+                                    System.out.println("Please enter the stock symbol that you want to sell.");
+                                    stockSymbol = ui.userInput();
+                                }
+
+
                                 // edge cases player cannot enter more than what they have
                                 while (isSellMenuRunning) {
-                                    System.out.println("Please enter the quantity!");
-                                    int quantity = Integer.parseInt(ui.userInput());
+                                    System.out.println("Please enter the quantity:");
+                                    String quantityInput = ui.userInput();
+                                    while(!isInteger(quantityInput)){
+                                        System.out.println("Your input is not an integer. Please try again");
+                                        System.out.println("How many shares would you like? " +
+                                                "Fractional is not allowed! (Enter whole number ONLY)");
+                                        quantityInput = ui.userInput();
+                                    }
+                                    int quantity=Integer.parseInt(quantityInput);
+                                    //int quantity = Integer.parseInt(ui.userInput());
 
                                     if (playerStockMap.get(stockSymbol) >= quantity) {
                                         player.getAccount().calculateBalance(quantity *
