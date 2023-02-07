@@ -21,16 +21,7 @@ public class GameClient {
             options++;
         }
 
-        Scanner scanner = new Scanner(System.in);
-
-        File file = new File("src/main/java/cashier.wav");
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioStream);
-
-        clip.start();
-        String response = scanner.next();
-
+//        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     }
 }
