@@ -100,8 +100,8 @@ public class UserInterface {
                                        int newsIndexOfTheDay, StockInventory inventory) {
         if(player != null && brother != null && inventory != null) {
 
-            double playerStockBalance = player.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
-            double brotherStockBalance = brother.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
+            double playerStockBalance = player.getStockBalance(inventory);
+            double brotherStockBalance = brother.getStockBalance(inventory);
             System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n","",day+ANSI_RESET));
             System.out.println(String.format("%-18s %-42s %-14s","",ANSI_RED_BACKGROUND+"You"+ANSI_RESET,ANSI_RED_BACKGROUND+"Brother"+ANSI_RESET));
 

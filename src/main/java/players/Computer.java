@@ -53,15 +53,14 @@ public class Computer {
         this.stockNames = stockNames;
     }
 
-    public double getStockBalance(double mktReturnOfTheDay, int newsIndexOfTheDay, StockInventory inventory) {
+    public double getStockBalance(StockInventory inventory) {
 
         double stockBalance=0.0;
         if(stocks == null) {
             return stockBalance;
         }
         for (Map.Entry<String, Integer> entry : stocks.entrySet()) {
-            stockBalance+=inventory.findBySymbol(entry.getKey())
-                    .UpdateStockPriceForTheDay(inventory.findBySymbol(entry.getKey()).getCurrentPrice(),mktReturnOfTheDay,newsIndexOfTheDay)*entry.getValue();
+            stockBalance+=inventory.findBySymbol(entry.getKey()).getCurrentPrice() *entry.getValue();
         }
         return stockBalance;
     }
