@@ -140,6 +140,8 @@ public class Game {
                                     player.setStocks(playerStockMap);
                                     player.getAccount().deductBalance(numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice());
                                     System.out.println("Successfully Purchased!");
+                                    System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
+                                    +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".");
                                 }
                                 // brother randomly purchase the stock
                                 int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
@@ -176,11 +178,11 @@ public class Game {
                                     stockSymbol = ui.userInput();
                                 }
 
-
+                                String quantityInput="";
                                 // edge cases player cannot enter more than what they have
                                 while (isSellMenuRunning) {
                                     System.out.println("Please enter the quantity:");
-                                    String quantityInput = ui.userInput();
+                                    quantityInput = ui.userInput();
                                     while(!isInteger(quantityInput)){
                                         System.out.println("Your input is not an integer. Please try again");
                                         System.out.println("How many shares would you like? " +
@@ -204,7 +206,8 @@ public class Game {
                                     }
 
                                 }
-
+                                System.out.println("You have sold "+quantityInput
+                                        +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".");
                                 System.out.println("Yours current Holdings After Sell!\n");
                                 System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
                                 for (int i = 0; i < keyList.size(); i++) {
