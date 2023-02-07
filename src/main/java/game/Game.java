@@ -208,7 +208,7 @@ public class Game {
                 day++;
 
             }
-        } catch (InputMismatchException | IllegalArgumentException e) {
+        } catch (InputMismatchException e) {
             System.out.print("Please provide valid value and try again.\n");
 
         }
