@@ -2,6 +2,7 @@ package players;
 
 import account.Account;
 import stock.Stock;
+import storage.StockInventory;
 
 import java.util.List;
 import java.util.Map;
@@ -51,5 +52,18 @@ public class Computer {
     public void setStockNames(List<String> stockNames) {
 
         this.stockNames = stockNames;
+    }
+
+    public double getStockBalance(double mktReturnOfTheDay, int newsIndexOfTheDay, StockInventory inventory) {
+
+        double stockBalance=0.0;
+        if(stocks == null) {
+            return stockBalance;
+        }
+        for (Map.Entry<String, Integer> entry : stocks.entrySet()) {
+            stockBalance+=inventory.findBySymbol(entry.getKey())
+                    .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(),mktReturnOfTheDay,newsIndexOfTheDay)*entry.getValue();
+        }
+        return stockBalance;
     }
 }

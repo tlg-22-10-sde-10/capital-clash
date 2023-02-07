@@ -1,13 +1,15 @@
 package account;
 
 import stock.Stock;
+import storage.StockInventory;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Account {
 
     private String accountName;
-
     private double cashBalance=10000;
 
     public Account(String accountName) {
@@ -41,6 +43,8 @@ public class Account {
         this.cashBalance+=priceOfStock;
 
     }
+
+
 
 
     @Override

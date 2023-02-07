@@ -1,13 +1,14 @@
 package ui;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import stock.Stock;
-import storage.StockInventory;
-import account.Account;
-import players.Player;
 import players.Computer;
+import players.Player;
+import storage.StockInventory;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class UserInterface {
     private Scanner myScanner;
@@ -95,13 +96,26 @@ public class UserInterface {
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
     }
 
-    public void playerVsBrotherReports(int day, Player player, Computer brother) {
+    public void playerVsBrotherReports(int day, Player player, Computer brother, double mktReturnOfTheDay,
+                                       int newsIndexOfTheDay, StockInventory inventory) {
+        if(player != null && brother != null && inventory != null) {
 
-        System.out.println(String.format("%-32s DAY: %-10s","",day));
-        System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
-        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStocks(), brother.getStocks()));
-        System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
-                "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
+            double playerStockBalance = player.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
+            double brotherStockBalance = brother.getStockBalance(mktReturnOfTheDay,newsIndexOfTheDay,inventory);
+            System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n","",day+ANSI_RESET));
+            System.out.println(String.format("%-18s %-42s %-14s","",ANSI_RED_BACKGROUND+"You"+ANSI_RESET,ANSI_RED_BACKGROUND+"Brother"+ANSI_RESET));
+
+            System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",
+                    player.getStocks()==null?"None.":player.getStocks(),
+                    brother.getStocks()==null?"None.":brother.getStocks()));
+
+            System.out.println(String.format("%-18s Cash Balance:$%-19.2f Cash Balance:$%-10.2f",
+                    "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
+            System.out.println(String.format("%-18s Stock Balance:$%-18.2f Stock Balance:$%-10.2f",
+                    "",playerStockBalance,brotherStockBalance));
+            System.out.println(String.format("%-18s Net Balance:$%-20.2f Net Balance:$%-10.2f\n",
+                    "",playerStockBalance+player.getAccount().getCashBalance(),brotherStockBalance+brother.getAccount().getCashBalance()));
+        }
 
     }
 
@@ -128,5 +142,18 @@ public class UserInterface {
 
     public void thankYouMessage() {
         System.out.println("Thank yor visiting!");
+    }
+
+    public void playerWinMessage() {
+        System.out.println(String.format("%-20s",ANSI_GREEN + "You beat your brother!!\n"+ ANSI_RESET));
+
+    }
+
+    public void brotherWinMessage() {
+        System.out.println(ANSI_RED + "Sorry, You loose with your brother!!\n"+ ANSI_RESET);
+    }
+
+    public void lastDay() {
+        System.out.println(ANSI_YELLOW +"This is the last day to invest! \n"+ ANSI_RESET);
     }
 }

@@ -1,10 +1,9 @@
 package game;
 
 import Random.RandomNumberForNews;
-import marketReturn.MarketReturnGenerator;
 import account.Account;
+import marketReturn.MarketReturnGenerator;
 import news.News;
-import org.w3c.dom.ls.LSOutput;
 import players.Computer;
 import players.Player;
 import stock.Stock;
@@ -58,13 +57,12 @@ public class Game {
         }
     }
 
+
     private void play() throws IllegalArgumentException, InputMismatchException {
+
         try {
-
-
             ui.displayGameInfo();
             int day = 0;
-
 
             Scanner stdInt = new Scanner(System.in);
 
@@ -78,7 +76,7 @@ public class Game {
                 MarketReturnGenerator generator = new MarketReturnGenerator();
                 double mktReturnOfTheDay = generator.nextMarketReturn(newsIndexOfTheDay);
 
-                ui.playerVsBrotherReports(day, player, brother);
+                ui.playerVsBrotherReports(day, player, brother, mktReturnOfTheDay, newsIndexOfTheDay, inventory);
 
                 do {
                     ui.mainMenu();
@@ -88,37 +86,10 @@ public class Game {
                         // trading room
                         case 1:
 
-                            ui.titleBarForInventory(day);
+                            tradingRoomStockDashboard(day,newsIndexOfTheDay,
+                            mktReturnOfTheDay,isPriceUpdated);
+                            isPriceUpdated = true;
 
-                            //first day of trading: stock price is directly from csv file
-                            if (day == 0) {
-                                for (Stock stock : inventory.getAllStocks()) {
-                                    System.out.println(stock.toString());
-                                }
-                            }
-                            // the following days: function needed to be run to update stock price
-
-                            else {
-
-                                if (!isPriceUpdated) {
-                                    for (Stock stock : inventory.getAllStocks()) {
-                                        //stock
-                                        double nextPrice = stock.nextDayPrice(stock.getCurrentPrice(),
-                                                mktReturnOfTheDay, newsIndexOfTheDay);
-                                        stock.setCurrentPrice(nextPrice);
-                                    }
-                                    isPriceUpdated = true;
-                                }
-
-                                //the following two are for testing verification purpose;removed b4 final release
-                                System.out.println("mktReturn:" + mktReturnOfTheDay);
-                                System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
-
-                                for (Stock stock : inventory.getAllStocks()) {
-                                    System.out.println(stock.toString());
-                                }
-
-                            }
 
                             ui.tradingRoomMenu();
                             String userInputForBuyAndSale = ui.userInput();
@@ -195,25 +166,17 @@ public class Game {
 
                             }
                             break;
+
                         // news room
                         case 2:
-                            ui.newsRoomInfo();
-                            String newsAnswer = ui.userInput();
 
-                            if (newsAnswer.equalsIgnoreCase("1")) {
-                                System.out.println("Breaking News:");
-                                System.out.println(todayNews + "\n===================================");
-                            } else if (newsAnswer.equalsIgnoreCase("2")) {
-                                ui.newsDecline();
-                            } else {
-                                ui.invalidChoice();
-                            }
-
+                            newsRoomOps(todayNews);
                             break;
 
                         // Next Day Logic
                         case 3:
-                            ui.nextDay();
+
+                            nextDayOps(day,newsIndexOfTheDay,mktReturnOfTheDay);
                             break;
 
                         default:
@@ -221,10 +184,99 @@ public class Game {
                     }
 
                 } while (mainMenuSelection != 3);
+
                 day++;
+
             }
-        }catch (InputMismatchException | IllegalArgumentException e) {
+        } catch (InputMismatchException | IllegalArgumentException e) {
             System.out.print("Please provide valid value and try again.\n");
+
+        }
+
+    }
+
+    private void newsRoomOps(String todayNews){
+        ui.newsRoomInfo();
+        String newsAnswer = ui.userInput();
+
+        if (newsAnswer.equalsIgnoreCase("1")) {
+            System.out.println("\n===================================");
+            System.out.println("Breaking News:");
+            System.out.println(todayNews + "\n===================================");
+        } else if (newsAnswer.equalsIgnoreCase("2")) {
+            ui.newsDecline();
+        } else {
+            ui.invalidChoice();
+        }
+    }
+
+    //option 3
+    private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay){
+        double totalPlayerBalance = player.getAccount().getCashBalance();
+        double totalBrotherBalance = brother.getAccount().getCashBalance();
+
+        if (day == 4) {
+            for (Map.Entry<String, Integer> entry : playerStockMap.entrySet()) {
+                totalPlayerBalance += inventory.findBySymbol(entry.getKey())
+                        .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
+            }
+
+            for (Map.Entry<String, Integer> entry : brotherStockMap.entrySet()) {
+                totalBrotherBalance += inventory.findBySymbol(entry.getKey())
+                        .nextDayPrice(inventory.findBySymbol(entry.getKey()).getCurrentPrice(), mktReturnOfTheDay, newsIndexOfTheDay) * entry.getValue();
+            }
+
+            if (totalPlayerBalance > totalBrotherBalance) {
+                ui.playerWinMessage();
+
+            } else if (totalPlayerBalance < totalBrotherBalance) {
+                ui.brotherWinMessage();
+            } else {
+                System.out.println("Tie Game! ");
+            }
+
+        } else if (day == 3) {
+            ui.lastDay();
+        } else {
+            ui.nextDay();
+        }
+    }
+
+    private void tradingRoomStockDashboard(int day, int newsIndexOfTheDay,
+                                           double mktReturnOfTheDay,boolean isPriceUpdated){
+        ui.titleBarForInventory(day);
+
+        //first day of trading: stock price is directly from csv file
+        //System.out.println("mktReturn:"+mktReturnOfTheDay);
+        //System.out.println("newsIndexOfTheDay:"+newsIndexOfTheDay);
+        if (day == 0) {
+            for (Stock stock : inventory.getAllStocks()) {
+                System.out.println(stock.toString());
+            }
+        }
+        // the following days: function needed to be run to update stock price
+
+        else {
+
+            if (!isPriceUpdated) {
+                for (Stock stock : inventory.getAllStocks()) {
+                    //stock
+                    double nextPrice = stock.nextDayPrice(stock.getCurrentPrice(),
+                            mktReturnOfTheDay, newsIndexOfTheDay);
+                    stock.setCurrentPrice(nextPrice);
+                }
+
+            }
+
+            //the following two are for testing verification purpose;removed b4 final release
+            System.out.println("mktReturn:" + mktReturnOfTheDay);
+            System.out.println("newsIndexOfTheDay:" + newsIndexOfTheDay);
+
+
+            for (Stock stock : inventory.getAllStocks()) {
+                System.out.println(stock.toString());
+            }
+
         }
     }
 
