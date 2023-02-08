@@ -1,4 +1,4 @@
-package marketReturn;
+package marketreturn;
 
 import java.util.Random;
 
