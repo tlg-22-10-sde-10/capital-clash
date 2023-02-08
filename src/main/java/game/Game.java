@@ -1,8 +1,8 @@
 package game;
 
-import Random.RandomNumberForNews;
+import random.RandomNumberForNews;
 import account.Account;
-import marketReturn.MarketReturnGenerator;
+import marketreturn.MarketReturnGenerator;
 import news.News;
 import players.Computer;
 import players.Player;

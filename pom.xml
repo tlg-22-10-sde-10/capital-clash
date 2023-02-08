@@ -5,18 +5,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!--
-  TODO: Replace "replace.me" in the <groupId> element with the group identifier of the project's
+  Done. Replace "replace.me" in the <groupId> element with the group identifier of the project's
    Maven coordinates. This is usually (but not necessarily) the first 2-3 elements of the base
    package name, and should be written entirely in lower case, with the components separated by
    periods, and without enclosing quotes.
   -->
-  <groupId>replace.me</groupId>
+  <groupId>com.marketclash</groupId>
 
   <!--
-  TODO: Replace "project" in the <artifactId> element with a spinal-case (lower-case, with dashes
+  Done. Replace "project" in the <artifactId> element with a spinal-case (lower-case, with dashes
    between words) version of the project name, without any quotes.
   -->
-  <artifactId>project</artifactId>
+  <artifactId>capital-clash</artifactId>
 
   <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -37,10 +37,10 @@
     <maven-surefire-report-plugin.version>3.0.0-M8</maven-surefire-report-plugin.version>
 
     <!--
-    TODO: Replace "replace.me.project.Main" with the fully qualified class name of the project's main class,
+    Done. Replace "replace.me.project.Main" with the fully qualified class name of the project's main class,
      without any quotes, as the content of the <main-class.name> element.
     -->
-    <main-class.name>replace.me.project.Main</main-class.name>
+    <main-class.name>game.GameClient</main-class.name>
 
   </properties>
 
