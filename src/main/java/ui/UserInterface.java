@@ -73,7 +73,7 @@ public class UserInterface {
 
     public void tradingRoomMenu() {
 
-        System.out.println("\nMake a decision... Please enter numbers only(1-3)");
+        System.out.println("\nMake a decision... Please select your option from 1 to 4.");
         System.out.println("1) Buy \n2) Sell \n3) Check Your Account \n4) Exit ");
 
     }
@@ -126,7 +126,7 @@ public class UserInterface {
     }
 
     public void invalidChoice() {
-        System.out.println("Invalid choice! Please Try Again!\n" + ANSI_RED +
+        System.out.println("Invalid choice. Please Try Again.\n" + ANSI_RED +
                 "==========================================================" +
                 "=======================" + ANSI_RESET + "");
     }
@@ -147,7 +147,7 @@ public class UserInterface {
     }
 
     public void thankYouMessage() {
-        System.out.println("Thank yor visiting!");
+        System.out.println("Thank you. Bye.");
     }
 
     public void playerWinMessage() {
@@ -156,10 +156,10 @@ public class UserInterface {
     }
 
     public void brotherWinMessage() {
-        System.out.println(ANSI_RED + "Sorry, Your brother won the game.\n" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Your brother won the game.\n" + ANSI_RESET);
     }
 
     public void lastDay() {
-        System.out.println(ANSI_YELLOW + "This is the last day to invest! \n" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "This is the last day to invest. \n" + ANSI_RESET);
     }
 }
