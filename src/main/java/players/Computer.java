@@ -1,25 +1,23 @@
 package players;
 
 import account.Account;
-import stock.Stock;
+import storage.StockInventory;
 
 import java.util.List;
+import java.util.Map;
 
 //fields
 public class Computer {
     private String name;
     private Account account;
-    private List<Stock> stocks;
+
+    private Map<String,Integer> stocks;
     private List<String> stockNames;
 
-
-//constructor
-
-
-    public Computer(String name, Account account, List<Stock> stocks) {
+    //constructor
+    public Computer(String name, Account account) {
         this.name = name;
         this.account = account;
-        this.stocks = stocks;
     }
 
     public String getName() {
@@ -38,13 +36,14 @@ public class Computer {
         this.account = account;
     }
 
-    public List<Stock> getStocks() {
+    public Map<String, Integer> getStocks() {
         return stocks;
     }
 
-    public void setStocks(List<Stock> stocks) {
+    public void setStocks(Map<String, Integer> stocks) {
         this.stocks = stocks;
     }
+
     public List<String> getStockNames() {
         return stockNames;
     }
@@ -52,5 +51,17 @@ public class Computer {
     public void setStockNames(List<String> stockNames) {
 
         this.stockNames = stockNames;
+    }
+
+    public double getStockBalance(StockInventory inventory) {
+
+        double stockBalance=0.0;
+        if(stocks == null) {
+            return stockBalance;
+        }
+        for (Map.Entry<String, Integer> entry : stocks.entrySet()) {
+            stockBalance+=inventory.findBySymbol(entry.getKey()).getCurrentPrice() *entry.getValue();
+        }
+        return stockBalance;
     }
 }

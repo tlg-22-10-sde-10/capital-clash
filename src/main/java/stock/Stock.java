@@ -53,19 +53,6 @@ public class Stock {
         this.currentPrice = currentPrice;
     }
 
-//    public void setCurrentPrice(double alpha, double beta, double residual) {
-//        // y = a+bx+u
-//        /*
-//        y is the performance of the stock or fund.
-//        a is alpha, which is the excess return of the stock or fund. (this will be randomized)
-//        b is beta, which is volatility relative to the benchmark. (Each stock has a different beta)
-//        x is the performance of the benchmark, which is often the S&P 500 index. (this will be randomized)
-//        u is the residual, which is the unexplained random portion of performance. (This will be randomized and adds more uncertainty to the game)
-//         */
-//        double x= this.currentPrice + (int)((Math.random() * (this.currentPrice+10)));
-//        this.currentPrice = alpha+(beta*x)+residual;
-//    }
-
     public double getBeta() {
         return beta;
     }
@@ -105,9 +92,9 @@ public class Stock {
 
         return result;
     }
-    // price calculator based on the day
 
-    public double nextDayPrice(double currentPrice, double mktReturn, int newsIndex) {
+    // price calculator based on the day
+    public double UpdateStockPriceForTheDay(double currentPrice, double mktReturn, int newsIndex) {
 
         double ans=999;
         switch (newsIndex) {

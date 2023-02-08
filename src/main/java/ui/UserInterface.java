@@ -1,16 +1,18 @@
 package ui;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import stock.Stock;
-import storage.StockInventory;
-import account.Account;
-import players.Player;
 import players.Computer;
+import players.Player;
+import storage.StockInventory;
+
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class UserInterface {
     private Scanner myScanner;
+
     public UserInterface() throws FileNotFoundException {
         myScanner = new Scanner(System.in);
     }
@@ -21,7 +23,7 @@ public class UserInterface {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
 
-    public void displayASCII(){
+    public void displayASCII() {
 
 
         System.out.println(" -------------WELCOME TO!-----------");
@@ -32,30 +34,35 @@ public class UserInterface {
                 "|#*  ******  | /v\\ |    O N E    *#|\n" +
                 "|#(1)         \\===/            (1)#|\n" +
                 "|##=======CAPITAL CLASH==========##|\n" +
-                ANSI_RESET  +
-                " ===================================" + ANSI_RESET  + "                                                                               "
+                ANSI_RESET +
+                " ===================================" + ANSI_RESET + "                                                                               "
         );
     }
 
-    public  void displayGameInfo() {
+    public void displayGameInfo() {
         // refactor it to small paragraph with all the game details
         System.out.println(ANSI_RED + "================================================================================= \n" + ANSI_RESET +
-                "Let's see who has an eye for stocks. \n"+
-                "The game consist of 5 trading days and a balance of $10,000 each. \n"+
-                "The game will be [T+1 settlement] meaning, that on each day after a stock is bought, \n" +
-                "the sooner you can sell them the next day. \n" +
-                "You will be able to choose from 10 stocks to buy, sell, or hold. \n" +
-                "You will be able to go to the news feed room for current news, \n" +
-                        "go to the trading room for another day of investing,\n" +
-                "or go to the next round for a new day. \n" +
-                "To determine the winner you will have to have the highest account balance on day 4. \n" +
-                "May the HODL be with you. \n" + ANSI_RED +
-                "=================================================================================" + ANSI_RESET + ""
+
+                "It's time to put your stock picking skills to the test. The question is, who has\n" +
+                "a better eye for stocks - you or your brother? The game is a simulation of the\n" +
+                "stock market, lasting for a total of 5 trading days. Each player will start with\n" +
+                "a balance of $10,000 and have the opportunity to choose from a selection of 10\n" +
+                "different stocks. The objective of the game is to make strategic buy, sell, or\n" +
+                "hold decisions to increase your account balance and become the ultimate winner.\n"
+                + "\n" +
+                "Throughout the game, you will be able to access a news feed room to stay updated\n" +
+                "on current events, a trading room where you can make your transactions, and\n" +
+                "advance to the next round to start a new trading day. The ultimate winner will\n" +
+                "be determined on day 4 and will be the player with the highest account balance.\n" +
+                "So, may the HODL be with you, and let the stock market games begin!\n"
+                + "\n" + ANSI_RED +
+                "=================================================================================" +
+                ANSI_RESET + ""
 
         );
     }
 
-    public  void mainMenu() {
+    public void mainMenu() {
         System.out.println("Where would you like to go?");
         System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
                 " \n3) Next Day(Round)\n" + ANSI_RED +
@@ -64,15 +71,17 @@ public class UserInterface {
 
     }
 
-    public  void tradingRoomMenu() {
-        System.out.println("\nMake a decision... Please enter numbers only(1-3)");
-        System.out.println("1) Buy \n2) Sell \n3) Exit ");
+    public void tradingRoomMenu() {
+
+        System.out.println("\nMake a decision... Please select your option from 1 to 4.");
+        System.out.println("1) Buy \n2) Sell \n3) Check Your Account \n4) Exit ");
+
     }
 
-    public  void titleBarForInventory(int day) {
-        System.out.println(String.format("%-60s DAY: %-10s\n","",day));
-        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s","","" + ANSI_RED_BACKGROUND +
-                "Stock Name","    Symbol","Current Price","        Sector       " + ANSI_RESET));
+    public void titleBarForInventory(int day) {
+        System.out.println(String.format("%-60s DAY: %-10s\n", "", day));
+        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s", "", "" + ANSI_RED_BACKGROUND +
+                "Stock Name", "    Symbol", "Current Price", "        Sector       " + ANSI_RESET));
     }
 
     public String userInput() {
@@ -82,33 +91,49 @@ public class UserInterface {
     public void startMenu() {
         String challenge = "ARE YOU UP TO THE CHALLENGE?\n";
         int i;
-        for(i = 0; i < challenge.length(); i++){
+        for (i = 0; i < challenge.length(); i++) {
             System.out.printf("%c", challenge.charAt(i));
-            try{
-                Thread.sleep(200);
-            }catch(InterruptedException ex){
+            try {
+                Thread.sleep(85);
+            } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
         }
-        System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED +"2: No"+ ANSI_RESET);
+        System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED + "2: No" + ANSI_RESET);
     }
 
-    public void playerVsBrotherReports(int day, Player player, Computer brother) {
+    public void playerVsBrotherReports(int day, Player player, Computer brother, double mktReturnOfTheDay,
+                                       int newsIndexOfTheDay, StockInventory inventory) {
+        if (player != null && brother != null && inventory != null) {
 
-        System.out.println(String.format("%-32s DAY: %-10s","",day));
-        System.out.println(String.format("%-18s %-33s %-14s","","You","Brother"));
-        System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s","",player.getStockNames(),brother.getStockNames()));
-        System.out.println(String.format("%-18s Balance:$%-24s Balance:$%-10s\n",
-                "",player.getAccount().getCashBalance(),brother.getAccount().getCashBalance()));
+            double playerStockBalance = player.getStockBalance(inventory);
+            double brotherStockBalance = brother.getStockBalance(inventory);
+            System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n", "", day + ANSI_RESET));
+            System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_RED_BACKGROUND + "You" + ANSI_RESET, ANSI_RED_BACKGROUND + "Brother" + ANSI_RESET));
+
+            System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s", "",
+                    player.getStocks() == null ? "None." : player.getStocks(),
+                    brother.getStocks() == null ? "None." : brother.getStocks()));
+
+            System.out.println(String.format("%-18s Cash Balance:$%-19.2f Cash Balance:$%-10.2f",
+                    "", player.getAccount().getCashBalance(), brother.getAccount().getCashBalance()));
+            System.out.println(String.format("%-18s Stock Balance:$%-18.2f Stock Balance:$%-10.2f",
+                    "", playerStockBalance, brotherStockBalance));
+            System.out.println(String.format("%-18s Net Balance:$%-20.2f Net Balance:$%-10.2f\n",
+                    "", playerStockBalance + player.getAccount().getCashBalance(), brotherStockBalance + brother.getAccount().getCashBalance()));
+        }
 
     }
 
     public void invalidChoice() {
-        System.out.println("Invalid choice!");
+        System.out.println("Invalid choice. Please Try Again.\n" + ANSI_RED +
+                "==========================================================" +
+                "=======================" + ANSI_RESET + "");
     }
 
     public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News? (y/n)"+ ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?");
+        System.out.println("1) Yes\n2) No" + ANSI_RESET);
     }
 
 
@@ -118,10 +143,23 @@ public class UserInterface {
 
     public void nextDay() {
         System.out.println("Thank you for your service. We will see you tomorrow.");
-        System.out.println(ANSI_RESET +"=================================================================================\n" + ANSI_RESET);
+        System.out.println(ANSI_RESET + "=================================================================================\n" + ANSI_RESET);
     }
 
     public void thankYouMessage() {
-        System.out.println("Thank yor visiting!");
+        System.out.println("Thank you. Bye.");
+    }
+
+    public void playerWinMessage() {
+        System.out.println(String.format("%-20s", ANSI_GREEN + "Congratulations. you won the game.\n" + ANSI_RESET));
+
+    }
+
+    public void brotherWinMessage() {
+        System.out.println(ANSI_RED + "Your brother won the game.\n" + ANSI_RESET);
+    }
+
+    public void lastDay() {
+        System.out.println(ANSI_YELLOW + "This is the last day to invest. \n" + ANSI_RESET);
     }
 }
