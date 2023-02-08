@@ -31,6 +31,7 @@ public class Game {
     private final String NUMBER_ONE = "1";
     private final String NUMBER_TWO = "2";
     private final String NUMBER_THREE = "3";
+    private final String NUMBER_FOUR = "4";
     private static final DecimalFormat df=new DecimalFormat("0.00");
 
     Map<String, Integer> playerStockMap = new HashMap<>();
@@ -77,7 +78,6 @@ public class Game {
                 String todayNews = news.getNewsContent(newsIndexOfTheDay);
                 int mainMenuSelection;
 
-
                 MarketReturnGenerator generator = new MarketReturnGenerator();
                 double mktReturnOfTheDay = generator.nextMarketReturn(newsIndexOfTheDay);
 
@@ -93,170 +93,169 @@ public class Game {
                     switch (mainMenuSelection) {
                         // trading room
                         case 1:
-                            showTradingRoomStockDashboard(day);
-
-
-                            ui.tradingRoomMenu();
-                            String userInputForBuyAndSale = ui.userInput();
-                            //BUY LOGIC
-                            if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_ONE)) {
-                                System.out.println("Please enter the symbol of the stock that you want to purchase:");
-                                String stockSymbol = ui.userInput();
-
-                                //handle unrecognized symbol error
-                                while (inventory.findBySymbol(stockSymbol) == null) {
-                                    System.out.println("This stock is not offered. Please select from the list below.\n");
-                                    showTradingRoomStockDashboard(day);
+                            boolean isTradingRoomMenuRunning = true;
+                            while (isTradingRoomMenuRunning) {
+                                showTradingRoomStockDashboard(day);
+                                ui.tradingRoomMenu();
+                                String userInputForBuyAndSale = ui.userInput();
+                                if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_ONE)) {
                                     System.out.println("Please enter the symbol of the stock that you want to purchase:");
-                                    stockSymbol = ui.userInput();
-                                }
-
-
-                                System.out.println("How many shares would you like? " +
-                                        "Fractional numbers are not allowed! (Enter an integer ONLY)");
-
-                                //handle quantity-is-not-an-integer problem
-                                String quantityInput = ui.userInput();
-                                while (!isInteger(quantityInput)) {
-                                    System.out.println("Your input is not an integer. Please try again");
-                                    System.out.println("How many shares would you like? " +
-                                            "Fractional numbers are not allowed. (Enter an integer ONLY)");
-                                    quantityInput = ui.userInput();
-                                }
-                                int numberOfStockPurchaseByPlayer = Integer.parseInt(quantityInput);
-
-                                Stock playerStock = inventory.findBySymbol(stockSymbol);
-                                double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
-                                if (valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
-                                    System.out.println("Unauthorized Purchase: Not Enough Balance");
-                                } else {
-                                    if (playerStockMap.containsKey(stockSymbol)) {
-                                        playerStockMap.put(playerStock.getSymbol(), playerStockMap.get(stockSymbol) + numberOfStockPurchaseByPlayer);
-                                    } else {
-                                        playerStockMap.put(playerStock.getSymbol(), numberOfStockPurchaseByPlayer);
-                                    }
-
-                                    playerStocks.add(playerStock.getSymbol());
-                                    player.setStockNames(playerStocks);
-                                    player.setStocks(playerStockMap);
-                                    player.getAccount().deductBalance(numberOfStockPurchaseByPlayer
-                                            * playerStock.getCurrentPrice());
-
-                                    System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
-                                    +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".\n");
-
-
-                                    //SOUNDS**************************************
-                                    Scanner scanner = new Scanner(System.in);
-
-                                    File file = new File("src/main/resources/cashier.wav.wav");
-                                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-                                    Clip clip = AudioSystem.getClip();
-                                    clip.open(audioStream);
-
-                                    clip.start();
-
-
-                                }
-                                // brother randomly purchase the stock
-                                int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
-                                Stock brotherStock = inventory.getRandomStock();
-                                brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
-                                brother.setStocks(brotherStockMap);
-                                brother.getAccount().deductBalance(numberOfStockPurchasedByBrother * brotherStock.getCurrentPrice());
-
-                            } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_TWO)) {
-                                if(playerStockMap.isEmpty()){
-                                    System.out.println("You currently do not have any stock. So you are not able to " +
-                                            "do sell transaction.\n");
-                                }else{
-
-                                    ArrayList<String> keyList = new ArrayList<String>(playerStockMap.keySet());
-                                    System.out.println("Yours current Holdings:");
-                                    System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
-                                    for (int i = 0; i < keyList.size(); i++) {
-                                        System.out.format("%-15s%-15s\n", keyList.get(i),
-                                                playerStockMap.get(keyList.get(i)));
-                                    }
-
-                                    boolean isSellMenuRunning = true;
-                                    System.out.println("Please enter the stock symbol that you want to sell.");
                                     String stockSymbol = ui.userInput();
 
                                     //handle unrecognized symbol error
-                                    while (!playerStockMap.containsKey(stockSymbol)) {
-                                        System.out.println("This stock is not in your holding.");
-                                        System.out.println("Please try again. Please select from your holding.");
+                                    while (inventory.findBySymbol(stockSymbol) == null) {
+                                        System.out.println("This stock is not offered. Please select from the list below.\n");
+                                        showTradingRoomStockDashboard(day);
+                                        System.out.println("Please enter the symbol of the stock that you want to purchase:");
+                                        stockSymbol = ui.userInput();
+                                    }
+
+
+                                    System.out.println("How many shares would you like? " +
+                                            "Fractional numbers are not allowed! (Enter an integer ONLY)");
+
+                                    //handle quantity-is-not-an-integer problem
+                                    String quantityInput = ui.userInput();
+                                    while (!isInteger(quantityInput)) {
+                                        System.out.println("Your input is not an integer. Please try again");
+                                        System.out.println("How many shares would you like? " +
+                                                "Fractional numbers are not allowed. (Enter an integer ONLY)");
+                                        quantityInput = ui.userInput();
+                                    }
+                                    int numberOfStockPurchaseByPlayer = Integer.parseInt(quantityInput);
+
+                                    Stock playerStock = inventory.findBySymbol(stockSymbol);
+                                    double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
+                                    if (valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
+                                        System.out.println("Unauthorized Purchase: Not Enough Balance");
+                                    } else {
+                                        if (playerStockMap.containsKey(stockSymbol)) {
+                                            playerStockMap.put(playerStock.getSymbol(), playerStockMap.get(stockSymbol) + numberOfStockPurchaseByPlayer);
+                                        } else {
+                                            playerStockMap.put(playerStock.getSymbol(), numberOfStockPurchaseByPlayer);
+                                        }
+
+                                        playerStocks.add(playerStock.getSymbol());
+                                        player.setStockNames(playerStocks);
+                                        player.setStocks(playerStockMap);
+                                        player.getAccount().deductBalance(numberOfStockPurchaseByPlayer
+                                                * playerStock.getCurrentPrice());
+
+                                        System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
+                                                +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".\n");
+
+
+                                        //SOUNDS**************************************
+                                        Scanner scanner = new Scanner(System.in);
+
+                                        File file = new File("src/main/resources/cashier.wav.wav");
+                                        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                                        Clip clip = AudioSystem.getClip();
+                                        clip.open(audioStream);
+
+                                        clip.start();
+
+
+                                    }
+                                    // brother randomly purchase the stock
+                                    int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
+                                    Stock brotherStock = inventory.getRandomStock();
+                                    brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
+                                    brother.setStocks(brotherStockMap);
+                                    brother.getAccount().deductBalance(numberOfStockPurchasedByBrother * brotherStock.getCurrentPrice());
+
+                                } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_TWO)) {
+                                    if(playerStockMap.isEmpty()){
+                                        System.out.println("You currently do not have any stock. So you are not able to " +
+                                                "do sell transaction.\n");
+                                    }else{
+
+                                        ArrayList<String> keyList = new ArrayList<String>(playerStockMap.keySet());
+                                        System.out.println("Yours current Holdings:");
                                         System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
                                         for (int i = 0; i < keyList.size(); i++) {
                                             System.out.format("%-15s%-15s\n", keyList.get(i),
                                                     playerStockMap.get(keyList.get(i)));
                                         }
+
+                                        boolean isSellMenuRunning = true;
                                         System.out.println("Please enter the stock symbol that you want to sell.");
-                                        stockSymbol = ui.userInput();
-                                    }
+                                        String stockSymbol = ui.userInput();
 
-                                    String quantityInput="";
-                                    // edge cases player cannot enter more than what they have
-                                    while (isSellMenuRunning) {
-                                        System.out.println("Please enter the quantity:");
-
-                                        quantityInput = ui.userInput();
-                                        while(!isInteger(quantityInput)){
-
-                                            System.out.println("Your input is not an integer. Please try again.");
-                                            System.out.println("How many shares would you like? " +
-                                                    "Fractional numbers are not allowed! (Enter an integer ONLY)");
-                                            quantityInput = ui.userInput();
-                                        }
-                                        int quantity = Integer.parseInt(quantityInput);
-                                        //int quantity = Integer.parseInt(ui.userInput());
-
-                                        if (playerStockMap.get(stockSymbol) >= quantity) {
-                                            player.getAccount().calculateBalance(quantity *
-                                                    inventory.findBySymbol(stockSymbol).getCurrentPrice());
-                                            // update map once the sell is completed
-                                            playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
-                                            if (playerStockMap.get(stockSymbol) == 0) {
-                                                playerStockMap.remove(stockSymbol);
-
-                                                //SOUNDS**************************************
-                                                Scanner scanner = new Scanner(System.in);
-
-                                                File file = new File("src/main/resources/sell.wav");
-                                                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-                                                Clip clip = AudioSystem.getClip();
-                                                clip.open(audioStream);
-
-                                                clip.start();
-
+                                        //handle unrecognized symbol error
+                                        while (!playerStockMap.containsKey(stockSymbol)) {
+                                            System.out.println("This stock is not in your holding.");
+                                            System.out.println("Please try again. Please select from your holding.");
+                                            System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
+                                            for (int i = 0; i < keyList.size(); i++) {
+                                                System.out.format("%-15s%-15s\n", keyList.get(i),
+                                                        playerStockMap.get(keyList.get(i)));
                                             }
-                                            isSellMenuRunning = false;
-                                        } else {
-                                            System.out.println("Please try again and enter the valid stock quantity.\n");
+                                            System.out.println("Please enter the stock symbol that you want to sell.");
+                                            stockSymbol = ui.userInput();
                                         }
 
+                                        String quantityInput="";
+                                        // edge cases player cannot enter more than what they have
+                                        while (isSellMenuRunning) {
+                                            System.out.println("Please enter the quantity:");
+
+                                            quantityInput = ui.userInput();
+                                            while(!isInteger(quantityInput)){
+
+                                                System.out.println("Your input is not an integer. Please try again.");
+                                                System.out.println("How many shares would you like? " +
+                                                        "Fractional numbers are not allowed! (Enter an integer ONLY)");
+                                                quantityInput = ui.userInput();
+                                            }
+                                            int quantity = Integer.parseInt(quantityInput);
+                                            //int quantity = Integer.parseInt(ui.userInput());
+
+                                            if (playerStockMap.get(stockSymbol) >= quantity) {
+                                                player.getAccount().calculateBalance(quantity *
+                                                        inventory.findBySymbol(stockSymbol).getCurrentPrice());
+                                                // update map once the sell is completed
+                                                playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
+                                                if (playerStockMap.get(stockSymbol) == 0) {
+                                                    playerStockMap.remove(stockSymbol);
+
+                                                    //SOUNDS**************************************
+                                                    Scanner scanner = new Scanner(System.in);
+
+                                                    File file = new File("src/main/resources/sell.wav");
+                                                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                                                    Clip clip = AudioSystem.getClip();
+                                                    clip.open(audioStream);
+                                                    clip.start();
+                                                }
+                                                isSellMenuRunning = false;
+                                            } else {
+                                                System.out.println("Please try again and enter the valid stock quantity.\n");
+                                            }
+
+                                        }
+                                        System.out.println("You have sold "+quantityInput
+                                                +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".\n");
+                                        System.out.println("Yours current Holdings After the transaction:\n");
+                                        System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
+                                        for (int i = 0; i < keyList.size(); i++) {
+                                            System.out.format("%-15s%-15s\n", keyList.get(i),
+                                                    playerStockMap.get(keyList.get(i))==null?
+                                                            "0":playerStockMap.get(keyList.get(i)));
+                                        }
                                     }
-                                    System.out.println("You have sold "+quantityInput
-                                            +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".\n");
-                                    System.out.println("Yours current Holdings After the transaction:\n");
-                                    System.out.format("%-15s%-15s\n", "Stock Symbol", "Quantity");
-                                    for (int i = 0; i < keyList.size(); i++) {
-                                        System.out.format("%-15s%-15s\n", keyList.get(i),
-                                                playerStockMap.get(keyList.get(i))==null?
-                                                        "0":playerStockMap.get(keyList.get(i)));
-                                    }
+
+                                } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_THREE)) {
+                                    ui.playerVsBrotherReports(day, player, brother,inventory);
+                                } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_FOUR)) {
+                                   break;
+                                } else {
+                                    ui.invalidChoice();
                                 }
-
-
-                            } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_THREE)) {
-                                ui.playerVsBrotherReports(day, player, brother,inventory);
                             }
                             break;
-
                         // news room
                         case 2:
-
                             newsRoomOps(todayNews);
                             break;
 
