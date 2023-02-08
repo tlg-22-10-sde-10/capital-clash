@@ -84,7 +84,7 @@ public class Game {
                 updateDashboard(day, newsIndexOfTheDay, mktReturnOfTheDay);
 
 
-                ui.playerVsBrotherReports(day, player, brother, mktReturnOfTheDay, newsIndexOfTheDay, inventory);
+                ui.playerVsBrotherReports(day, player, brother,inventory);
 
                 do {
                     ui.mainMenu();
@@ -105,19 +105,15 @@ public class Game {
 
                                 //handle unrecognized symbol error
                                 while (inventory.findBySymbol(stockSymbol) == null) {
-                                    System.out.println("This stock is not offered.\n"
-                                            +"Please select from the List.\n");
+                                    System.out.println("This stock is not offered. Please select from the list below.\n");
                                     showTradingRoomStockDashboard(day);
-                                    System.out.println("Please enter the symbol of the stock" +
-                                            " that you want to purchase:");
+                                    System.out.println("Please enter the symbol of the stock that you want to purchase:");
                                     stockSymbol = ui.userInput();
                                 }
 
 
                                 System.out.println("How many shares would you like? " +
                                         "Fractional numbers are not allowed! (Enter an integer ONLY)");
-
-//                                int numberOfStockPurchaseByPlayer = Integer.parseInt(ui.userInput());
 
                                 //handle quantity-is-not-an-integer problem
                                 String quantityInput = ui.userInput();
@@ -184,10 +180,8 @@ public class Game {
                                     }
 
                                     boolean isSellMenuRunning = true;
-
                                     System.out.println("Please enter the stock symbol that you want to sell.");
                                     String stockSymbol = ui.userInput();
-
 
                                     //handle unrecognized symbol error
                                     while (!playerStockMap.containsKey(stockSymbol)) {
@@ -256,8 +250,7 @@ public class Game {
 
 
                             } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_THREE)) {
-                                ui.playerVsBrotherReports(day, player, brother,
-                                        mktReturnOfTheDay, newsIndexOfTheDay, inventory);
+                                ui.playerVsBrotherReports(day, player, brother,inventory);
                             }
                             break;
 
@@ -270,7 +263,7 @@ public class Game {
                         // Next Day Logic
                         case 3:
 
-                            nextDayOps(day, newsIndexOfTheDay, mktReturnOfTheDay);
+                            nextDayOps(day);
                             break;
 
                         default:
@@ -312,7 +305,7 @@ public class Game {
     }
 
     //case 3
-    private void nextDayOps(int day, int newsIndexOfTheDay, double mktReturnOfTheDay) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+    private void nextDayOps(int day) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         double totalPlayerBalance = player.getAccount().getCashBalance();
         double totalBrotherBalance = brother.getAccount().getCashBalance();
 

@@ -54,7 +54,7 @@ public class UserInterface {
                 "on current events, a trading room where you can make your transactions, and\n" +
                 "advance to the next round to start a new trading day. The ultimate winner will\n" +
                 "be determined on day 4 and will be the player with the highest account balance.\n" +
-                "So, may the HODL be with you, and let the stock market games begin!\n"
+                "So, may the HOLD be with you, and let the stock market games begin!\n"
                 + "\n" + ANSI_RED +
                 "=================================================================================" +
                 ANSI_RESET + ""
@@ -74,14 +74,14 @@ public class UserInterface {
     public void tradingRoomMenu() {
 
         System.out.println("\nMake a decision... Please select your option from 1 to 4.");
-        System.out.println("1) Buy \n2) Sell \n3) Check Your Account \n4) Exit ");
+        System.out.println("1) Buy \n2) Sell \n3) View Account \n4) Exit ");
 
     }
 
     public void titleBarForInventory(int day) {
-        System.out.println(String.format("%-60s DAY: %-10s\n", "", day));
-        System.out.println(String.format("%-10s %-20s %-15s %-18s %-11s", "", "" + ANSI_RED_BACKGROUND +
-                "Stock Name", "    Symbol", "Current Price", "        Sector       " + ANSI_RESET));
+        System.out.println(String.format("%-45s DAY: %-10s\n", "", day));
+        System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ",ANSI_RED_BACKGROUND +
+                "Stock Name", "Symbol", "Current Price", "Sector               " + ANSI_RESET));
     }
 
     public String userInput() {
@@ -91,19 +91,18 @@ public class UserInterface {
     public void startMenu() {
         String challenge = "ARE YOU UP TO THE CHALLENGE?\n";
         int i;
-        for (i = 0; i < challenge.length(); i++) {
-            System.out.printf("%c", challenge.charAt(i));
-            try {
-                Thread.sleep(85);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-        }
+//        for (i = 0; i < challenge.length(); i++) {
+//            System.out.printf("%c", challenge.charAt(i));
+//            try {
+//                Thread.sleep(85);
+//            } catch (InterruptedException ex) {
+//                Thread.currentThread().interrupt();
+//            }
+//        }
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED + "2: No" + ANSI_RESET);
     }
 
-    public void playerVsBrotherReports(int day, Player player, Computer brother, double mktReturnOfTheDay,
-                                       int newsIndexOfTheDay, StockInventory inventory) {
+    public void playerVsBrotherReports(int day, Player player, Computer brother, StockInventory inventory) {
         if (player != null && brother != null && inventory != null) {
 
             double playerStockBalance = player.getStockBalance(inventory);
@@ -112,8 +111,8 @@ public class UserInterface {
             System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_RED_BACKGROUND + "You" + ANSI_RESET, ANSI_RED_BACKGROUND + "Brother" + ANSI_RESET));
 
             System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s", "",
-                    player.getStocks() == null ? "None." : player.getStocks(),
-                    brother.getStocks() == null ? "None." : brother.getStocks()));
+                    player.getStocks() == null ? "Empty" : player.getStocks(),
+                    brother.getStocks() == null ? "Empty" : brother.getStocks()));
 
             System.out.println(String.format("%-18s Cash Balance:$%-19.2f Cash Balance:$%-10.2f",
                     "", player.getAccount().getCashBalance(), brother.getAccount().getCashBalance()));
