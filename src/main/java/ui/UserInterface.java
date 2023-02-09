@@ -4,10 +4,7 @@ import players.Computer;
 import players.Player;
 import storage.StockInventory;
 
-import javax.sound.sampled.*;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -80,7 +77,7 @@ public class UserInterface {
 
     public void titleBarForInventory(int day) {
         System.out.println(String.format("%-45s DAY: %-10s\n", "", day));
-        System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ",ANSI_RED_BACKGROUND +
+        System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ", ANSI_RED_BACKGROUND +
                 "Stock Name", "Symbol", "Current Price", "Sector               " + ANSI_RESET));
     }
 
@@ -130,7 +127,7 @@ public class UserInterface {
     }
 
     public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?"+ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?" + ANSI_RESET);
         System.out.println("1) Yes\n2) No" + ANSI_RESET);
     }
 
@@ -162,17 +159,18 @@ public class UserInterface {
     }
 
     public void newsRoomOps(String todayNews, UserInterface ui) {
-        ui.newsRoomInfo();
-        String newsAnswer = ui.userInput();
-        if (newsAnswer.equalsIgnoreCase("1")) {
-            System.out.println("********************************BREAKING NEWS*************************************");
-            System.out.println(ANSI_RED +"==================================================================================="+ANSI_RESET);
-            System.out.println(ANSI_YELLOW + todayNews + ANSI_RESET);
-            System.out.println(ANSI_RED +"==================================================================================="+ANSI_RESET);
-        } else if (newsAnswer.equalsIgnoreCase("2")) {
-            ui.newsDecline();
-        } else {
-            ui.invalidChoice();
-        }
+//        ui.newsRoomInfo();
+//        String newsAnswer = ui.userInput();
+//        if (newsAnswer.equalsIgnoreCase("1")) {
+        System.out.println(ANSI_RED + "=================================================================================\n" + ANSI_RESET);
+        System.out.println("                             ***BREAKING NEWS***                                 \n");
+
+        System.out.println(ANSI_YELLOW + todayNews + ANSI_RESET);
+        System.out.println(ANSI_RED + "=================================================================================\n" + ANSI_RESET);
+//        } else if (newsAnswer.equalsIgnoreCase("2")) {
+//            ui.newsDecline();
+//        } else {
+//            ui.invalidChoice();
+//        }
     }
 }
