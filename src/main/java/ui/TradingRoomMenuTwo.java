@@ -52,7 +52,6 @@ public class TradingRoomMenuTwo {
                     quantityInput = ui.userInput();
                 }
                 int quantity = Integer.parseInt(quantityInput);
-                //int quantity = Integer.parseInt(ui.userInput());
 
                 if (playerStockMap.get(stockSymbol) >= quantity) {
                     player.getAccount().calculateBalance(quantity *

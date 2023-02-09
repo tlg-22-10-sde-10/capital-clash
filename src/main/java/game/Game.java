@@ -82,7 +82,7 @@ public class Game {
                         ui.newsRoomOps(todayNews,ui);
                         isMainMenuRunning = false;
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_THREE)){
-                        nextDayOps(day);
+                        GlobalMethodsAndAttributes.nextDayOps(day);
                         isMainMenuRunning = false;
                     } else {
                         ui.invalidChoice();
