@@ -10,12 +10,12 @@ public class TradingRoomMenuOne {
 
     public static void menuOneBuy(int day) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         System.out.println("Please enter the symbol of the stock that you want to purchase:");
-        String stockSymbol = ui.userInput().toUpperCase(Locale.ROOT);
+        String stockSymbol = ui.userInput().toUpperCase();
         //handle unrecognized symbol error
         while (inventory.findBySymbol(stockSymbol) == null) {
-            System.out.println("This stock is not offered. Please select from the list below.\n");
+            System.out.println(ANSI_RED+"                       ***Stock not offered. Please select from the list below***\n"+ANSI_RESET);
             showTradingRoomStockDashboard(day);
-            System.out.println("Please enter the symbol of the stock that you want to purchase:");
+            System.out.println("\nPlease enter the symbol of the stock that you want to purchase:");
             stockSymbol = ui.userInput();
         }
         System.out.println("How many shares would you like? " +
@@ -34,7 +34,7 @@ public class TradingRoomMenuOne {
         double valueOfStockPurchasedByPlayer = numberOfStockPurchaseByPlayer * playerStock.getCurrentPrice();
 
         if (valueOfStockPurchasedByPlayer > player.getAccount().getCashBalance()) {
-            System.out.println("Unauthorized Purchase: Not Enough Balance");
+            System.out.println(ANSI_RED+"                          ***Unauthorized Purchased!Not enough balance!***\n"+ANSI_RESET);
         } else {
             if (playerStockMap.containsKey(stockSymbol)) {
                 playerStockMap.put(playerStock.getSymbol(), playerStockMap.get(stockSymbol) + numberOfStockPurchaseByPlayer);
@@ -47,8 +47,8 @@ public class TradingRoomMenuOne {
             player.getAccount().deductBalance(numberOfStockPurchaseByPlayer
                     * playerStock.getCurrentPrice());
 
-            System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
-                    +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".\n");
+            System.out.println(ANSI_GREEN+"                          ***Successfully Purchased "+numberOfStockPurchaseByPlayer
+                    +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+  "***\n"+           ANSI_RESET);
 
             GlobalMethodsAndAttributes.playAudio("cashier.wav.wav");
 

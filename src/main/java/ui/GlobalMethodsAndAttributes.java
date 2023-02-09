@@ -19,6 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 public class GlobalMethodsAndAttributes {
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[35m";
+
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+
     public static News news = new News();
     public static UserInterface ui;
     public static StockInventory inventory;
@@ -123,6 +137,15 @@ public class GlobalMethodsAndAttributes {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+        }
+    }
+
+    public static void showHoldings(ArrayList<String> keyList) {
+        System.out.print(String.format("%-15s%-20s\n","",ANSI_CYAN_BACKGROUND+"         YOUR HOLDINGS      "+ANSI_RESET));
+        System.out.format("%-15s%-20s%-15s\n","", "Stock Symbol", "Quantity");
+        for (int i = 0; i < keyList.size(); i++) {
+            System.out.format("%-15s%-20s%-15s\n","", keyList.get(i),
+                    playerStockMap.get(keyList.get(i)));
         }
     }
 }

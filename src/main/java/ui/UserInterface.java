@@ -1,33 +1,21 @@
 package ui;
-
 import players.Computer;
 import players.Player;
 import storage.StockInventory;
-
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
-
+import static ui.GlobalMethodsAndAttributes.*;
 public class UserInterface {
     private Scanner myScanner;
 
-    public UserInterface() throws FileNotFoundException {
+    public UserInterface()  {
         myScanner = new Scanner(System.in);
     }
-
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
 
     public void displayASCII() {
 
 
         System.out.println(" -------------WELCOME TO!-----------");
-        System.out.println(ANSI_GREEN + "|#######====================#######|\n" +
+        System.out.println(ANSI_PURPLE + "========================================================================================== \n" +
                 "|#(1)*UNITED STATES OF AMERICA*(1)#|\n" +
                 "|#**          /===\\   ********  **#|\n" +
                 "|*# [C.C]    | (\") |             #*|\n" +
@@ -35,13 +23,12 @@ public class UserInterface {
                 "|#(1)         \\===/            (1)#|\n" +
                 "|##=======CAPITAL CLASH==========##|\n" +
                 ANSI_RESET +
-                " ===================================" + ANSI_RESET + "                                                                               "
-        );
+                ANSI_PURPLE +"========================================================================================== \n" + ANSI_RESET);
     }
 
     public void displayGameInfo() {
         // refactor it to small paragraph with all the game details
-        System.out.println(ANSI_RED + "================================================================================= \n" + ANSI_RESET +
+        System.out.println(ANSI_PURPLE + "========================================================================================== \n" + ANSI_RESET +
 
                 "It's time to put your stock picking skills to the test. The question is, who has\n" +
                 "a better eye for stocks - you or your brother? The game is a simulation of the\n" +
@@ -55,8 +42,8 @@ public class UserInterface {
                 "advance to the next round to start a new trading day. The ultimate winner will\n" +
                 "be determined on day 4 and will be the player with the highest account balance.\n" +
                 "So, may the HOLD be with you, and let the stock market games begin!\n"
-                + "\n" + ANSI_RED +
-                "=================================================================================" +
+                + "\n" + ANSI_PURPLE +
+                "========================================================================================== \n" +
                 ANSI_RESET + ""
 
         );
@@ -65,8 +52,8 @@ public class UserInterface {
     public void mainMenu() {
         System.out.println("Where would you like to go?");
         System.out.println("1) Trading Room  \n2) News Room " +
-                " \n3) Next Round(Day)\n" + ANSI_RED +
-                "=================================================================================" + ANSI_RESET + ""
+                " \n3) Next Round(Day)\n" + ANSI_PURPLE +
+                "========================================================================================== \n" + ANSI_RESET + ""
         );
 
     }
@@ -79,8 +66,8 @@ public class UserInterface {
     }
 
     public void titleBarForInventory(int day) {
-        System.out.println(String.format(ANSI_YELLOW +"%-48s DAY: %-10s\n", "", day+ANSI_RESET));
-        System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ",ANSI_RED_BACKGROUND +
+        System.out.println(String.format(ANSI_YELLOW +"%-42s DAY: %-10s\n", "", day+ANSI_RESET));
+        System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ",ANSI_CYAN_BACKGROUND +
                 "Stock Name", "Symbol", "Current Price", "Sector               " + ANSI_RESET));
     }
 
@@ -108,7 +95,7 @@ public class UserInterface {
             double playerStockBalance = player.getStockBalance(inventory);
             double brotherStockBalance = brother.getStockBalance(inventory);
             System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n", "", day + ANSI_RESET));
-            System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_RED_BACKGROUND + "You" + ANSI_RESET, ANSI_RED_BACKGROUND + "Brother" + ANSI_RESET));
+            System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_CYAN_BACKGROUND + "You         " + ANSI_RESET, ANSI_CYAN_BACKGROUND + "Brother     " + ANSI_RESET));
 
             System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s", "",
                     player.getStocks() == null ? "Empty" : player.getStocks(),
@@ -125,23 +112,13 @@ public class UserInterface {
     }
 
     public void invalidChoice() {
-        System.out.println("Invalid choice. Please Try Again.\n" + ANSI_RED +
-                "==================================================================================" + ANSI_RESET + "");
+        System.out.println(ANSI_RED+"                          ***Invalid Choice.Please Try Again***\n"+ANSI_RESET);
     }
 
-    public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?"+ANSI_RESET);
-        System.out.println("1) Yes\n2) No" + ANSI_RESET);
-    }
-
-
-    public void newsDecline() {
-        System.out.println("You've declined today's market intelligence.");
-    }
 
     public void nextDay() {
         System.out.println("Thank you for your service. We will see you tomorrow.");
-        System.out.println(ANSI_RED + "=================================================================================\n" + ANSI_RESET);
+        System.out.println(ANSI_PURPLE + "========================================================================================== \n" + ANSI_RESET);
     }
 
     public void thankYouMessage() {
@@ -149,30 +126,21 @@ public class UserInterface {
     }
 
     public void playerWinMessage() {
-        System.out.println(String.format("%-20s", ANSI_GREEN + "Congratulations. You won the game!\n" + ANSI_RESET));
+        System.out.println(String.format("%-20s", ANSI_GREEN_BACKGROUND + "Congratulations. You won the game!\n" + ANSI_RESET));
 
     }
 
     public void brotherWinMessage() {
-        System.out.println(ANSI_RED + "Your brother won the game!\n" + ANSI_RESET);
+        System.out.println(ANSI_RED_BACKGROUND + "Your brother won the game!\n" + ANSI_RESET);
     }
 
     public void lastDay() {
-        System.out.print(String.format(ANSI_RED_BACKGROUND +"%-40s LAST DAY TO INVEST \n"+ANSI_RESET));
+        System.out.print(String.format(ANSI_CYAN_BACKGROUND +"%-40s LAST DAY TO INVEST \n",""+ANSI_RESET));
     }
 
-    public void newsRoomOps(String todayNews, UserInterface ui) {
-        ui.newsRoomInfo();
-        String newsAnswer = ui.userInput();
-        if (newsAnswer.equalsIgnoreCase("1")) {
-            System.out.println("********************************BREAKING NEWS*************************************");
-            System.out.println(ANSI_RED +"==================================================================================="+ANSI_RESET);
+    public void newsRoomOps(String todayNews) {
+            System.out.println(ANSI_PURPLE +"========================================"+ANSI_RED+"BREAKING NEWS"+ANSI_RESET+"====================================="+ANSI_RESET);
             System.out.println(ANSI_YELLOW + todayNews + ANSI_RESET);
-            System.out.println(ANSI_RED +"==================================================================================="+ANSI_RESET);
-        } else if (newsAnswer.equalsIgnoreCase("2")) {
-            ui.newsDecline();
-        } else {
-            ui.invalidChoice();
-        }
+            System.out.println(ANSI_PURPLE +"=========================================================================================="+ANSI_RESET);
     }
 }
