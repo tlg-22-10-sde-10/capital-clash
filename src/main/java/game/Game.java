@@ -19,11 +19,10 @@ import java.util.*;
 
 
 public class Game {
-    News news = new News();
 
+    News news = new News();
     Player player = new Player("Player", new Account("checking"));
     Computer brother = new Player("Brother", new Account("checking"));
-
     public UserInterface ui = new UserInterface();
     private StockInventory inventory;
     private final int GAME_DAYS = 5;
@@ -33,13 +32,9 @@ public class Game {
     private final String NUMBER_THREE = "3";
     private final String NUMBER_FOUR = "4";
     private static final DecimalFormat df=new DecimalFormat("0.00");
-
     Map<String, Integer> playerStockMap = new HashMap<>();
     Map<String, Integer> brotherStockMap = new HashMap<>();
-
     List<String> playerStocks = new ArrayList<>();
-    List<String> brotherStocks = new ArrayList<>();
-
 
     public Game() throws FileNotFoundException {
         inventory = new StockInventory();
@@ -62,7 +57,6 @@ public class Game {
             }
         }
     }
-
 
     private void play() throws IllegalArgumentException, InputMismatchException {
 

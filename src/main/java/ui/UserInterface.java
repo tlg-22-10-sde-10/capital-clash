@@ -74,7 +74,7 @@ public class UserInterface {
     public void tradingRoomMenu() {
 
         System.out.println("\nMake a decision... Please select your option from 1 to 4.");
-        System.out.println("1) Buy Stock \n2) Sell Stock \n3) View Account \n4) Main Menu ");
+        System.out.println("1) Buy Stock \n2) Sell Stock \n3) View Account \n4) Leave Trading Room ");
 
     }
 
