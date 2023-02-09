@@ -35,7 +35,7 @@ public class TradingRoomMenuTwo {
                             playerStockMap.get(keyList.get(i)));
                 }
                 System.out.println("Please enter the stock symbol that you want to sell.");
-                stockSymbol = ui.userInput();
+                stockSymbol = ui.userInput().toUpperCase();
             }
 
             String quantityInput = "";
