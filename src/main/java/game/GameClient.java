@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class GameClient {
 
     public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-        playAudio("cashier.wav.wav");
+//        playAudio("cashier.wav.wav");
         boolean startGame = true;
         Scanner scanMe = new Scanner(System.in);
 
@@ -33,9 +33,6 @@ public class GameClient {
     }
 
     public static void playAudio(String audioFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        //noinspection ConstantConditions
-//        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(GameClient.class.getClassLoader().
-//                getResourceAsStream(audioFile))) {
             try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(ClassLoader.getSystemResourceAsStream(audioFile)))) {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -44,12 +41,7 @@ public class GameClient {
     }
 }
 
-//        Scanner scanner = new Scanner(System.in);
-//
-//        File file = new File("src/main/java/cashier.wav");
-//        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-//        Clip clip = AudioSystem.getClip();
-//        clip.open(audioStream);
+
 
 
 

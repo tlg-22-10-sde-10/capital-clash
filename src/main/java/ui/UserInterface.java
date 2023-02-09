@@ -64,8 +64,8 @@ public class UserInterface {
 
     public void mainMenu() {
         System.out.println("Where would you like to go?");
-        System.out.println("1) Trading Room (you can buy/sell) \n2) News Room (you can get news)" +
-                " \n3) Next Day(Round)\n" + ANSI_RED +
+        System.out.println("1) Trading Room  \n2) News Room " +
+                " \n3) Next Round(Day)\n" + ANSI_RED +
                 "=================================================================================" + ANSI_RESET + ""
         );
 

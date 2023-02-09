@@ -1,9 +1,6 @@
 package stock;
-
 import storage.StockType;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Stock {
@@ -86,10 +83,8 @@ public class Stock {
     }
 
     public String toString() {
-
         String result = String.format("%-10s %-20s %-15s %-18s  %-11s","",
                 getStockName(),getSymbol(),getCurrentPrice(),getSector());
-
         return result;
     }
 
