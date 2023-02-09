@@ -76,7 +76,7 @@ public class Game {
                         }
 
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_TWO)){
-                        ui.newsRoomOps(todayNews,ui);
+                        ui.newsRoomOps(todayNews);
                         ui.playerVsBrotherReports(day, player, brother, inventory);
 
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_THREE)){
