@@ -50,11 +50,13 @@ public class GlobalMethodsAndAttributes {
         if (strNum == null) {
             return false;
         }
+
         try {
             int d = Integer.parseInt(strNum);
             if (d <= 0) {
                 return false;
             }
+
         } catch (NumberFormatException nfe) {
             return false;
         }
