@@ -10,7 +10,7 @@ public class TradingRoomMenuOne {
 
     public static void menuOneBuy(int day) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         System.out.println("Please enter the symbol of the stock that you want to purchase:");
-        String stockSymbol = ui.userInput();
+        String stockSymbol = ui.userInput().toUpperCase(Locale.ROOT);
         //handle unrecognized symbol error
         while (inventory.findBySymbol(stockSymbol) == null) {
             System.out.println("This stock is not offered. Please select from the list below.\n");
