@@ -2,6 +2,7 @@ package ui;
 import players.Computer;
 import players.Player;
 import storage.StockInventory;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import static ui.GlobalMethodsAndAttributes.*;
 public class UserInterface {
@@ -68,6 +69,7 @@ public class UserInterface {
     public void titleBarForInventory(int day) {
         System.out.println(String.format(ANSI_YELLOW +"%-42s DAY: %-10s\n", "", day+ANSI_RESET));
         System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ",ANSI_CYAN_BACKGROUND +
+
                 "Stock Name", "Symbol", "Current Price", "Sector               " + ANSI_RESET));
     }
 
@@ -113,6 +115,7 @@ public class UserInterface {
 
     public void invalidChoice() {
         System.out.println(ANSI_RED+"                          ***Invalid Choice.Please Try Again***\n"+ANSI_RESET);
+       
     }
 
 
@@ -138,9 +141,13 @@ public class UserInterface {
         System.out.print(String.format(ANSI_CYAN_BACKGROUND +"%-40s LAST DAY TO INVEST \n",""+ANSI_RESET));
     }
 
-    public void newsRoomOps(String todayNews) {
-            System.out.println(ANSI_PURPLE +"========================================"+ANSI_RED+"BREAKING NEWS"+ANSI_RESET+"====================================="+ANSI_RESET);
-            System.out.println(ANSI_YELLOW + todayNews + ANSI_RESET);
-            System.out.println(ANSI_PURPLE +"=========================================================================================="+ANSI_RESET);
+
+    public void newsRoomOps(String todayNews, UserInterface ui) {
+        System.out.println(ANSI_PURPLE + "=================================================================================\n" + ANSI_RESET);
+        System.out.println("                             ***BREAKING NEWS***                                 \n");
+
+        System.out.println(ANSI_YELLOW + todayNews + ANSI_RESET);
+        System.out.println(ANSI_PURPLE + "=================================================================================\n" + ANSI_RESET);
+
     }
 }
