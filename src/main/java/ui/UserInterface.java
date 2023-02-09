@@ -142,7 +142,7 @@ public class UserInterface {
     }
 
 
-    public void newsRoomOps(String todayNews, UserInterface ui) {
+    public void newsRoomOps(String todayNews) {
         System.out.println(ANSI_PURPLE + "=================================================================================\n" + ANSI_RESET);
         System.out.println("                             ***BREAKING NEWS***                                 \n");
 
