@@ -42,8 +42,8 @@ public class Game {
                 MarketReturnGenerator generator = new MarketReturnGenerator();
                 double mktReturnOfTheDay = generator.nextMarketReturn(newsIndexOfTheDay);
                 updateDashboard(day, newsIndexOfTheDay, mktReturnOfTheDay);
-                ui.playerVsBrotherReports(day, player, brother, inventory);
 
+                ui.playerVsBrotherReports(day, player, brother, inventory);
                 // for the main menu to keep running
                 boolean isMainMenuRunning = true;
                 while(isMainMenuRunning) {
@@ -68,19 +68,17 @@ public class Game {
                                 // VIEW ACCOUNT
                             } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_THREE)) {
                                 ui.playerVsBrotherReports(day, player, brother, inventory);
+                                isTradingRoomMenuRunning = false;
                                 // LEAVE TRADING ROOM
-                            } else if (userInputForBuyAndSale.equalsIgnoreCase(NUMBER_FOUR)) {
-                                break;
-                                // INVALID CHOICE
                             } else {
                                 ui.invalidChoice();
                             }
                         }
-                        break;
 
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_TWO)){
                         ui.newsRoomOps(todayNews,ui);
-                        isMainMenuRunning = false;
+                        ui.playerVsBrotherReports(day, player, brother, inventory);
+
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_THREE)){
                         GlobalMethodsAndAttributes.nextDayOps(day);
                         isMainMenuRunning = false;

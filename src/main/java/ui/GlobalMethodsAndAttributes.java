@@ -8,6 +8,7 @@ import stock.Stock;
 import storage.StockInventory;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -79,7 +80,6 @@ public class GlobalMethodsAndAttributes {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioStream);
-
                 clip.start();
 
             } else if (totalPlayerBalance < totalBrotherBalance) {
@@ -120,6 +120,13 @@ public class GlobalMethodsAndAttributes {
         ui.titleBarForInventory(day);
         for (Stock stock : inventory.getAllStocks()) {
             System.out.println(stock.toString());
+        }
+    }
+    public static void playAudio(String audioFile) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(ClassLoader.getSystemResourceAsStream(audioFile)))) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
         }
     }
 }
