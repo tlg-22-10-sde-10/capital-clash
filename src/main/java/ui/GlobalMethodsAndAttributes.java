@@ -45,15 +45,19 @@ public class GlobalMethodsAndAttributes {
         df = new DecimalFormat("0.00");
     }
 
-    public static boolean isInteger(String strNum) {
+    public static boolean isPositiveInteger(String strNum) {
         if (strNum == null) {
             return false;
         }
         try {
             int d = Integer.parseInt(strNum);
+            if (d <= 0) {
+                return false;
+            }
         } catch (NumberFormatException nfe) {
             return false;
         }
+
         return true;
     }
 
