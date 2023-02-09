@@ -76,16 +76,20 @@ public class GlobalMethodsAndAttributes {
 
             if (totalPlayerBalance > totalBrotherBalance) {
                 ui.playerWinMessage();
+                GlobalMethodsAndAttributes.playAudio("piglevelwin2mp3-14800.wav");
+
 
                 //SOUNDS
-                File file = new File("src/main/resources/piglevelwin2mp3-14800.wav");
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioStream);
-                clip.start();
+//                File file = new File("src/main/resources/piglevelwin2mp3-14800.wav");
+//                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+//                Clip clip = AudioSystem.getClip();
+//                clip.open(audioStream);
+//                clip.start();
 
             } else if (totalPlayerBalance < totalBrotherBalance) {
                 ui.brotherWinMessage();
+                GlobalMethodsAndAttributes.playAudio("sadTrombone(1).wav");
+
 
             } else {
                 System.out.println("Tie Game! ");
