@@ -35,7 +35,7 @@ public class TradingRoomMenuTwo {
                             playerStockMap.get(keyList.get(i)));
                 }
                 System.out.println("Please enter the stock symbol that you want to sell.");
-                stockSymbol = ui.userInput();
+                stockSymbol = ui.userInput().toUpperCase();
             }
 
             String quantityInput = "";
@@ -44,9 +44,9 @@ public class TradingRoomMenuTwo {
                 System.out.println("Please enter the quantity:");
 
                 quantityInput = ui.userInput();
-                while (!isInteger(quantityInput)) {
+                while (!isPositiveInteger(quantityInput)) {
 
-                    System.out.println("Your input is not an integer. Please try again.");
+                    System.out.println("Your input is not a positive integer. Please try again.");
                     System.out.println("How many shares would you like? " +
                             "Fractional numbers are not allowed! (Enter an integer ONLY)");
                     quantityInput = ui.userInput();

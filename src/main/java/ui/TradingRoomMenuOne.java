@@ -10,7 +10,7 @@ public class TradingRoomMenuOne {
 
     public static void menuOneBuy(int day) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         System.out.println("Please enter the symbol of the stock that you want to purchase:");
-        String stockSymbol = ui.userInput().toUpperCase(Locale.ROOT);
+        String stockSymbol = ui.userInput().toUpperCase();
         //handle unrecognized symbol error
         while (inventory.findBySymbol(stockSymbol) == null) {
             System.out.println("This stock is not offered. Please select from the list below.\n");
@@ -22,8 +22,8 @@ public class TradingRoomMenuOne {
                 "Fractional numbers are not allowed! (Enter an integer ONLY)");
         //handle quantity-is-not-an-integer problem
         String quantityInput = ui.userInput();
-        while (!isInteger(quantityInput)) {
-            System.out.println("Your input is not an integer. Please try again");
+        while (!isPositiveInteger(quantityInput)) {
+            System.out.println("Your input is not a positive integer. Please try again");
             System.out.println("How many shares would you like? " +
                     "Fractional numbers are not allowed. (Enter an integer ONLY)");
             quantityInput = ui.userInput();
