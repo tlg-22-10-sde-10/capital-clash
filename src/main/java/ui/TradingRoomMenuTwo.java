@@ -3,6 +3,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import static ui.GlobalMethodsAndAttributes.*;
 
@@ -35,7 +36,7 @@ public class TradingRoomMenuTwo {
                             playerStockMap.get(keyList.get(i)));
                 }
                 System.out.println("Please enter the stock symbol that you want to sell.");
-                stockSymbol = ui.userInput();
+                stockSymbol = ui.userInput().toUpperCase();
             }
 
             String quantityInput = "";
@@ -60,15 +61,8 @@ public class TradingRoomMenuTwo {
                     playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
                     if (playerStockMap.get(stockSymbol) == 0) {
                         playerStockMap.remove(stockSymbol);
-
-                        //SOUNDS**************************************
-                        Scanner scanner = new Scanner(System.in);
-
-                        File file = new File("src/main/resources/sell.wav");
-                        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-                        Clip clip = AudioSystem.getClip();
-                        clip.open(audioStream);
-                        clip.start();
+                        // plays sound after sell transactions
+                        GlobalMethodsAndAttributes.playAudio("sell.wav");
                     }
                     isSellMenuRunning = false;
                 } else {

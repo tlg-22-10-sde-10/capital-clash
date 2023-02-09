@@ -79,7 +79,7 @@ public class UserInterface {
     }
 
     public void titleBarForInventory(int day) {
-        System.out.println(String.format("%-45s DAY: %-10s\n", "", day));
+        System.out.println(String.format(ANSI_YELLOW +"%-48s DAY: %-10s\n", "", day+ANSI_RESET));
         System.out.println(String.format("%-10s %-25s %-15s %-18s  %-18s", " ",ANSI_RED_BACKGROUND +
                 "Stock Name", "Symbol", "Current Price", "Sector               " + ANSI_RESET));
     }
@@ -158,7 +158,7 @@ public class UserInterface {
     }
 
     public void lastDay() {
-        System.out.println(ANSI_YELLOW + "This is the last day to invest. \n" + ANSI_RESET);
+        System.out.print(String.format(ANSI_RED_BACKGROUND +"%-40s LAST DAY TO INVEST \n"+ANSI_RESET));
     }
 
     public void newsRoomOps(String todayNews, UserInterface ui) {

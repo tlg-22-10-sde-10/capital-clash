@@ -50,12 +50,7 @@ public class TradingRoomMenuOne {
             System.out.println("You have purchased "+numberOfStockPurchaseByPlayer
                     +" shares of "+ inventory.findBySymbol(stockSymbol).getStockName()+".\n");
 
-            Scanner scanner = new Scanner(System.in);
-            File file = new File("src/main/resources/cashier.wav.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
+            GlobalMethodsAndAttributes.playAudio("cashier.wav.wav");
 
         }
         // brother randomly purchase the stock
