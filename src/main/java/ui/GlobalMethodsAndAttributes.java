@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GlobalMethodsAndAttributes {
+
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -26,13 +27,11 @@ public class GlobalMethodsAndAttributes {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[35m";
-
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-
     public static News news = new News();
     public static UserInterface ui;
     public static StockInventory inventory;
@@ -40,11 +39,9 @@ public class GlobalMethodsAndAttributes {
     public static Map<String, Integer> brotherStockMap;
     public static final int GAME_DAYS = 5;
     public static DecimalFormat df = null;
-    public static final String REPLY_WITH_YES = "y";
     public static final String NUMBER_ONE = "1";
     public static final String NUMBER_TWO = "2";
     public static final String NUMBER_THREE = "3";
-    public static final String NUMBER_FOUR = "4";
     public static List<String> playerStocks;
     public static Player player;
     public static Computer brother;
@@ -91,15 +88,6 @@ public class GlobalMethodsAndAttributes {
             if (totalPlayerBalance > totalBrotherBalance) {
                 ui.playerWinMessage();
                 GlobalMethodsAndAttributes.playAudio("piglevelwin2mp3-14800.wav");
-
-
-                //SOUNDS
-//                File file = new File("src/main/resources/piglevelwin2mp3-14800.wav");
-//                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-//                Clip clip = AudioSystem.getClip();
-//                clip.open(audioStream);
-//                clip.start();
-
             } else if (totalPlayerBalance < totalBrotherBalance) {
                 ui.brotherWinMessage();
                 GlobalMethodsAndAttributes.playAudio("sadTrombone(1).wav");

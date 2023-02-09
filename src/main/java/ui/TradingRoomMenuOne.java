@@ -23,7 +23,7 @@ public class TradingRoomMenuOne {
         //handle quantity-is-not-an-integer problem
         String quantityInput = ui.userInput();
         while (!isPositiveInteger(quantityInput)) {
-            System.out.println("Your input is not a positive integer. Please try again");
+            System.out.println(ANSI_RED+"                       ***Your input is not a positive integer. Please try again***\n"+ANSI_RESET);
             System.out.println("How many shares would you like? " +
                     "Fractional numbers are not allowed. (Enter an integer ONLY)");
             quantityInput = ui.userInput();

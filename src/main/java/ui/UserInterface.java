@@ -2,7 +2,7 @@ package ui;
 import players.Computer;
 import players.Player;
 import storage.StockInventory;
-import java.io.FileNotFoundException;
+
 import java.util.Scanner;
 import static ui.GlobalMethodsAndAttributes.*;
 public class UserInterface {
@@ -80,22 +80,22 @@ public class UserInterface {
     public void startMenu() {
         String challenge = "ARE YOU UP TO THE CHALLENGE?\n";
         int i;
-//        for (i = 0; i < challenge.length(); i++) {
-//            System.out.printf("%c", challenge.charAt(i));
-//            try {
-//                Thread.sleep(85);
-//            } catch (InterruptedException ex) {
-//                Thread.currentThread().interrupt();
-//            }
-//        }
+        for (i = 0; i < challenge.length(); i++) {
+            System.out.printf("%c", challenge.charAt(i));
+            try {
+                Thread.sleep(85);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED + "2: No" + ANSI_RESET);
     }
 
     public void playerVsBrotherReports(int day, Player player, Computer brother, StockInventory inventory) {
         if (player != null && brother != null && inventory != null) {
 
-            double playerStockBalance = player.getStockBalance(inventory);
-            double brotherStockBalance = brother.getStockBalance(inventory);
+            double playerStockBalance = player.getBalanceFromHolding(inventory);
+            double brotherStockBalance = brother.getBalanceFromHolding(inventory);
             System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n", "", day + ANSI_RESET));
             System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_CYAN_BACKGROUND + "You         " + ANSI_RESET, ANSI_CYAN_BACKGROUND + "Brother     " + ANSI_RESET));
 
