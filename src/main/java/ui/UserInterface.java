@@ -126,12 +126,11 @@ public class UserInterface {
 
     public void invalidChoice() {
         System.out.println("Invalid choice. Please Try Again.\n" + ANSI_RED +
-                "==========================================================" +
-                "=======================" + ANSI_RESET + "");
+                "==================================================================================" + ANSI_RESET + "");
     }
 
     public void newsRoomInfo() {
-        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?");
+        System.out.println(ANSI_YELLOW + "Would you like to see The Breaking News?"+ANSI_RESET);
         System.out.println("1) Yes\n2) No" + ANSI_RESET);
     }
 
@@ -142,7 +141,7 @@ public class UserInterface {
 
     public void nextDay() {
         System.out.println("Thank you for your service. We will see you tomorrow.");
-        System.out.println(ANSI_RESET + "=================================================================================\n" + ANSI_RESET);
+        System.out.println(ANSI_RED + "=================================================================================\n" + ANSI_RESET);
     }
 
     public void thankYouMessage() {
@@ -150,15 +149,31 @@ public class UserInterface {
     }
 
     public void playerWinMessage() {
-        System.out.println(String.format("%-20s", ANSI_GREEN + "Congratulations. you won the game.\n" + ANSI_RESET));
+        System.out.println(String.format("%-20s", ANSI_GREEN + "Congratulations. You won the game!\n" + ANSI_RESET));
 
     }
 
     public void brotherWinMessage() {
-        System.out.println(ANSI_RED + "Your brother won the game.\n" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Your brother won the game!\n" + ANSI_RESET);
     }
 
     public void lastDay() {
         System.out.println(ANSI_YELLOW + "This is the last day to invest. \n" + ANSI_RESET);
+    }
+
+    public void newsRoomOps(String todayNews, UserInterface ui) {
+        ui.newsRoomInfo();
+        String newsAnswer = ui.userInput();
+
+        if (newsAnswer.equalsIgnoreCase("1")) {
+            System.out.println("********************************BREAKING NEWS*************************************");
+            System.out.println(ANSI_RED +"==================================================================================="+ANSI_RESET);
+            System.out.println(ANSI_YELLOW + todayNews + ANSI_RESET);
+            System.out.println(ANSI_RED +"==================================================================================="+ANSI_RESET);
+        } else if (newsAnswer.equalsIgnoreCase("2")) {
+            ui.newsDecline();
+        } else {
+            ui.invalidChoice();
+        }
     }
 }
