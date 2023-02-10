@@ -23,7 +23,6 @@ public class Game {
                 play();
                 isStartMenuRunning = false;
             } else if (selection.equalsIgnoreCase(NUMBER_TWO)) {
-                ui.thankYouMessage();
                 isStartMenuRunning = false;
             } else {
                 ui.invalidChoice();
@@ -35,6 +34,8 @@ public class Game {
         try {
 
             ui.displayGameInfo();
+            System.out.println("Press anything to continue...");
+            String pause = ui.userInput();
             int day = 0;
             while (day < GAME_DAYS) {
 
