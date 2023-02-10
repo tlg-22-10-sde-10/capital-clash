@@ -33,6 +33,8 @@ public class Game {
     private void play() throws IllegalArgumentException, InputMismatchException {
         try {
             ui.displayGameInfo();
+            System.out.println("Press anything to continue...");
+            String pause = ui.userInput();
             int day = 0;
             while (day < GAME_DAYS) {
 
