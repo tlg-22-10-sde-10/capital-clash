@@ -18,7 +18,7 @@ public class GameClient {
             Game game = new Game();
             game.gameOn();
 
-            System.out.println("\nWould you like to" + ANSI_RED + " exit " + ANSI_RESET + "the game?");
+            System.out.println("\nWould you like to" + ANSI_RED + " EXIT " + ANSI_RESET + "the game?");
             System.out.println("1) YES \n2) NO\n");
 
             String sc = scanMe.nextLine();
