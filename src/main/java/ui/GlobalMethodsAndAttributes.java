@@ -82,14 +82,19 @@ public class GlobalMethodsAndAttributes {
         if (day == 4) {
             totalPlayerBalance +=calculatePriceFromMap(playerStockMap);
             totalBrotherBalance+=calculatePriceFromMap(brotherStockMap);
-            System.out.println("Your total balance is $" + df.format(totalPlayerBalance) + ".");
-            System.out.println("Your Brother's total balance is $" + df.format(totalBrotherBalance) + ".");
+//            System.out.println("Your total balance is $"+ ANSI_RED + df.format(totalPlayerBalance) + ANSI_RESET + ".");
+//            System.out.println("Your Brother's total balance is $" + df.format(totalBrotherBalance) + ".");
 
             if (totalPlayerBalance > totalBrotherBalance) {
+                System.out.println();
                 ui.playerWinMessage();
+                System.out.println("Your total balance is $"+ ANSI_GREEN + df.format(totalPlayerBalance) + ANSI_RESET + ".");
+                System.out.println("Your Brother's total balance is $"+ ANSI_RED + df.format(totalBrotherBalance) + ANSI_RESET + ".");
                 GlobalMethodsAndAttributes.playAudio("piglevelwin2mp3-14800.wav");
             } else if (totalPlayerBalance < totalBrotherBalance) {
                 ui.brotherWinMessage();
+                System.out.println("Your total balance is $"+ ANSI_RED + df.format(totalPlayerBalance) + ANSI_RESET + ".");
+                System.out.println("Your Brother's total balance is $"+ ANSI_GREEN + df.format(totalBrotherBalance) + ANSI_RESET + ".");
                 GlobalMethodsAndAttributes.playAudio("sadTrombone(1).wav");
 
 
