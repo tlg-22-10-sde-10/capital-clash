@@ -207,7 +207,7 @@ public class UserInterface {
 
 
     public void lastDay() {
-        System.out.println(ANSI_YELLOW_BACKGROUND+"                          LAST DAY TO INVEST\n"+ANSI_RESET);
+        System.out.println("                                     "+ANSI_RED_BACKGROUND+"LAST DAY TO INVEST"+ANSI_RESET);
     }
 
 
