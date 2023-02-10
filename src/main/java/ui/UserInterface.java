@@ -57,7 +57,7 @@ public class UserInterface {
         }
     }
 
-    public void showTieGameBanner() throws InterruptedException {
+    public void showLoseBanner() throws InterruptedException {
         String banner = ANSI_RED+"                              "+
 
                 "╔═╗╔═╗╦═╗╦═╗╦ ╦  ╦ ╦╔═╗╦ ╦  ╦  ╔═╗╔═╗╔═╗\n" +
@@ -71,7 +71,7 @@ public class UserInterface {
         }
     }
 
-    public void showLoseBanner() throws InterruptedException {
+    public void showTieGameBanner() throws InterruptedException {
         String banner = ANSI_PURPLE+
                 "" +
                 "╔╦╗╦╔═╗  ╔═╗╔═╗╔╦╗╔═╗\n" +
@@ -216,7 +216,7 @@ public class UserInterface {
 
 
     public void lastDay() {
-        System.out.println("                                     "+ANSI_RED_BACKGROUND+"LAST DAY TO INVEST"+ANSI_RESET);
+        System.out.println("                                     "+ANSI_RED_BACKGROUND+"   LAST DAY TO INVEST   "+ANSI_RESET);
     }
 
     public void newsRoomOps(String todayNews) {
