@@ -23,7 +23,6 @@ public class Game {
                 play();
                 isStartMenuRunning = false;
             } else if (selection.equalsIgnoreCase(NUMBER_TWO)) {
-                ui.thankYouMessage();
                 isStartMenuRunning = false;
             } else {
                 ui.invalidChoice();
