@@ -129,12 +129,12 @@ public class UserInterface {
     }
 
     public void playerWinMessage() {
-        System.out.println(String.format("%-20s", ANSI_GREEN_BACKGROUND + "Congratulations. You won the game!\n" + ANSI_RESET));
+        System.out.println(String.format("%-20s", ANSI_GREEN + "Congratulations. You won the game!\n" + ANSI_RESET));
 
     }
 
     public void brotherWinMessage() {
-        System.out.println(ANSI_RED_BACKGROUND + "Your brother won the game!\n" + ANSI_RESET);
+        System.out.println(ANSI_RED+ "Your brother won the game!\n" + ANSI_RESET);
     }
 
     public void lastDay() {
