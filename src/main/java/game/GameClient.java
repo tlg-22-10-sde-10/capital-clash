@@ -8,7 +8,9 @@ import java.util.Scanner;
 public class GameClient {
 
     public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-//        GlobalMethodsAndAttributes.playAudio("cashier.wav.wav");
+        final String ANSI_RED = "\u001B[31m";
+        final String ANSI_RESET = "\u001B[0m";
+
         boolean startGame = true;
 
         Scanner scanMe = new Scanner(System.in);
@@ -16,7 +18,7 @@ public class GameClient {
             Game game = new Game();
             game.gameOn();
 
-            System.out.println("Would you like to exit the game?");
+            System.out.println("\nWould you like to" + ANSI_RED + " exit " + ANSI_RESET + "the game?");
             System.out.println("1) YES \n2) NO\n");
 
             String sc = scanMe.nextLine();
