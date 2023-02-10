@@ -12,12 +12,12 @@ import static ui.GlobalMethodsAndAttributes.*;
 
 public class Game {
 
-    public void gameOn() throws FileNotFoundException {
+    public void gameOn() throws FileNotFoundException, InterruptedException {
         GlobalMethodsAndAttributes.initializeGlobalInstances();
-        ui.displayASCII();
+        ui.showBanner();
         boolean isStartMenuRunning = true;
         while (isStartMenuRunning) {
-            ui.startMenu();
+            ui.showStoryMessage();
             String selection = ui.userInput();
             if (selection.equalsIgnoreCase(NUMBER_ONE)) {
                 play();
@@ -32,6 +32,7 @@ public class Game {
 
     private void play() throws IllegalArgumentException, InputMismatchException {
         try {
+
             ui.displayGameInfo();
             System.out.println("Press anything to continue...");
             String pause = ui.userInput();
@@ -95,7 +96,7 @@ public class Game {
             e.printStackTrace();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
