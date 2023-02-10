@@ -16,7 +16,7 @@ public class UserInterface {
 
 
         System.out.println(" -------------WELCOME TO!-----------");
-        System.out.println(ANSI_PURPLE + "========================================================================================== \n" +
+        System.out.println(ANSI_PURPLE + "========================================================================================== \n" +ANSI_GREEN+
                 "|#(1)*UNITED STATES OF AMERICA*(1)#|\n" +
                 "|#**          /===\\   ********  **#|\n" +
                 "|*# [C.C]    | (\") |             #*|\n" +
@@ -97,7 +97,7 @@ public class UserInterface {
             double playerStockBalance = player.getBalanceFromHolding(inventory);
             double brotherStockBalance = brother.getBalanceFromHolding(inventory);
             System.out.println(String.format(ANSI_YELLOW + "%-42s DAY: %-10s\n", "", day + ANSI_RESET));
-            System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_CYAN_BACKGROUND + "You         " + ANSI_RESET, ANSI_CYAN_BACKGROUND + "Brother     " + ANSI_RESET));
+            System.out.println(String.format("%-18s %-42s %-14s", "", ANSI_CYAN_BACKGROUND+"You         " + ANSI_RESET, ANSI_CYAN_BACKGROUND + "Brother     " + ANSI_RESET));
 
             System.out.println(String.format("%-18s Stocks: %-25s Stocks: %-10s", "",
                     player.getStocks() == null ? "Empty" : player.getStocks(),
