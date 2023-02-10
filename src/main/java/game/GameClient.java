@@ -15,7 +15,8 @@ public class GameClient {
         while (startGame) {
             Game game = new Game();
             game.gameOn();
-            System.out.println("Would you like to play again?");
+
+            System.out.println("Would you like to exit the game?");
             System.out.println("1) YES \n2) NO\n");
 
             String sc = scanMe.nextLine();
@@ -23,7 +24,7 @@ public class GameClient {
                 System.out.println("Please select either 1 or 2.");
                 sc = scanMe.nextLine();
             }
-            if (sc.equals("2")) {
+            if (sc.equals("1")) {
                 startGame = false;
             }
         }
