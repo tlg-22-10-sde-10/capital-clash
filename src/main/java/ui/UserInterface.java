@@ -53,7 +53,7 @@ public class UserInterface {
     public void mainMenu() {
         System.out.println("Where would you like to go?");
         System.out.println("1) Trading Room  \n2) News Room " +
-                " \n3) Next Round(Day)\n" + ANSI_PURPLE +
+                " \n3) End Trading day\n" + ANSI_PURPLE +
                 "========================================================================================== \n" + ANSI_RESET + ""
         );
 
