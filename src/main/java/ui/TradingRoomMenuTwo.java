@@ -50,9 +50,9 @@ public class TradingRoomMenuTwo {
                     playerStockMap.put(stockSymbol, playerStockMap.get(stockSymbol) - quantity);
                     if (playerStockMap.get(stockSymbol) == 0) {
                         playerStockMap.remove(stockSymbol);
-                        // plays sound after sell transactions
-                        GlobalMethodsAndAttributes.playAudio("sell.wav");
                     }
+                    // plays sound after sell transactions
+                    GlobalMethodsAndAttributes.playAudio("sell.wav");
                     isSellMenuRunning = false;
                 } else {
                     System.out.println(ANSI_RED+"                          ***Please try again and enter the valid stock quantity.***\n"+ANSI_RESET);
