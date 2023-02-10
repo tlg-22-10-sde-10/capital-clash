@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 public class GameClient {
 
-    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException {
 //        GlobalMethodsAndAttributes.playAudio("cashier.wav.wav");
         boolean startGame = true;
 

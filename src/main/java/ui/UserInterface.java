@@ -12,26 +12,89 @@ public class UserInterface {
         myScanner = new Scanner(System.in);
     }
 
-    public void displayASCII() {
+    public void showBanner() throws InterruptedException {
+        System.out.println(ANSI_PURPLE+"\n\n                                               WELCOME TO:\n"+ANSI_RESET);
+        String banner = ANSI_YELLOW+
+                " ██████╗  █████╗ ██████╗██╗████████╗ █████╗ ██╗          ██████╗██╗      █████╗ ███████╗██╗  ██╗\n" +
+                "██╔════╝██╔══██╗██╔══██╗██║╚══██╔══╝██╔══██╗██║         ██╔════╝██║     ██╔══██╗██╔════╝██║  ██║\n" +
+                "██║     ███████║██████╔╝██║   ██║   ███████║██║         ██║     ██║     ███████║███████╗███████║\n" +
+                "██║     ██╔══██║██╔═══╝ ██║   ██║   ██╔══██║██║         ██║     ██║     ██╔══██║╚════██║██╔══██║\n" +
+                "╚██████╗██║  ██║██║     ██║   ██║   ██║  ██║███████╗    ╚██████╗███████╗██║  ██║███████║██║  ██║\n" +
+                " ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝     ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝\n" +
+                "                                                                                                \n\n"+ANSI_RESET;
+        for (int i = 0; i < banner.length(); i++) {
+            System.out.print(banner.charAt(i));
+            Thread.sleep(4);
 
-
-        System.out.println(" -------------WELCOME TO!-----------");
-        System.out.println(ANSI_PURPLE + "========================================================================================== \n" +
-                "|#(1)*UNITED STATES OF AMERICA*(1)#|\n" +
-                "|#**          /===\\   ********  **#|\n" +
-                "|*# [C.C]    | (\") |             #*|\n" +
-                "|#*  ******  | /v\\ |    O N E    *#|\n" +
-                "|#(1)         \\===/            (1)#|\n" +
-                "|##=======CAPITAL CLASH==========##|\n" +
-                ANSI_RESET +
-                ANSI_PURPLE +"========================================================================================== \n" + ANSI_RESET);
+        }
     }
 
-    public void displayGameInfo() {
-        // refactor it to small paragraph with all the game details
-        System.out.println(ANSI_PURPLE + "========================================================================================== \n" + ANSI_RESET +
+    public void showWinBanner() throws InterruptedException {
 
-                "It's time to put your stock picking skills to the test. The question is, who has\n" +
+        String banner = ANSI_GREEN+
+                "" +
+                "╔═╗╔═╗╔╗╔╔═╗╦═╗╔═╗╔╦╗╔═╗  ╦ ╦╔═╗╦ ╦  ╦ ╦╦╔╗╔\n" +
+                "║  ║ ║║║║║ ╦╠╦╝╠═╣ ║ ╚═╗  ╚╦╝║ ║║ ║  ║║║║║║║\n" +
+                "╚═╝╚═╝╝╚╝╚═╝╩╚═╩ ╩ ╩ ╚═╝   ╩ ╚═╝╚═╝  ╚╩╝╩╝╚╝\n"
+                +ANSI_RESET;
+        for (int i = 0; i < banner.length(); i++) {
+            System.out.print(banner.charAt(i));
+            Thread.sleep(2);
+
+        }
+    }
+
+    public void showTieGameBanner() throws InterruptedException {
+        String banner = ANSI_RED+"                              "+
+
+                "╔═╗╔═╗╦═╗╦═╗╦ ╦  ╦ ╦╔═╗╦ ╦  ╦  ╔═╗╔═╗╔═╗\n" +
+                "╚═╗║ ║╠╦╝╠╦╝╚╦╝  ╚╦╝║ ║║ ║  ║  ║ ║╚═╗║╣ \n" +
+                "╚═╝╚═╝╩╚═╩╚═ ╩    ╩ ╚═╝╚═╝  ╩═╝╚═╝╚═╝╚═╝\n"
+                +ANSI_RESET;
+        for (int i = 0; i < banner.length(); i++) {
+            System.out.print(banner.charAt(i));
+            Thread.sleep(4);
+
+        }
+    }
+
+    public void showLoseBanner() throws InterruptedException {
+        String banner = ANSI_PURPLE+
+                "" +
+                "╔╦╗╦╔═╗  ╔═╗╔═╗╔╦╗╔═╗\n" +
+                " ║ ║║╣   ║ ╦╠═╣║║║║╣ \n" +
+                " ╩ ╩╚═╝  ╚═╝╩ ╩╩ ╩╚═╝\n"+ANSI_RESET;
+        for (int i = 0; i < banner.length(); i++) {
+            System.out.print(banner.charAt(i));
+            Thread.sleep(4);
+
+        }
+    }
+
+    public void showGameStoryBanner() throws InterruptedException {
+        String banner = ANSI_PURPLE+
+                "" +
+               " ╔═╗╔╦╗╔═╗╦═╗╦ ╦\n" +
+                "╚═╗ ║ ║ ║╠╦╝╚╦╝\n" +
+                "╚═╝ ╩ ╚═╝╩╚═ ╩ \n"+
+                ANSI_RESET;
+        for (int i = 0; i < banner.length(); i++) {
+            System.out.print(banner.charAt(i));
+            Thread.sleep(4);
+
+        }
+    }
+
+
+
+    public void displayGameInfo() {
+        System.out.println(ANSI_PURPLE + "========================================================================================== \n" + ANSI_RESET +
+                ANSI_GREEN+""+
+                "                                ╔═╗╔═╗╔╦╗╔═╗  ╔═╗╔╦╗╔═╗╦═╗╦ ╦\n" +
+                "                                ║ ╦╠═╣║║║║╣   ╚═╗ ║ ║ ║╠╦╝╚╦╝\n" +
+                "                                ╚═╝╩ ╩╩ ╩╚═╝  ╚═╝ ╩ ╚═╝╩╚═ ╩ "
+                        +ANSI_RESET+
+                "\nIt's time to put your stock picking skills to the test. The question is, who has\n" +
                 "a better eye for stocks - you or your brother? The game is a simulation of the\n" +
                 "stock market, lasting for a total of 5 trading days. Each player will start with\n" +
                 "a balance of $10,000 and have the opportunity to choose from a selection of 10\n" +
@@ -91,6 +154,20 @@ public class UserInterface {
         System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED + "2: No" + ANSI_RESET);
     }
 
+    public void showStoryMessage() {
+        String story = "ARE YOU UP TO THE CHALLENGE?\n";
+        int i;
+        for (i = 0; i < story.length(); i++) {
+            System.out.printf("%c", story.charAt(i));
+            try {
+                Thread.sleep(85);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println(ANSI_GREEN + "1: Yes" + ANSI_RESET + " \n" + ANSI_RED + "2: No" + ANSI_RESET);
+    }
+
     public void playerVsBrotherReports(int day, Player player, Computer brother, StockInventory inventory) {
         if (player != null && brother != null && inventory != null) {
 
@@ -128,17 +205,9 @@ public class UserInterface {
         System.out.println("Thank you. Bye.");
     }
 
-    public void playerWinMessage() {
-        System.out.println(String.format("%-20s", ANSI_GREEN_BACKGROUND + "Congratulations. You won the game!\n" + ANSI_RESET));
-
-    }
-
-    public void brotherWinMessage() {
-        System.out.println(ANSI_RED_BACKGROUND + "Your brother won the game!\n" + ANSI_RESET);
-    }
 
     public void lastDay() {
-        System.out.print(String.format(ANSI_CYAN_BACKGROUND +"%-40s LAST DAY TO INVEST \n",""+ANSI_RESET));
+        System.out.println(ANSI_YELLOW_BACKGROUND+"                          LAST DAY TO INVEST\n"+ANSI_RESET);
     }
 
 

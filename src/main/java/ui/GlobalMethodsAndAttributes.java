@@ -75,7 +75,7 @@ public class GlobalMethodsAndAttributes {
         return true;
     }
 
-    public static void nextDayOps(int day) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public static void nextDayOps(int day) throws LineUnavailableException, IOException, UnsupportedAudioFileException, InterruptedException {
         double totalPlayerBalance = player.getAccount().getCashBalance();
         double totalBrotherBalance = brother.getAccount().getCashBalance();
 
@@ -86,15 +86,15 @@ public class GlobalMethodsAndAttributes {
             System.out.println("Your Brother's total balance is $" + df.format(totalBrotherBalance) + ".");
 
             if (totalPlayerBalance > totalBrotherBalance) {
-                ui.playerWinMessage();
+                ui.showWinBanner();
                 GlobalMethodsAndAttributes.playAudio("piglevelwin2mp3-14800.wav");
             } else if (totalPlayerBalance < totalBrotherBalance) {
-                ui.brotherWinMessage();
+                ui.showLoseBanner();
                 GlobalMethodsAndAttributes.playAudio("sadTrombone(1).wav");
 
 
             } else {
-                System.out.println("Tie Game! ");
+                ui.showTieGameBanner();
             }
 
         } else if (day == 3) {
