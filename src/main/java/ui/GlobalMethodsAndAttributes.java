@@ -75,7 +75,7 @@ public class GlobalMethodsAndAttributes {
         return true;
     }
 
-    public static void nextDayOps(int day) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public static void nextDayOps(int day) throws LineUnavailableException, IOException, UnsupportedAudioFileException, InterruptedException {
         double totalPlayerBalance = player.getAccount().getCashBalance();
         double totalBrotherBalance = brother.getAccount().getCashBalance();
 
@@ -86,20 +86,20 @@ public class GlobalMethodsAndAttributes {
 //            System.out.println("Your Brother's total balance is $" + df.format(totalBrotherBalance) + ".");
 
             if (totalPlayerBalance > totalBrotherBalance) {
-                System.out.println();
-                ui.playerWinMessage();
+                ui.showWinBanner();
+                GlobalMethodsAndAttributes.playAudio("piglevelwin2mp3-14800.wav");
+            } else if (totalPlayerBalance < totalBrotherBalance) {
+                ui.showLoseBanner();
                 System.out.println("Your total balance is $"+ ANSI_GREEN + df.format(totalPlayerBalance) + ANSI_RESET + ".");
                 System.out.println("Your Brother's total balance is $"+ ANSI_RED + df.format(totalBrotherBalance) + ANSI_RESET + ".");
                 GlobalMethodsAndAttributes.playAudio("piglevelwin2mp3-14800.wav");
             } else if (totalPlayerBalance < totalBrotherBalance) {
-                ui.brotherWinMessage();
                 System.out.println("Your total balance is $"+ ANSI_RED + df.format(totalPlayerBalance) + ANSI_RESET + ".");
                 System.out.println("Your Brother's total balance is $"+ ANSI_GREEN + df.format(totalBrotherBalance) + ANSI_RESET + ".");
                 GlobalMethodsAndAttributes.playAudio("sadTrombone(1).wav");
 
-
             } else {
-                System.out.println("Tie Game! ");
+                ui.showTieGameBanner();
             }
 
         } else if (day == 3) {

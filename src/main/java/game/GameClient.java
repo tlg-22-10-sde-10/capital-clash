@@ -1,5 +1,8 @@
 package game;
 
+
+
+
 import ui.GlobalMethodsAndAttributes;
 
 import javax.sound.sampled.*;
@@ -7,9 +10,14 @@ import java.io.IOException;
 import java.util.Scanner;
 public class GameClient {
 
-    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+
+    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException {
+        GlobalMethodsAndAttributes.playAudio("cashier.wav.wav");
+
+//    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         final String ANSI_RED = "\u001B[31m";
         final String ANSI_RESET = "\u001B[0m";
+
 
         boolean startGame = true;
 
