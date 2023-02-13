@@ -8,7 +8,6 @@ import javax.sound.sampled.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 import static ui.GlobalMethodsAndAttributes.*;
 
 public class Game {

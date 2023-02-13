@@ -58,8 +58,7 @@ public class UserInterface {
     }
 
     public void showLoseBanner() throws InterruptedException {
-        String banner = ANSI_RED+"                              "+
-
+        String banner = ANSI_RED+""+
                 "╔═╗╔═╗╦═╗╦═╗╦ ╦  ╦ ╦╔═╗╦ ╦  ╦  ╔═╗╔═╗╔═╗\n" +
                 "╚═╗║ ║╠╦╝╠╦╝╚╦╝  ╚╦╝║ ║║ ║  ║  ║ ║╚═╗║╣ \n" +
                 "╚═╝╚═╝╩╚═╩╚═ ╩    ╩ ╚═╝╚═╝  ╩═╝╚═╝╚═╝╚═╝\n"

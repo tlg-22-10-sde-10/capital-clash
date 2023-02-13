@@ -1,5 +1,4 @@
 package game;
-import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.Scanner;
 

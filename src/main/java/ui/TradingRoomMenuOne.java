@@ -1,9 +1,7 @@
 package ui;
 import stock.Stock;
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
 import static ui.GlobalMethodsAndAttributes.*;
 
 public class TradingRoomMenuOne {
