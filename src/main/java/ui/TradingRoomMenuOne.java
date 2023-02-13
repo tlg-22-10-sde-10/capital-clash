@@ -16,7 +16,7 @@ public class TradingRoomMenuOne {
             System.out.println(ANSI_RED+"                       ***Stock not offered. Please select from the list below***\n"+ANSI_RESET);
             showTradingRoomStockDashboard(day);
             System.out.println("\nPlease enter the symbol of the stock that you want to purchase:");
-            stockSymbol = ui.userInput();
+            stockSymbol = ui.userInput().toUpperCase();
         }
         System.out.println("How many shares would you like? " +
                 "Fractional numbers are not allowed! (Enter an integer ONLY)");
