@@ -25,15 +25,14 @@ You want to show you have great investment acumen to your father.
 - Tyreik Williams [LinkedIn](https://www.linkedin.com/in/ty%E2%80%99reik-williams-b0563a1a4/)
 
 ## User Stories
-- As a player, I should be able to choose 1/10 hardcoded stocks to invest. 
-- As a player, I should be able to see the real stock information.(top 10 popular stocks hardcoded data)
+- As a player, I should be able to choose one of out ten stocks to invest at a time. 
+- As a player, I should be able to see the stock information.
 - As a player, I should be able to invest for 5 rounds
-- As a player, I should be able to buy/sell a discrete number of shares of stock.(not doing fractional shares in this game)
+- As a player, I should be able to buy/sell a discrete number of shares of stock.
 - As a player, I can only buy stocks up to my available balance.
-- As a player, Implement how the news can affect the stocks. (sout news to user, negative or positive math.rand based on good or bad news)
-- As a player, I should be able to compete with a computer
+- As a player, I can see that the news affects the stocks. 
+- As a player, I should be able to compete with a computer.
 - As a player, on day 4, the position will be closed and turned into cash balance. The one with the higher cash balance is the winner of the game.
-- As a player, each day I should be able to decide whether to sell or buy a stock. 
 - As a player, I should be able to compare my gains/losses to the computer.
 - As a player, I should be able to verify if I won or lost. (End game.Game!)
 
