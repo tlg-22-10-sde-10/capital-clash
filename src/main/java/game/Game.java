@@ -7,7 +7,8 @@ import ui.TradingRoomMenuTwo;
 import javax.sound.sampled.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 import static ui.GlobalMethodsAndAttributes.*;
 
 public class Game {
@@ -79,6 +80,8 @@ public class Game {
 
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_TWO)){
                         ui.newsRoomOps(todayNews);
+                        System.out.println("Press anything to continue...");
+                        pause = ui.userInput();
                         ui.playerVsBrotherReports(day, player, brother, inventory);
 
                     } else if(mainMenuSelections.equalsIgnoreCase(NUMBER_THREE)){

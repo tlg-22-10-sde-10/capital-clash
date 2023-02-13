@@ -2,18 +2,17 @@ package game;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.Scanner;
+
 public class GameClient {
 
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        final String ANSI_RED = "\u001B[31m";
-        final String ANSI_RESET = "\u001B[0m";
-
-
+        Scanner scanMe = new Scanner(System.in);
         boolean startGame = true;
 
-        Scanner scanMe = new Scanner(System.in);
         while (startGame) {
             Game game = new Game();
             game.gameOn();
