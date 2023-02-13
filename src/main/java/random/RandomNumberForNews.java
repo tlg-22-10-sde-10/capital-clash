@@ -6,19 +6,21 @@ import java.util.Set;
 
 public class RandomNumberForNews {
 
-    private static Set<Integer> shownNews= new HashSet<>();
+    private static Set<Integer> shownNews = new HashSet<>();
+    private static final int RANGE = 10;
+    private static final Random RANDOM = new Random();
 
     public static int getRandomNumber() {
-        Random random = new Random();
-        int number=random.nextInt(10) + 1;
+        int number = RANDOM.nextInt(RANGE) + 1;
 
-        while(shownNews.contains(number)){
-            number=random.nextInt(10) + 1;
+        while (shownNews.contains(number)) {
+            number = RANDOM.nextInt(RANGE) + 1;
         }
-        //for testing to verify no news shown twice
-        //System.out.println(shownNews);
-
         shownNews.add(number);
+        if(shownNews.size()>=5){
+            shownNews.clear();
+        }
+
         return number;
     }
 }
