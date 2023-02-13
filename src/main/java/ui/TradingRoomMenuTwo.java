@@ -16,7 +16,7 @@ public class TradingRoomMenuTwo {
             showHoldings(playersStocksLists);
             boolean isSellMenuRunning = true;
             System.out.println("Please enter the stock symbol that you want to sell.");
-            String stockSymbol = ui.userInput();
+            String stockSymbol = ui.userInput().toUpperCase();
             //handle unrecognized symbol error
             while (!playerStockMap.containsKey(stockSymbol)) {
                 System.out.println(ANSI_RED+"                          ***This stock is not in your holdings***"+ANSI_RESET);

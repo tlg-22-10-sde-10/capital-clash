@@ -16,7 +16,7 @@ public class TradingRoomMenuOne {
             System.out.println(ANSI_RED+"                       ***Stock not offered. Please select from the list below***\n"+ANSI_RESET);
             showTradingRoomStockDashboard(day);
             System.out.println("\nPlease enter the symbol of the stock that you want to purchase:");
-            stockSymbol = ui.userInput();
+            stockSymbol = ui.userInput().toUpperCase();
         }
         System.out.println("How many shares would you like? " +
                 "Fractional numbers are not allowed! (Enter an integer ONLY)");
@@ -56,7 +56,12 @@ public class TradingRoomMenuOne {
         // brother randomly purchase the stock
         int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
         Stock brotherStock = inventory.getRandomStock();
-        brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
+        if(brotherStockMap.containsKey(brotherStock.getSymbol())) {
+            brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother+brotherStockMap.get(brotherStock.getSymbol()));
+        } else {
+            brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
+        }
+
         brother.setStocks(brotherStockMap);
         brother.getAccount().deductBalance(numberOfStockPurchasedByBrother * brotherStock.getCurrentPrice());
     }
