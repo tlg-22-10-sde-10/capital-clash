@@ -56,7 +56,12 @@ public class TradingRoomMenuOne {
         // brother randomly purchase the stock
         int numberOfStockPurchasedByBrother = 1 + (int) (Math.random() * 6);
         Stock brotherStock = inventory.getRandomStock();
-        brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
+        if(brotherStockMap.containsKey(brotherStock.getSymbol())) {
+            brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother+brotherStockMap.get(brotherStock.getSymbol()));
+        } else {
+            brotherStockMap.put(brotherStock.getSymbol(), numberOfStockPurchasedByBrother);
+        }
+
         brother.setStocks(brotherStockMap);
         brother.getAccount().deductBalance(numberOfStockPurchasedByBrother * brotherStock.getCurrentPrice());
     }
