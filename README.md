@@ -9,11 +9,18 @@
 6. [Presentation Link](#Presentation-Link)
 
 ## Project Description
-You are the son of a prestigious fund manager. It is summer. Your father brings you and your brother to Wall Street, 
-and  puts you guys in a trading game. You are given $10,000, and 5 days. 
-you can select from a variety of stocks, decide which to buy or sell if already holding, or hold cash. You long for a high return. 
-Your goal is, on day 4, your account balance is more than your brother. You will be able to buy newspapers, or hear gossip on the street. 
-The winner would be the one with higher account balance on day 4. You want to show you have great investment acumen to your father.
+
+It's time to put your stock picking skills to the test. The question is, who has a better 
+eye for stocks - you or your brother? The game is a simulation of the stock market, lasting 
+for a total of 5 trading days. Each player will start with a balance of $10,000 and have the
+opportunity to choose from a selection of 10 different stocks. The objective of the game is
+to make strategic buy, sell, or hold decisions to increase your account balance and become
+the ultimate winner. Throughout the game, you will be able to access a news feed room to stay
+updated on current events, a trading room where you can make your transactions, and advance to
+the next round to start a new trading day. The ultimate winner will be determined on day 4 and
+will be the player with the highest account balance. So, may the HOLD be with you, and let the
+stock market games begin!
+
 
 ## Team members
 - Rupesh Ghimire [LinkedIn](https://www.linkedin.com/in/rupeshghimirey/)
@@ -21,13 +28,13 @@ The winner would be the one with higher account balance on day 4. You want to sh
 - Tyreik Williams [LinkedIn](https://www.linkedin.com/in/ty%E2%80%99reik-williams-b0563a1a4/)
 
 ## User Stories
-- As a player, I should be able to choose one of out ten stocks to invest at a time. 
+- As a player, I should be able to choose ten stocks to invest.
+- As a player, I should be able to choose one of out ten stocks to invest at a time.
 - As a player, I should be able to see the stock information.
 - As a player, I should be able to invest for 5 rounds
 - As a player, I should be able to buy/sell a discrete number of shares of stock.
 - As a player, I can only buy stocks up to my available balance.
-- As a player, I can see that the news affects the stocks. 
-- As a player, I should be able to compete with a computer.
+- As a player, I can see that the news affects the stocks.
 - As a player, on day 4, the position will be closed and turned into cash balance. The one with the higher cash balance is the winner of the game.
 - As a player, I should be able to compare my gains/losses to the computer.
 - As a player, I should be able to verify if I won or lost. (End game.Game!)
@@ -40,3 +47,7 @@ For help in getting started with additional project configuration, see [`getting
 
 ## Presentation Link
 Presentation [Link](https://docs.google.com/document/d/1RVf7V4_O_127ZeazDGKxYUPM2RCySMRHm2cdlQSS6WM/edit)
+
+## Command to run using jar files:
+java -jar capital-clash-1.0.0-SNAPSHOT-all
+

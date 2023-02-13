@@ -53,10 +53,11 @@ public class Computer {
         this.stockNames = stockNames;
     }
 
-    public double getStockBalance(StockInventory inventory) {
+    public double getBalanceFromHolding(StockInventory inventory) {
 
         double stockBalance=0.0;
         if(stocks == null) {
+
             return stockBalance;
         }
         for (Map.Entry<String, Integer> entry : stocks.entrySet()) {
